@@ -1,0 +1,1803 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #0b0b0d;
+    color: #ffffff;
+    line-height: 1.6;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+
+/* HEADER */
+
+.header {
+    width: 100%;
+    min-height: 70px;
+    padding: 0 6%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    border-bottom: 1px solid #222;
+
+    background: rgba(11, 11, 13, 0.95);
+
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: 900;
+    letter-spacing: -1px;
+}
+
+.logo span {
+    color: #ff3b30;
+}
+
+.nav {
+    display: flex;
+    gap: 25px;
+}
+
+.nav a {
+    color: #aaa;
+    font-size: 14px;
+    transition: 0.2s;
+}
+
+.nav a:hover {
+    color: #fff;
+}
+
+
+/* HERO */
+
+.hero {
+    min-height: 650px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 80px 20px;
+
+    text-align: center;
+
+    background:
+        radial-gradient(
+            circle at center,
+            #29292e 0%,
+            #111114 45%,
+            #0b0b0d 75%
+        );
+}
+
+.hero-content {
+    max-width: 750px;
+}
+
+.badge {
+    display: inline-block;
+
+    padding: 7px 14px;
+
+    margin-bottom: 25px;
+
+    border: 1px solid #333;
+
+    border-radius: 100px;
+
+    color: #aaa;
+
+    font-size: 11px;
+
+    letter-spacing: 1px;
+}
+
+.hero h1 {
+    font-size: clamp(50px, 10vw, 100px);
+
+    line-height: 0.95;
+
+    letter-spacing: -5px;
+
+    margin-bottom: 30px;
+}
+
+.hero h1 span {
+    color: #ff3b30;
+}
+
+.hero p {
+    max-width: 600px;
+
+    margin: 0 auto 35px;
+
+    color: #aaa;
+
+    font-size: 18px;
+}
+
+
+/* BUTTON */
+
+.main-button {
+    display: inline-block;
+
+    padding: 16px 30px;
+
+    border-radius: 10px;
+
+    background: #ffffff;
+
+    color: #000;
+
+    font-weight: 800;
+
+    transition:
+        transform 0.2s,
+        box-shadow 0.2s;
+}
+
+.main-button:hover {
+    transform: translateY(-3px);
+
+    box-shadow: 0 10px 30px rgba(255,255,255,0.15);
+}
+
+
+/* SECTIONS */
+
+.section {
+    max-width: 1100px;
+
+    margin: auto;
+
+    padding: 100px 20px;
+}
+
+.section-title {
+    margin-bottom: 40px;
+}
+
+.section-title > span {
+    color: #ff3b30;
+
+    font-size: 13px;
+
+    font-weight: bold;
+}
+
+.section-title h2 {
+    margin-top: 5px;
+
+    font-size: clamp(30px, 5vw, 50px);
+
+    letter-spacing: -2px;
+}
+
+.section-title p {
+    color: #777;
+}
+
+
+/* GAMES */
+
+.games-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 18px;
+}
+
+.game-card {
+    position: relative;
+
+    min-height: 250px;
+
+    padding: 25px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: space-between;
+
+    background: #151518;
+
+    border: 1px solid #29292d;
+
+    border-radius: 18px;
+
+    transition:
+        transform 0.2s,
+        border-color 0.2s,
+        background 0.2s;
+}
+
+.game-card:hover {
+    transform: translateY(-6px);
+
+    border-color: #555;
+
+    background: #1b1b1f;
+}
+
+.game-icon {
+    font-size: 50px;
+}
+
+.game-info h3 {
+    margin-bottom: 7px;
+
+    font-size: 22px;
+}
+
+.game-info p {
+    color: #888;
+
+    font-size: 14px;
+}
+
+.arrow {
+    position: absolute;
+
+    right: 20px;
+
+    bottom: 20px;
+
+    font-size: 25px;
+
+    color: #555;
+}
+
+
+/* AD PLACEHOLDER */
+
+.ad-placeholder {
+    max-width: 900px;
+
+    min-height: 120px;
+
+    margin: 0 auto 50px;
+
+    padding: 25px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    text-align: center;
+
+    border: 1px dashed #333;
+
+    color: #555;
+}
+
+.ad-placeholder span {
+    font-size: 10px;
+
+    letter-spacing: 2px;
+}
+
+.ad-placeholder p {
+    font-size: 12px;
+}
+
+
+/* ABOUT */
+
+.about-box {
+    max-width: 750px;
+
+    padding: 30px;
+
+    background: #151518;
+
+    border: 1px solid #29292d;
+
+    border-radius: 15px;
+
+    color: #aaa;
+}
+
+.about-box p + p {
+    margin-top: 15px;
+}
+
+
+/* FOOTER */
+
+.footer {
+    padding: 50px 6%;
+
+    display: grid;
+
+    grid-template-columns:
+        1fr auto;
+
+    gap: 30px;
+
+    border-top: 1px solid #222;
+
+    color: #777;
+}
+
+.footer strong {
+    color: #fff;
+}
+
+.footer p {
+    font-size: 13px;
+}
+
+.footer-links {
+    display: flex;
+
+    gap: 20px;
+
+    font-size: 13px;
+}
+
+.footer-links a:hover {
+    color: #fff;
+}
+
+.copyright {
+    grid-column: 1 / -1;
+
+    padding-top: 20px;
+
+    border-top: 1px solid #222;
+
+    font-size: 12px;
+}
+
+
+/* MOBILE */
+
+@media (max-width: 750px) {
+
+    .header {
+        padding: 0 20px;
+    }
+
+    .nav {
+        display: none;
+    }
+
+    .hero {
+        min-height: 600px;
+
+        padding: 60px 20px;
+    }
+
+    .hero h1 {
+        letter-spacing: -3px;
+    }
+
+    .hero p {
+        font-size: 16px;
+    }
+
+    .games-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .game-card {
+        min-height: 210px;
+    }
+
+    .section {
+        padding: 70px 20px;
+    }
+
+    .footer {
+        grid-template-columns: 1fr;
+    }
+
+    .copyright {
+        grid-column: auto;
+    }
+
+}/* V1.1 */
+
+.game-card {
+    overflow: hidden;
+}
+
+.game-card::after {
+    content: "";
+    position: absolute;
+
+    inset: 0;
+
+    pointer-events: none;
+
+    border-radius: 18px;
+
+    opacity: 0;
+
+    transition: opacity 0.2s;
+}
+
+.game-card:hover::after {
+    opacity: 1;
+}
+
+@media (max-width: 500px) {
+
+    .game-card {
+        min-height: 190px;
+    }
+
+    .game-icon {
+        font-size: 42px;
+    }
+
+}/* =========================================================
+   CAOSLAB V1.2
+   ESTADÍSTICAS
+   ========================================================= */
+
+.stats-panel {
+
+    width: 100%;
+
+    max-width: 900px;
+
+    margin: 0 auto 60px;
+
+    padding: 25px;
+
+    background: #111114;
+
+    border: 1px solid #29292d;
+
+    border-radius: 20px;
+
+}
+
+
+.stats-title {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 10px;
+
+    margin-bottom: 25px;
+
+}
+
+
+.stats-title span {
+
+    font-size: 25px;
+
+}
+
+
+.stats-title h2 {
+
+    margin: 0;
+
+    font-size: 20px;
+
+}
+
+
+.stats-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 15px;
+
+}
+
+
+.stat-card {
+
+    padding: 20px 10px;
+
+    text-align: center;
+
+    background: #18181c;
+
+    border: 1px solid #29292d;
+
+    border-radius: 15px;
+
+    transition:
+        transform 0.2s,
+        border-color 0.2s;
+
+}
+
+
+.stat-card:hover {
+
+    transform: translateY(-3px);
+
+    border-color: #444449;
+
+}
+
+
+.stat-icon {
+
+    font-size: 25px;
+
+    margin-bottom: 8px;
+
+}
+
+
+.stat-value {
+
+    font-size: 30px;
+
+    font-weight: 900;
+
+}
+
+
+.stat-label {
+
+    margin-top: 5px;
+
+    color: #777;
+
+    font-size: 11px;
+
+    font-weight: bold;
+
+    letter-spacing: 1px;
+
+}
+
+
+.stats-button {
+
+    display: block;
+
+    width: 100%;
+
+    margin-top: 20px;
+
+    padding: 14px;
+
+    text-align: center;
+
+    text-decoration: none;
+
+    border: 1px solid #333;
+
+    border-radius: 10px;
+
+    color: white;
+
+    background: transparent;
+
+    font-weight: bold;
+
+    transition: background 0.2s;
+
+}
+
+
+.stats-button:hover {
+
+    background: #1c1c20;
+
+}
+
+
+
+/* ---------------------------------------------------------
+   MÓVIL
+   --------------------------------------------------------- */
+
+@media (max-width: 500px) {
+
+    .stats-panel {
+
+        padding: 20px 15px;
+
+        margin-bottom: 45px;
+
+    }
+
+
+    .stats-grid {
+
+        gap: 8px;
+
+    }
+
+
+    .stat-card {
+
+        padding: 15px 5px;
+
+    }
+
+
+    .stat-icon {
+
+        font-size: 21px;
+
+    }
+
+
+    .stat-value {
+
+        font-size: 24px;
+
+    }
+
+
+    .stat-label {
+
+        font-size: 9px;
+
+    }
+
+}/* =========================================================
+   CAOSLAB V1.2
+   ESTADÍSTICAS
+   ========================================================= */
+
+.stats-panel {
+
+    width: 100%;
+
+    max-width: 900px;
+
+    margin: 0 auto 60px;
+
+    padding: 25px;
+
+    background: #111114;
+
+    border: 1px solid #29292d;
+
+    border-radius: 20px;
+
+}
+
+
+.stats-title {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 10px;
+
+    margin-bottom: 25px;
+
+}
+
+
+.stats-title span {
+
+    font-size: 25px;
+
+}
+
+
+.stats-title h2 {
+
+    margin: 0;
+
+    font-size: 20px;
+
+}
+
+
+.stats-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 15px;
+
+}
+
+
+.stat-card {
+
+    padding: 20px 10px;
+
+    text-align: center;
+
+    background: #18181c;
+
+    border: 1px solid #29292d;
+
+    border-radius: 15px;
+
+    transition:
+        transform 0.2s,
+        border-color 0.2s;
+
+}
+
+
+.stat-card:hover {
+
+    transform: translateY(-3px);
+
+    border-color: #444449;
+
+}
+
+
+.stat-icon {
+
+    font-size: 25px;
+
+    margin-bottom: 8px;
+
+}
+
+
+.stat-value {
+
+    font-size: 30px;
+
+    font-weight: 900;
+
+}
+
+
+.stat-label {
+
+    margin-top: 5px;
+
+    color: #777;
+
+    font-size: 11px;
+
+    font-weight: bold;
+
+    letter-spacing: 1px;
+
+}
+
+
+.stats-button {
+
+    display: block;
+
+    width: 100%;
+
+    margin-top: 20px;
+
+    padding: 14px;
+
+    text-align: center;
+
+    text-decoration: none;
+
+    border: 1px solid #333;
+
+    border-radius: 10px;
+
+    color: white;
+
+    background: transparent;
+
+    font-weight: bold;
+
+    transition: background 0.2s;
+
+}
+
+
+.stats-button:hover {
+
+    background: #1c1c20;
+
+}
+
+
+
+/* ---------------------------------------------------------
+   MÓVIL
+   --------------------------------------------------------- */
+
+@media (max-width: 500px) {
+
+    .stats-panel {
+
+        padding: 20px 15px;
+
+        margin-bottom: 45px;
+
+    }
+
+
+    .stats-grid {
+
+        gap: 8px;
+
+    }
+
+
+    .stat-card {
+
+        padding: 15px 5px;
+
+    }
+
+
+    .stat-icon {
+
+        font-size: 21px;
+
+    }
+
+
+    .stat-value {
+
+        font-size: 24px;
+
+    }
+
+
+    .stat-label {
+
+        font-size: 9px;
+
+    }
+
+}/* =========================================================
+   CAOSLAB V1.3
+   CENTRO DE PROGRESO
+   ========================================================= */
+
+
+/* ---------------------------------------------------------
+   PANEL DE PROGRESO
+   --------------------------------------------------------- */
+
+.progress-panel {
+
+    width: 100%;
+
+    max-width: 900px;
+
+    margin: 0 auto 30px;
+
+    padding: 25px;
+
+    background: #111114;
+
+    border: 1px solid #29292d;
+
+    border-radius: 20px;
+
+}
+
+
+.progress-header {
+
+    display: flex;
+
+    align-items: flex-end;
+
+    justify-content: space-between;
+
+    gap: 20px;
+
+    margin-bottom: 15px;
+
+}
+
+
+.progress-header > div:first-child {
+
+    display: flex;
+
+    align-items: baseline;
+
+    gap: 10px;
+
+}
+
+
+.progress-small {
+
+    color: #777;
+
+    font-size: 11px;
+
+    font-weight: bold;
+
+    letter-spacing: 1px;
+
+}
+
+
+#playerLevel {
+
+    font-size: 32px;
+
+    font-weight: 900;
+
+}
+
+
+.progress-points {
+
+    color: #888;
+
+    font-size: 13px;
+
+    font-weight: bold;
+
+}
+
+
+#currentPoints {
+
+    color: white;
+
+}
+
+
+.progress-bar {
+
+    width: 100%;
+
+    height: 14px;
+
+    overflow: hidden;
+
+    background: #1c1c20;
+
+    border: 1px solid #29292d;
+
+    border-radius: 20px;
+
+}
+
+
+.progress-fill {
+
+    width: 0%;
+
+    height: 100%;
+
+    background: white;
+
+    border-radius: 20px;
+
+    transition: width 0.5s ease;
+
+}
+
+
+.progress-message {
+
+    margin: 12px 0 0;
+
+    color: #777;
+
+    text-align: center;
+
+    font-size: 13px;
+
+}
+
+
+
+/* ---------------------------------------------------------
+   LOGROS
+   --------------------------------------------------------- */
+
+.achievements-panel {
+
+    width: 100%;
+
+    max-width: 900px;
+
+    margin: 0 auto 30px;
+
+    padding: 25px;
+
+    background: #111114;
+
+    border: 1px solid #29292d;
+
+    border-radius: 20px;
+
+}
+
+
+.achievements-list {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, 1fr);
+
+    gap: 12px;
+
+}
+
+
+.achievement {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 14px;
+
+    min-height: 70px;
+
+    padding: 14px;
+
+    border-radius: 14px;
+
+    border: 1px solid #29292d;
+
+    background: #18181c;
+
+}
+
+
+.achievement-icon {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    width: 42px;
+
+    height: 42px;
+
+    flex-shrink: 0;
+
+    border-radius: 12px;
+
+    background: #222226;
+
+    font-size: 21px;
+
+}
+
+
+.achievement strong {
+
+    display: block;
+
+    margin-bottom: 5px;
+
+    font-size: 14px;
+
+}
+
+
+.achievement span {
+
+    display: block;
+
+    color: #777;
+
+    font-size: 10px;
+
+    font-weight: bold;
+
+    letter-spacing: 0.8px;
+
+}
+
+
+.achievement.locked {
+
+    opacity: 0.45;
+
+}
+
+
+.achievement.unlocked {
+
+    border-color: #3a3a40;
+
+}
+
+
+.achievement.unlocked .achievement-icon {
+
+    background: #29292f;
+
+}
+
+
+
+/* ---------------------------------------------------------
+   ESTADÍSTICAS INDIVIDUALES DE JUEGOS
+   --------------------------------------------------------- */
+
+.game-stats-panel {
+
+    width: 100%;
+
+    max-width: 900px;
+
+    margin: 0 auto 30px;
+
+    padding: 25px;
+
+    background: #111114;
+
+    border: 1px solid #29292d;
+
+    border-radius: 20px;
+
+}
+
+
+.games-stats-list {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 10px;
+
+}
+
+
+.game-stat-row {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 15px;
+
+    padding: 15px;
+
+    background: #18181c;
+
+    border: 1px solid #29292d;
+
+    border-radius: 12px;
+
+}
+
+
+.game-stat-name {
+
+    min-width: 0;
+
+}
+
+
+.game-stat-name strong {
+
+    display: block;
+
+    font-size: 14px;
+
+}
+
+
+.game-stat-data {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: flex-end;
+
+    flex-wrap: wrap;
+
+    gap: 8px;
+
+}
+
+
+.game-stat-data span {
+
+    padding: 6px 8px;
+
+    color: #aaa;
+
+    background: #222226;
+
+    border-radius: 7px;
+
+    font-size: 10px;
+
+    font-weight: bold;
+
+}
+
+
+
+/* ---------------------------------------------------------
+   ACCIONES
+   --------------------------------------------------------- */
+
+.stats-actions {
+
+    width: 100%;
+
+    max-width: 900px;
+
+    margin: 0 auto 60px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 10px;
+
+}
+
+
+.danger-button {
+
+    width: 100%;
+
+    padding: 14px;
+
+    border: 1px solid #3a2929;
+
+    border-radius: 10px;
+
+    background: #171313;
+
+    color: #d8aaaa;
+
+    font-family: inherit;
+
+    font-size: 13px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s,
+        border-color 0.2s;
+
+}
+
+
+.danger-button:hover {
+
+    background: #211717;
+
+    border-color: #593838;
+
+}
+
+
+
+/* ---------------------------------------------------------
+   CENTRO DE PROGRESO
+
+/* =========================================================
+   CAOSLAB V1.3
+   MINI PROGRESO — NIVEL + RACHA
+   ========================================================= */
+
+.progress-mini {
+    width: 100%;
+    margin: 18px 0;
+    padding: 14px 18px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #18181c;
+    border: 1px solid #29292d;
+    border-radius: 14px;
+}
+
+.progress-mini-item {
+    flex: 1;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.progress-mini-label {
+    color: #777;
+    font-size: 10px;
+    font-weight: 900;
+    letter-spacing: 1px;
+}
+
+.progress-mini-value {
+    min-width: 28px;
+
+    color: white;
+    font-size: 20px;
+    font-weight: 900;
+
+    text-align: center;
+}
+
+.progress-mini-divider {
+    width: 1px;
+    height: 28px;
+
+    background: #29292d;
+}
+
+
+/* =========================================================
+   EFECTO HOVER
+   ========================================================= */
+
+.progress-mini:hover {
+    border-color: #3a3a40;
+    background: #1b1b20;
+}
+
+.progress-mini-value {
+    transition: transform 0.2s ease;
+}
+
+.progress-mini:hover .progress-mini-value {
+    transform: scale(1.08);
+}
+
+
+/* =========================================================
+   MÓVIL
+   ========================================================= */
+
+@media (max-width: 600px) {
+
+    .progress-mini {
+        padding: 13px 10px;
+    }
+
+    .progress-mini-item {
+        gap: 7px;
+    }
+
+    .progress-mini-label {
+        font-size: 9px;
+        letter-spacing: 0.7px;
+    }
+
+    .progress-mini-value {
+        font-size: 18px;
+    }
+
+    .progress-mini-divider {
+        height: 24px;
+    }
+
+}/* =========================================================
+   CAOSLAB V1.3
+   RACHA + MEJORA DE LOGROS
+   ========================================================= */
+
+.streak-panel {
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto 30px;
+    padding: 25px;
+
+    background: #111114;
+    border: 1px solid #29292d;
+    border-radius: 20px;
+}
+
+
+/* =========================================================
+   TÍTULOS DE SECCIÓN
+   ========================================================= */
+
+.streak-panel .stats-title,
+.stats-panel .stats-title,
+.achievements-panel .stats-title,
+.game-stats-panel .stats-title {
+    margin-bottom: 18px;
+}
+
+
+/* =========================================================
+   LOGROS
+   ========================================================= */
+
+.achievement small {
+    display: block;
+
+    margin-top: 6px;
+
+    color: #666;
+    font-size: 9px;
+    font-weight: 900;
+    letter-spacing: 0.8px;
+}
+
+.achievement.unlocked small {
+    color: #aaa;
+}
+
+.achievement.locked small {
+    color: #555;
+}
+
+
+/* =========================================================
+   ANIMACIÓN DE LOGRO DESBLOQUEADO
+   ========================================================= */
+
+.achievement.unlocked {
+    transition:
+        transform 0.2s ease,
+        background 0.2s ease,
+        border-color 0.2s ease;
+}
+
+.achievement.unlocked:hover {
+    transform: translateY(-2px);
+    background: #1c1c21;
+    border-color: #44444a;
+}
+
+
+/* =========================================================
+   ICONO DE LOGRO
+   ========================================================= */
+
+.achievement-icon {
+    transition:
+        transform 0.2s ease,
+        background 0.2s ease;
+}
+
+.achievement.unlocked:hover .achievement-icon {
+    transform: scale(1.08);
+}
+
+
+/* =========================================================
+   RACHA — EFECTO VISUAL
+   ========================================================= */
+
+.streak-panel .stat-card {
+    transition:
+        transform 0.2s ease,
+        border-color 0.2s ease,
+        background 0.2s ease;
+}
+
+.streak-panel .stat-card:hover {
+    transform: translateY(-2px);
+    background: #18181d;
+    border-color: #3a3a40;
+}
+
+
+/* =========================================================
+   BARRA DE NIVEL
+   ========================================================= */
+
+.progress-fill {
+    min-width: 0;
+}
+
+
+/* =========================================================
+   ESTADÍSTICAS DE JUEGOS
+   ========================================================= */
+
+.game-stat-row {
+    transition:
+        transform 0.2s ease,
+        border-color 0.2s ease,
+        background 0.2s ease;
+}
+
+.game-stat-row:hover {
+    transform: translateX(2px);
+    background: #1b1b20;
+    border-color: #38383e;
+}
+
+.game-stat-data span {
+    white-space: nowrap;
+}
+
+
+/* =========================================================
+   BOTÓN VOLVER
+   ========================================================= */
+
+.stats-actions .stats-button {
+    display: block;
+
+    width: 100%;
+
+    box-sizing: border-box;
+
+    text-align: center;
+}
+
+
+/* =========================================================
+   MÓVIL
+   ========================================================= */
+
+@media (max-width: 600px) {
+
+    .streak-panel {
+        padding: 20px 15px;
+    }
+
+    .streak-panel .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .achievement small {
+        font-size: 8px;
+    }
+
+}
+
+
+/* =========================================================
+   MÓVILES MUY PEQUEÑOS
+   ========================================================= */
+
+@media (max-width: 380px) {
+
+    .streak-panel .stats-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .progress-mini {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .progress-mini-divider {
+        width: 60%;
+        height: 1px;
+    }
+
+    .progress-mini-item {
+        width: 100%;
+    }
+/* =========================================================
+   CAOSLAB V1.3
+   PULIDO FINAL DEL CENTRO DE PROGRESO
+   ========================================================= */
+
+
+/* =========================================================
+   BOTÓN CENTRO DE PROGRESO
+   ========================================================= */
+
+.stats-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    box-sizing: border-box;
+    text-decoration: none;
+    transition:
+        transform 0.2s ease,
+        background 0.2s ease,
+        border-color 0.2s ease;
+}
+
+.stats-button:hover {
+    transform: translateY(-2px);
+}
+
+
+/* =========================================================
+   PANEL GENERAL DE ESTADÍSTICAS
+   ========================================================= */
+
+.stats-panel {
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto 30px;
+    padding: 25px;
+    box-sizing: border-box;
+    background: #111114;
+    border: 1px solid #29292d;
+    border-radius: 20px;
+}
+
+.stats-title {
+    color: #888;
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: 1.2px;
+}
+
+
+/* =========================================================
+   GRID DE ESTADÍSTICAS
+   ========================================================= */
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+}
+
+.stats-panel .stats-grid {
+    margin-top: 18px;
+}
+
+.stat-card {
+    min-width: 0;
+    padding: 18px 12px;
+    box-sizing: border-box;
+    text-align: center;
+    background: #18181c;
+    border: 1px solid #29292d;
+    border-radius: 14px;
+    transition:
+        transform 0.2s ease,
+        background 0.2s ease,
+        border-color 0.2s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-2px);
+    background: #1b1b20;
+    border-color: #3a3a40;
+}
+
+.stat-icon {
+    margin-bottom: 8px;
+    font-size: 20px;
+}
+
+.stat-value {
+    color: white;
+    font-size: 24px;
+    font-weight: 900;
+    line-height: 1;
+}
+
+.stat-label {
+    margin-top: 8px;
+    color: #666;
+    font-size: 9px;
+    font-weight: 900;
+    letter-spacing: 0.8px;
+}
+
+
+/* =========================================================
+   MINI PROGRESO DE LA PÁGINA PRINCIPAL
+   ========================================================= */
+
+.progress-mini {
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 700px) {
+
+    .stats-panel {
+        padding: 20px 15px;
+    }
+
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+}
+
+
+@media (max-width: 420px) {
+
+    .stats-grid {
+        gap: 8px;
+    }
+
+    .stat-card {
+        padding: 15px 8px;
+    }
+
+    .stat-icon {
+        font-size: 18px;
+    }
+
+    .stat-value {
+        font-size: 21px;
+    }
+
+    .stat-label {
+        font-size: 8px;
+        letter-spacing: 0.5px;
+    }
+
+}
+
+
+/* =========================================================
+   ACCESIBILIDAD
+   ========================================================= */
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible {
+    outline: 2px solid #777;
+    outline-offset: 3px;
+}
+
+
+/* =========================================================
+   REDUCIR ANIMACIONES SI EL SISTEMA LO SOLICITA
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+    }
+
+}
+}
