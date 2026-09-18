@@ -1,0 +1,897 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Botón del Caos — CAOSLAB</title>
+
+    <link
+        rel="stylesheet"
+        href="../css/style.css"
+    >
+
+    <style>
+
+        .chaos-page {
+
+            min-height:
+                calc(100vh - 70px);
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            padding: 30px 20px;
+
+            text-align: center;
+
+        }
+
+
+        .chaos-container {
+
+            width: 100%;
+
+            max-width: 650px;
+
+        }
+
+
+        .chaos-back {
+
+            display: inline-block;
+
+            margin-bottom: 30px;
+
+            color: #777;
+
+        }
+
+
+        .chaos-back:hover {
+
+            color: white;
+
+        }
+
+
+        .chaos-icon {
+
+            font-size: 60px;
+
+            margin-bottom: 10px;
+
+        }
+
+
+        .chaos-container h1 {
+
+            font-size:
+                clamp(35px, 8vw, 60px);
+
+            margin-bottom: 10px;
+
+        }
+
+
+        .chaos-subtitle {
+
+            color: #777;
+
+            margin-bottom: 35px;
+
+        }
+
+
+        .chaos-button {
+
+            width: 230px;
+
+            height: 230px;
+
+            border-radius: 50%;
+
+            border: 8px solid #29292d;
+
+            background: #151518;
+
+            color: white;
+
+            font-size: 25px;
+
+            font-weight: 900;
+
+            cursor: pointer;
+
+            box-shadow:
+                0 12px 0 #080809,
+                0 20px 35px rgba(0, 0, 0, 0.35);
+
+            transition:
+                transform 0.1s,
+                box-shadow 0.1s;
+
+        }
+
+
+        .chaos-button:hover {
+
+            transform:
+                scale(1.04);
+
+        }
+
+
+        .chaos-button:active {
+
+            transform:
+                translateY(10px);
+
+            box-shadow:
+                0 2px 0 #080809,
+                0 5px 15px rgba(0, 0, 0, 0.3);
+
+        }
+
+
+        .chaos-button:disabled {
+
+            cursor: not-allowed;
+
+            opacity: 0.7;
+
+        }
+
+
+        .chaos-result {
+
+            min-height: 130px;
+
+            margin-top: 35px;
+
+            padding: 25px;
+
+            box-sizing: border-box;
+
+            display: flex;
+
+            flex-direction: column;
+
+            align-items: center;
+
+            justify-content: center;
+
+            background: #151518;
+
+            border: 1px solid #29292d;
+
+            border-radius: 18px;
+
+        }
+
+
+        .chaos-result-main {
+
+            font-size:
+                clamp(20px, 5vw, 28px);
+
+            font-weight: 900;
+
+        }
+
+
+        .chaos-result-detail {
+
+            margin-top: 10px;
+
+            color: #777;
+
+            font-size: 14px;
+
+        }
+
+
+        .chaos-score {
+
+            margin-top: 20px;
+
+            color: #777;
+
+            font-size: 14px;
+
+        }
+
+
+        .chaos-score strong {
+
+            color: white;
+
+            font-size: 25px;
+
+        }
+
+
+        .chaos-record {
+
+            margin-top: 8px;
+
+            color: #555;
+
+            font-size: 12px;
+
+        }
+
+
+        .chaos-share {
+
+            display: none;
+
+            width: 100%;
+
+            margin-top: 15px;
+
+            padding: 15px;
+
+            border: 1px solid #333;
+
+            border-radius: 10px;
+
+            background: transparent;
+
+            color: white;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+        }
+
+
+        .chaos-reset {
+
+            width: 100%;
+
+            margin-top: 10px;
+
+            padding: 15px;
+
+            border: 1px solid #333;
+
+            border-radius: 10px;
+
+            background: transparent;
+
+            color: white;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+        }
+
+
+        @media (max-width: 500px) {
+
+            .chaos-button {
+
+                width: 190px;
+
+                height: 190px;
+
+                font-size: 21px;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<header class="header">
+
+    <a
+        href="../index.html"
+        class="logo"
+    >
+        CAOS<span>LAB</span>
+    </a>
+
+</header>
+
+
+
+<main class="chaos-page">
+
+    <div class="chaos-container">
+
+
+        <a
+            href="../index.html"
+            class="chaos-back"
+        >
+            ← Volver a CAOSLAB
+        </a>
+
+
+        <div class="chaos-icon">
+            💀
+        </div>
+
+
+        <h1>
+            Botón del Caos
+        </h1>
+
+
+        <p class="chaos-subtitle">
+            Pulsa el botón. No sabemos qué ocurrirá.
+        </p>
+
+
+
+        <button
+            id="chaosButton"
+            class="chaos-button"
+            type="button"
+        >
+            PULSAR
+        </button>
+
+
+
+        <div class="chaos-result">
+
+            <div
+                id="resultMain"
+                class="chaos-result-main"
+            >
+                ¿TE ATREVES?
+            </div>
+
+
+            <div
+                id="resultDetail"
+                class="chaos-result-detail"
+            >
+                Una pulsación puede cambiarlo todo.
+            </div>
+
+        </div>
+
+
+
+        <div class="chaos-score">
+
+            Puntos:
+
+            <strong id="currentScore">
+                0
+            </strong>
+
+        </div>
+
+
+
+        <div class="chaos-record">
+
+            Mejor puntuación:
+
+            <strong id="bestScore">
+                0
+            </strong>
+
+        </div>
+
+
+
+        <button
+            id="shareButton"
+            class="chaos-share"
+            type="button"
+        >
+            📤 COMPARTIR RESULTADO
+        </button>
+
+
+
+        <button
+            id="resetButton"
+            class="chaos-reset"
+            type="button"
+        >
+            🔄 REINICIAR
+
+        </button>
+
+
+    </div>
+
+</main>
+
+
+
+<script src="../js/stats.js"></script>
+
+
+<script>
+
+(function () {
+
+    "use strict";
+
+
+    /* ---------------------------------------------------------
+       ELEMENTOS
+       --------------------------------------------------------- */
+
+    const chaosButton =
+        document.getElementById(
+            "chaosButton"
+        );
+
+
+    const resultMain =
+        document.getElementById(
+            "resultMain"
+        );
+
+
+    const resultDetail =
+        document.getElementById(
+            "resultDetail"
+        );
+
+
+    const currentScoreText =
+        document.getElementById(
+            "currentScore"
+        );
+
+
+    const bestScoreText =
+        document.getElementById(
+            "bestScore"
+        );
+
+
+    const shareButton =
+        document.getElementById(
+            "shareButton"
+        );
+
+
+    const resetButton =
+        document.getElementById(
+            "resetButton"
+        );
+
+
+
+    /* ---------------------------------------------------------
+       RESULTADOS
+       --------------------------------------------------------- */
+
+    const chaosResults = [
+
+        {
+            title: "💀 HAS INVOCADO AL CAOS",
+            detail: "No hay vuelta atrás.",
+            points: 100
+        },
+
+        {
+            title: "😂 NO HA PASADO NADA",
+            detail: "Probablemente deberías pulsar otra vez.",
+            points: 25
+        },
+
+        {
+            title: "🔥 ¡TODO HA SALIDO MAL!",
+            detail: "Pero al menos has ganado puntos.",
+            points: 75
+        },
+
+        {
+            title: "🧪 EXPERIMENTO INESPERADO",
+            detail: "Los científicos están tomando notas.",
+            points: 125
+        },
+
+        {
+            title: "👽 CONTACTO ESTABLECIDO",
+            detail: "Algo te está observando.",
+            points: 150
+        },
+
+        {
+            title: "🍕 EL CAOS QUIERE PIZZA",
+            detail: "Y no piensa compartirla.",
+            points: 50
+        },
+
+        {
+            title: "⚠️ ERROR DEL UNIVERSO",
+            detail: "Intenta fingir que nunca ocurrió.",
+            points: 80
+        },
+
+        {
+            title: "🎉 ¡MILAGRO!",
+            detail: "Has pulsado el botón y sigues vivo.",
+            points: 200
+        },
+
+        {
+            title: "🐔 UN POLLO TE HA JUZGADO",
+            detail: "No sabemos por qué.",
+            points: 60
+        },
+
+        {
+            title: "🌀 REALIDAD ALTERADA",
+            detail: "Todo parece ligeramente diferente.",
+            points: 175
+        },
+
+        {
+            title: "💩 RESULTADO CATASTRÓFICO",
+            detail: "Bueno... podría haber sido peor.",
+            points: 10
+        },
+
+        {
+            title: "🏆 ELEGIDO POR EL CAOS",
+            detail: "Hoy tienes el favor del laboratorio.",
+            points: 250
+        }
+
+    ];
+
+
+
+    /* ---------------------------------------------------------
+       VARIABLES
+       --------------------------------------------------------- */
+
+    let currentScore = 0;
+
+    let lastResult = null;
+
+    let busy = false;
+
+
+
+    /* ---------------------------------------------------------
+       RÉCORD
+       --------------------------------------------------------- */
+
+    function updateBestScore() {
+
+        if (
+            typeof window.CAOSLAB_STATS ===
+            "undefined"
+        ) {
+
+            return;
+
+        }
+
+
+        const stats =
+            window.CAOSLAB_STATS.get();
+
+
+        const gameStats =
+            stats.games.caos;
+
+
+        if (gameStats) {
+
+            bestScoreText.textContent =
+                gameStats.bestScore;
+
+        }
+
+    }
+
+
+
+    /* ---------------------------------------------------------
+       PULSAR BOTÓN
+       --------------------------------------------------------- */
+
+    function pressChaos() {
+
+        if (busy) {
+
+            return;
+
+        }
+
+
+        busy = true;
+
+
+        chaosButton.disabled =
+            true;
+
+
+        resultMain.textContent =
+            "🌀 GENERANDO CAOS...";
+
+
+        resultDetail.textContent =
+            "Calculando consecuencias...";
+
+
+        shareButton.style.display =
+            "none";
+
+
+        chaosButton.textContent =
+            "💀 ...";
+
+
+        setTimeout(
+
+            function () {
+
+                const index =
+                    Math.floor(
+                        Math.random() *
+                        chaosResults.length
+                    );
+
+
+                const selected =
+                    chaosResults[index];
+
+
+                lastResult =
+                    selected;
+
+
+                currentScore =
+                    selected.points;
+
+
+                currentScoreText.textContent =
+                    currentScore;
+
+
+                resultMain.textContent =
+                    selected.title;
+
+
+                resultDetail.textContent =
+                    selected.detail;
+
+
+                chaosButton.textContent =
+                    "PULSAR DE NUEVO";
+
+
+                chaosButton.disabled =
+                    false;
+
+
+                busy = false;
+
+
+                /* ---------------------------------------------
+                   ESTADÍSTICAS
+                   --------------------------------------------- */
+
+                if (
+                    typeof window.CAOSLAB_STATS !==
+                    "undefined"
+                ) {
+
+                    window.CAOSLAB_STATS.recordGame(
+
+                        "caos",
+
+                        "win",
+
+                        currentScore
+
+                    );
+
+
+                    updateBestScore();
+
+                }
+
+
+                shareButton.style.display =
+                    "block";
+
+            },
+
+            500
+
+        );
+
+    }
+
+
+
+    /* ---------------------------------------------------------
+       COMPARTIR
+       --------------------------------------------------------- */
+
+    function shareResult() {
+
+        if (!lastResult) {
+
+            return;
+
+        }
+
+
+        const text =
+
+            "💀 BOTÓN DEL CAOS — CAOSLAB 🧪\n\n" +
+
+            lastResult.title +
+            "\n" +
+
+            lastResult.detail +
+            "\n\n" +
+
+            "He conseguido " +
+            currentScore +
+            " puntos.";
+
+
+        if (
+            navigator.share
+        ) {
+
+            navigator.share({
+
+                title:
+                    "CAOSLAB — Botón del Caos",
+
+                text:
+                    text
+
+            }).catch(
+                function () {}
+            );
+
+
+            return;
+
+        }
+
+
+        if (
+            navigator.clipboard
+        ) {
+
+            navigator.clipboard
+                .writeText(text)
+                .then(
+
+                    function () {
+
+                        shareButton.textContent =
+                            "✅ RESULTADO COPIADO";
+
+                    }
+
+                )
+                .catch(
+
+                    function () {
+
+                        shareButton.textContent =
+                            "📋 COPIA EL RESULTADO";
+
+                    }
+
+                );
+
+        }
+
+    }
+
+
+
+    /* ---------------------------------------------------------
+       REINICIAR
+       --------------------------------------------------------- */
+
+    function resetGame() {
+
+        currentScore = 0;
+
+        lastResult = null;
+
+        busy = false;
+
+
+        chaosButton.disabled =
+            false;
+
+
+        chaosButton.textContent =
+            "PULSAR";
+
+
+        resultMain.textContent =
+            "¿TE ATREVES?";
+
+
+        resultDetail.textContent =
+            "Una pulsación puede cambiarlo todo.";
+
+
+        currentScoreText.textContent =
+            "0";
+
+
+        shareButton.style.display =
+            "none";
+
+
+        shareButton.textContent =
+            "📤 COMPARTIR RESULTADO";
+
+    }
+
+
+
+    /* ---------------------------------------------------------
+       EVENTOS
+       --------------------------------------------------------- */
+
+    chaosButton.addEventListener(
+        "click",
+        pressChaos
+    );
+
+
+    shareButton.addEventListener(
+        "click",
+        shareResult
+    );
+
+
+    resetButton.addEventListener(
+        "click",
+        resetGame
+    );
+
+
+
+    /* ---------------------------------------------------------
+       INICIO
+       --------------------------------------------------------- */
+
+    updateBestScore();
+
+
+})();
+
+</script>
+
+
+</body>
+
+</html>

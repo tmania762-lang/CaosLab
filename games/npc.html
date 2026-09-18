@@ -1,0 +1,1230 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Generador de NPC — CAOSLAB</title>
+
+    <link
+        rel="stylesheet"
+        href="../css/style.css"
+    >
+
+    <style>
+
+        .npc-page {
+
+            min-height:
+                calc(100vh - 70px);
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            padding: 30px 20px;
+
+            text-align: center;
+
+        }
+
+
+        .npc-container {
+
+            width: 100%;
+
+            max-width: 700px;
+
+        }
+
+
+        .npc-back {
+
+            display: inline-block;
+
+            margin-bottom: 30px;
+
+            color: #777;
+
+        }
+
+
+        .npc-back:hover {
+
+            color: white;
+
+        }
+
+
+        .npc-icon {
+
+            font-size: 65px;
+
+            margin-bottom: 10px;
+
+        }
+
+
+        .npc-container h1 {
+
+            font-size:
+                clamp(35px, 8vw, 60px);
+
+            margin-bottom: 10px;
+
+        }
+
+
+        .npc-subtitle {
+
+            color: #777;
+
+            margin-bottom: 30px;
+
+        }
+
+
+        .npc-card {
+
+            padding: 25px;
+
+            background: #151518;
+
+            border: 1px solid #29292d;
+
+            border-radius: 18px;
+
+            text-align: left;
+
+        }
+
+
+        .npc-name {
+
+            margin-bottom: 25px;
+
+            text-align: center;
+
+            font-size:
+                clamp(25px, 6vw, 38px);
+
+            font-weight: 900;
+
+        }
+
+
+        .npc-stat {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            gap: 15px;
+
+            padding: 14px 0;
+
+            border-bottom: 1px solid #29292d;
+
+        }
+
+
+        .npc-stat:last-child {
+
+            border-bottom: none;
+
+        }
+
+
+        .npc-label {
+
+            color: #666;
+
+            font-size: 11px;
+
+            font-weight: 900;
+
+            letter-spacing: 1px;
+
+        }
+
+
+        .npc-value {
+
+            max-width: 65%;
+
+            text-align: right;
+
+            font-size: 14px;
+
+            font-weight: bold;
+
+        }
+
+
+        .npc-danger {
+
+            margin-top: 20px;
+
+            padding: 15px;
+
+            border-radius: 10px;
+
+            background: #111114;
+
+            text-align: center;
+
+        }
+
+
+        .npc-danger-label {
+
+            color: #666;
+
+            font-size: 10px;
+
+            font-weight: bold;
+
+            letter-spacing: 1px;
+
+        }
+
+
+        .npc-danger-value {
+
+            margin-top: 5px;
+
+            font-size: 24px;
+
+            font-weight: 900;
+
+        }
+
+
+        .npc-generate {
+
+            width: 100%;
+
+            margin-top: 20px;
+
+            padding: 18px;
+
+            border: none;
+
+            border-radius: 10px;
+
+            background: white;
+
+            color: black;
+
+            font-size: 17px;
+
+            font-weight: 900;
+
+            cursor: pointer;
+
+        }
+
+
+        .npc-generate:active {
+
+            transform: scale(0.98);
+
+        }
+
+
+        .npc-copy,
+
+        .npc-share {
+
+            width: 100%;
+
+            margin-top: 10px;
+
+            padding: 15px;
+
+            border: 1px solid #333;
+
+            border-radius: 10px;
+
+            background: transparent;
+
+            color: white;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+        }
+
+
+        .npc-score {
+
+            margin-top: 20px;
+
+            color: #777;
+
+            font-size: 14px;
+
+        }
+
+
+        .npc-score strong {
+
+            color: white;
+
+            font-size: 25px;
+
+        }
+
+
+        .npc-record {
+
+            margin-top: 8px;
+
+            color: #555;
+
+            font-size: 12px;
+
+        }
+
+
+        @media (max-width: 500px) {
+
+            .npc-card {
+
+                padding: 20px 16px;
+
+            }
+
+
+            .npc-stat {
+
+                flex-direction: column;
+
+                gap: 5px;
+
+            }
+
+
+            .npc-value {
+
+                max-width: 100%;
+
+                text-align: left;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<header class="header">
+
+    <a
+        href="../index.html"
+        class="logo"
+    >
+        CAOS<span>LAB</span>
+    </a>
+
+</header>
+
+
+
+<main class="npc-page">
+
+    <div class="npc-container">
+
+
+        <a
+            href="../index.html"
+            class="npc-back"
+        >
+            ← Volver a CAOSLAB
+        </a>
+
+
+        <div class="npc-icon">
+            🎭
+        </div>
+
+
+        <h1>
+            Generador de NPC
+        </h1>
+
+
+        <p class="npc-subtitle">
+
+            Genera un personaje completamente absurdo.
+
+        </p>
+
+
+
+        <div class="npc-card">
+
+            <div
+                id="npcName"
+                class="npc-name"
+            >
+                NPC DESCONOCIDO
+            </div>
+
+
+
+            <div class="npc-stat">
+
+                <div class="npc-label">
+                    PROFESIÓN
+                </div>
+
+                <div
+                    id="npcJob"
+                    class="npc-value"
+                >
+                    —
+                </div>
+
+            </div>
+
+
+
+            <div class="npc-stat">
+
+                <div class="npc-label">
+                    PERSONALIDAD
+                </div>
+
+                <div
+                    id="npcPersonality"
+                    class="npc-value"
+                >
+                    —
+                </div>
+
+            </div>
+
+
+
+            <div class="npc-stat">
+
+                <div class="npc-label">
+                    HABILIDAD
+                </div>
+
+                <div
+                    id="npcSkill"
+                    class="npc-value"
+                >
+                    —
+                </div>
+
+            </div>
+
+
+
+            <div class="npc-stat">
+
+                <div class="npc-label">
+                    SECRETO
+                </div>
+
+                <div
+                    id="npcSecret"
+                    class="npc-value"
+                >
+                    —
+                </div>
+
+            </div>
+
+
+
+            <div class="npc-stat">
+
+                <div class="npc-label">
+                    FRASE TÍPICA
+                </div>
+
+                <div
+                    id="npcPhrase"
+                    class="npc-value"
+                >
+                    —
+                </div>
+
+            </div>
+
+
+
+            <div class="npc-danger">
+
+                <div class="npc-danger-label">
+                    NIVEL DE PELIGRO
+                </div>
+
+                <div
+                    id="npcDanger"
+                    class="npc-danger-value"
+                >
+                    —
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <button
+            id="generateButton"
+            class="npc-generate"
+            type="button"
+        >
+            🎭 GENERAR NPC
+        </button>
+
+
+
+        <button
+            id="copyButton"
+            class="npc-copy"
+            type="button"
+        >
+            📋 COPIAR NPC
+        </button>
+
+
+
+        <button
+            id="shareButton"
+            class="npc-share"
+            type="button"
+        >
+            📤 COMPARTIR NPC
+        </button>
+
+
+
+        <div class="npc-score">
+
+            Puntos:
+
+            <strong id="currentScore">
+                0
+            </strong>
+
+        </div>
+
+
+
+        <div class="npc-record">
+
+            Mejor puntuación:
+
+            <strong id="bestScore">
+                0
+            </strong>
+
+        </div>
+
+
+    </div>
+
+</main>
+
+
+
+<script src="../js/stats.js"></script>
+
+
+<script>
+
+(function () {
+
+    "use strict";
+
+
+    /* ---------------------------------------------------------
+       ELEMENTOS
+       --------------------------------------------------------- */
+
+    const npcName =
+        document.getElementById(
+            "npcName"
+        );
+
+
+    const npcJob =
+        document.getElementById(
+            "npcJob"
+        );
+
+
+    const npcPersonality =
+        document.getElementById(
+            "npcPersonality"
+        );
+
+
+    const npcSkill =
+        document.getElementById(
+            "npcSkill"
+        );
+
+
+    const npcSecret =
+        document.getElementById(
+            "npcSecret"
+        );
+
+
+    const npcPhrase =
+        document.getElementById(
+            "npcPhrase"
+        );
+
+
+    const npcDanger =
+        document.getElementById(
+            "npcDanger"
+        );
+
+
+    const generateButton =
+        document.getElementById(
+            "generateButton"
+        );
+
+
+    const copyButton =
+        document.getElementById(
+            "copyButton"
+        );
+
+
+    const shareButton =
+        document.getElementById(
+            "shareButton"
+        );
+
+
+    const currentScoreText =
+        document.getElementById(
+            "currentScore"
+        );
+
+
+    const bestScoreText =
+        document.getElementById(
+            "bestScore"
+        );
+
+
+
+    /* ---------------------------------------------------------
+       DATOS
+       --------------------------------------------------------- */
+
+    const names = [
+
+        "Manolo",
+
+        "Jacinto",
+
+        "Paco",
+
+        "Rufino",
+
+        "Eustaquio",
+
+        "Kevin",
+
+        "Bartolo",
+
+        "Anacleto",
+
+        "Rogelio",
+
+        "Tiburcio",
+
+        "Paqui",
+
+        "Venancio"
+
+    ];
+
+
+    const surnames = [
+
+        "del Tornillo",
+
+        "de la Montaña",
+
+        "García Cuántico",
+
+        "Romero del Caos",
+
+        "Pérez Galáctico",
+
+        "Martínez Turbo",
+
+        "de los Patos",
+
+        "SinApellido",
+
+        "del Bar",
+
+        "López Interdimensional"
+
+    ];
+
+
+    const jobs = [
+
+        "Vendedor de piedras premium",
+
+        "Entrenador de palomas",
+
+        "Repartidor de pizzas medievales",
+
+        "Detective de calcetines perdidos",
+
+        "Astronauta a tiempo parcial",
+
+        "Guardia de seguridad de un supermercado vacío",
+
+        "Mago especializado en microondas",
+
+        "Agricultor de patatas legendarias",
+
+        "Influencer de alcantarillas",
+
+        "Cazador profesional de moscas",
+
+        "Reparador de máquinas que no existen",
+
+        "Filósofo de gasolinera"
+
+    ];
+
+
+    const personalities = [
+
+        "Desconfía absolutamente de todo.",
+
+        "Habla con objetos inanimados.",
+
+        "Cree que siempre tiene razón.",
+
+        "Es demasiado optimista para su propio bien.",
+
+        "Nunca responde directamente.",
+
+        "Se ríe en los momentos más incómodos.",
+
+        "Piensa que todo es una conspiración.",
+
+        "Tiene confianza absoluta sin ningún motivo.",
+
+        "Se pone nervioso cuando alguien dice su nombre.",
+
+        "Está convencido de que vive dentro de un videojuego."
+
+    ];
+
+
+    const skills = [
+
+        "Puede encontrar comida a 3 kilómetros.",
+
+        "Recuerda cualquier contraseña excepto la suya.",
+
+        "Puede dormir en cualquier superficie.",
+
+        "Detecta una mentira... aproximadamente una vez de cada diez.",
+
+        "Corre muy rápido cuando escucha la palabra pizza.",
+
+        "Puede hablar durante 40 minutos sin respirar.",
+
+        "Tiene una puntería sorprendentemente buena con cucharas.",
+
+        "Sabe exactamente cuándo va a llover... casi nunca.",
+
+        "Puede abrir cualquier puerta que ya esté abierta.",
+
+        "Es capaz de desaparecer durante una conversación."
+
+    ];
+
+
+    const secrets = [
+
+        "Tiene una identidad secreta completamente innecesaria.",
+
+        "Una vez ganó un concurso de belleza para patos.",
+
+        "Debe dinero a un mago.",
+
+        "Tiene un mapa que no lleva a ninguna parte.",
+
+        "Fue expulsado de tres clubes de ajedrez.",
+
+        "Guarda una patata con nombre propio.",
+
+        "Conoce personalmente al hombre de los helados.",
+
+        "Tiene miedo de las tostadoras.",
+
+        "Una vez sobrevivió tres días alimentándose solo de chicles.",
+
+        "Nadie sabe de dónde viene realmente."
+
+    ];
+
+
+    const phrases = [
+
+        "«Eso no estaba en el contrato.»",
+
+        "«Yo tengo un plan.»",
+
+        "«Tranquilo, sé exactamente lo que hago.»",
+
+        "«¿Alguien ha visto mi cuchara?»",
+
+        "«Esto me recuerda a 2007.»",
+
+        "«No hagas preguntas.»",
+
+        "«Confía en mí.»",
+
+        "«Tengo una teoría.»",
+
+        "«¿Y si lo hacemos al revés?»",
+
+        "«Esto no puede salir mal.»"
+
+    ];
+
+
+
+    /* ---------------------------------------------------------
+       VARIABLES
+       --------------------------------------------------------- */
+
+    let currentNPC = null;
+
+    let currentScore = 0;
+
+
+
+    /* ---------------------------------------------------------
+       ALEATORIO
+       --------------------------------------------------------- */
+
+    function randomItem(array) {
+
+        return array[
+            Math.floor(
+                Math.random() *
+                array.length
+            )
+        ];
+
+    }
+
+
+
+    /* ---------------------------------------------------------
+       RÉCORD
+       --------------------------------------------------------- */
+
+    function updateBestScore() {
+
+        if (
+            typeof window.CAOSLAB_STATS ===
+            "undefined"
+        ) {
+
+            return;
+
+        }
+
+
+        const stats =
+            window.CAOSLAB_STATS.get();
+
+
+        const gameStats =
+            stats.games.npc;
+
+
+        if (gameStats) {
+
+            bestScoreText.textContent =
+                gameStats.bestScore;
+
+        }
+
+    }
+
+
+
+    /* ---------------------------------------------------------
+       GENERAR NPC
+       --------------------------------------------------------- */
+
+    function generateNPC() {
+
+        currentNPC = {
+
+            name:
+                randomItem(names) +
+                " " +
+                randomItem(surnames),
+
+            job:
+                randomItem(jobs),
+
+            personality:
+                randomItem(personalities),
+
+            skill:
+                randomItem(skills),
+
+            secret:
+                randomItem(secrets),
+
+            phrase:
+                randomItem(phrases),
+
+            danger:
+                Math.floor(
+                    Math.random() * 100
+                ) + 1
+
+        };
+
+
+        npcName.textContent =
+            currentNPC.name;
+
+
+        npcJob.textContent =
+            currentNPC.job;
+
+
+        npcPersonality.textContent =
+            currentNPC.personality;
+
+
+        npcSkill.textContent =
+            currentNPC.skill;
+
+
+        npcSecret.textContent =
+            currentNPC.secret;
+
+
+        npcPhrase.textContent =
+            currentNPC.phrase;
+
+
+        npcDanger.textContent =
+            currentNPC.danger +
+            " / 100";
+
+
+        /* La generación de un NPC vale
+           entre 50 y 149 puntos. */
+
+        currentScore =
+            50 +
+            Math.floor(
+                Math.random() * 100
+            );
+
+
+        currentScoreText.textContent =
+            currentScore;
+
+
+        copyButton.textContent =
+            "📋 COPIAR NPC";
+
+
+        shareButton.textContent =
+            "📤 COMPARTIR NPC";
+
+
+        /* ---------------------------------------------
+           ESTADÍSTICAS
+           --------------------------------------------- */
+
+        if (
+            typeof window.CAOSLAB_STATS !==
+            "undefined"
+        ) {
+
+            window.CAOSLAB_STATS.recordGame(
+
+                "npc",
+
+                "win",
+
+                currentScore
+
+            );
+
+
+            updateBestScore();
+
+        }
+
+    }
+
+
+
+    /* ---------------------------------------------------------
+       TEXTO DEL NPC
+       --------------------------------------------------------- */
+
+    function getNPCText() {
+
+        if (!currentNPC) {
+
+            return "";
+
+        }
+
+
+        return (
+
+            "🎭 NPC — CAOSLAB\n\n" +
+
+            "👤 " +
+            currentNPC.name +
+            "\n\n" +
+
+            "💼 Profesión: " +
+            currentNPC.job +
+            "\n\n" +
+
+            "🧠 Personalidad: " +
+            currentNPC.personality +
+            "\n\n" +
+
+            "⚡ Habilidad: " +
+            currentNPC.skill +
+            "\n\n" +
+
+            "🤫 Secreto: " +
+            currentNPC.secret +
+            "\n\n" +
+
+            "💬 Frase típica: " +
+            currentNPC.phrase +
+            "\n\n" +
+
+            "💀 Peligro: " +
+            currentNPC.danger +
+            "/100"
+
+        );
+
+    }
+
+
+
+    /* ---------------------------------------------------------
+       COPIAR
+       --------------------------------------------------------- */
+
+    function copyNPC() {
+
+        const text =
+            getNPCText();
+
+
+        if (!text) {
+
+            npcName.textContent =
+                "Primero genera un NPC.";
+
+            return;
+
+        }
+
+
+        if (
+            navigator.clipboard
+        ) {
+
+            navigator.clipboard
+                .writeText(text)
+                .then(
+
+                    function () {
+
+                        copyButton.textContent =
+                            "✅ NPC COPIADO";
+
+                    }
+
+                )
+                .catch(
+
+                    function () {
+
+                        copyButton.textContent =
+                            "📋 COPIA EL RESULTADO";
+
+                    }
+
+                );
+
+        }
+
+    }
+
+
+
+    /* ---------------------------------------------------------
+       COMPARTIR
+       --------------------------------------------------------- */
+
+    function shareNPC() {
+
+        const text =
+            getNPCText();
+
+
+        if (!text) {
+
+            npcName.textContent =
+                "Primero genera un NPC.";
+
+            return;
+
+        }
+
+
+        if (
+            navigator.share
+        ) {
+
+            navigator.share({
+
+                title:
+                    "CAOSLAB — Generador de NPC",
+
+                text:
+                    text
+
+            }).catch(
+                function () {}
+            );
+
+
+            return;
+
+        }
+
+
+        if (
+            navigator.clipboard
+        ) {
+
+            navigator.clipboard
+                .writeText(text)
+                .then(
+
+                    function () {
+
+                        shareButton.textContent =
+                            "✅ RESULTADO COPIADO";
+
+                    }
+
+                )
+                .catch(
+
+                    function () {
+
+                        shareButton.textContent =
+                            "📋 COPIA EL RESULTADO";
+
+                    }
+
+                );
+
+        }
+
+    }
+
+
+
+    /* ---------------------------------------------------------
+       EVENTOS
+       --------------------------------------------------------- */
+
+    generateButton.addEventListener(
+
+        "click",
+
+        generateNPC
+
+    );
+
+
+    copyButton.addEventListener(
+
+        "click",
+
+        copyNPC
+
+    );
+
+
+    shareButton.addEventListener(
+
+        "click",
+
+        shareNPC
+
+    );
+
+
+
+    /* ---------------------------------------------------------
+       INICIO
+       --------------------------------------------------------- */
+
+    updateBestScore();
+
+
+})();
+
+</script>
+
+
+</body>
+
+</html>

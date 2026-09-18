@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Generador de Excusas — CAOSLAB</title>
+
+    <link
+        rel="stylesheet"
+        href="../css/style.css"
+    >
+
+    <style>
+
+        .excuse-page {
+
+            min-height:
+                calc(100vh - 70px);
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            padding: 30px 20px;
+
+            text-align: center;
+
+        }
+
+
+        .excuse-container {
+
+            width: 100%;
+
+            max-width: 650px;
+
+        }
+
+
+        .excuse-back {
+
+            display: inline-block;
+
+            margin-bottom: 30px;
+
+            color: #777;
+
+        }
+
+
+        .excuse-back:hover {
+
+            color: white;
+
+        }
+
+
+        .excuse-icon {
+
+            font-size: 60px;
+
+            margin-bottom: 10px;
+
+        }
+
+
+        .excuse-container h1 {
+
+            font-size:
+                clamp(35px, 8vw, 60px);
+
+            margin-bottom: 10px;
+
+        }
+
+
+        .excuse-subtitle {
+
+            color: #777;
+
+            margin-bottom: 30px;
+
+        }
+
+
+        .excuse-box {
+
+            min-height: 170px;
+
+            padding: 30px;
+
+            box-sizing: border-box;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            background: #151518;
+
+            border: 1px solid #29292d;
+
+            border-radius: 18px;
+
+        }
+
+
+        .excuse-text {
+
+            font-size:
+                clamp(20px, 5vw, 28px);
+
+            line-height: 1.4;
+
+            font-weight: 900;
+
+        }
+
+
+        .excuse-button {
+
+            width: 100%;
+
+            margin-top: 20px;
+
+            padding: 18px;
+
+            border: none;
+
+            border-radius: 10px;
+
+            background: white;
+
+            color: black;
+
+            font-size: 17px;
+
+            font-weight: 900;
+
+            cursor: pointer;
+
+        }
+
+
+        .excuse-button:active {
+
+            transform: scale(0.98);
+
+        }
+
+
+        .excuse-copy {
+
+            width: 100%;
+
+            margin-top: 10px;
+
+            padding: 15px;
+
+            border: 1px solid #333;
+
+            border-radius: 10px;
+
+            background: transparent;
+
+            color: white;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+        }
+
+
+        .excuse-share {
+
+            width: 100%;
+
+            margin-top: 10px;
+
+            padding: 15px;
+
+            border: 1px solid #333;
+
+            border-radius: 10px;
+
+            background: transparent;
+
+            color: white;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+        }
+
+
+        .excuse-score {
+
+            margin-top: 20px;
+
+            color: #777;
+
+            font-size: 14px;
+
+        }
+
+
+        .excuse-score strong {
+
+            color: white;
+
+            font-size: 25px;
+
+        }
+
+
+        .excuse-record {
+
+            margin-top: 8px;
+
+            color: #555;
+
+            font-size: 12px;
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<header class="header">
+
+    <a
+        href="../index.html"
+        class="logo"
+    >
+        CAOS<span>LAB</span>
+    </a>
+
+</header>
+
+
+
+<main class="excuse-page">
+
+    <div class="excuse-container">
+
+
+        <a
+            href="../index.html"
+            class="excuse-back"
+        >
+            ← Volver a CAOSLAB
+        </a>
+
+
+        <div class="excuse-icon">
+            😂
+        </div>
+
+
+        <h1>
+            Generador de Excusas
+        </h1>
+
+
+        <p class="excuse-subtitle">
+            Cuando necesitas una excusa y la realidad no ayuda.
+        </p>
+
+
+
+        <div class="excuse-box">
+
+            <div
+                id="excuseText"
+                class="excuse-text"
+            >
+                Pulsa el botón para generar una excusa.
+            </div>
+
+        </div>
+
+
+
+        <button
+            id="generateButton"
+            class="excuse-button"
+            type="button"
+        >
+            😂 GENERAR EXCUSA
+        </button>
+
+
+
+        <button
+            id="copyButton"
+            class="excuse-copy"
+            type="button"
+        >
+            📋 COPIAR EXCUSA
+        </button>
+
+
+
+        <button
+            id="shareButton"
+            class="excuse-share"
+            type="button"
+        >
+            📤 COMPARTIR EXCUSA
+        </button>
+
+
+
+        <div class="excuse-score">
+
+            Puntos:
+
+            <strong id="currentScore">
+                0
+            </strong>
+
+        </div>
+
+
+
+        <div class="excuse-record">
+
+            Mejor puntuación:
+
+            <strong id="bestScore">
+                0
+            </strong>
+
+        </div>
+
+
+    </div>
+
+</main>
+
+
+
+<script src="../js/stats.js"></script>
+
+
+<script>
+
+(function () {
+
+    "use strict";
+
+
+    /* ---------------------------------------------------------
+       ELEMENTOS
+       --------------------------------------------------------- */
+
+    const excuseText =
+        document.getElementById(
+            "excuseText"
+        );
+
+
+    const generateButton =
+        document.getElementById(
+            "generateButton"
+        );
+
+
+    const copyButton =
+        document.getElementById(
+            "copyButton"
+        );
+
+
+    const shareButton =
+        document.getElementById(
+            "shareButton"
+        );
+
+
+    const currentScoreText =
+        document.getElementById(
+            "currentScore"
+        );
+
+
+    const bestScoreText =
+        document.getElementById(
+            "bestScore"
+        );
+
+
+
+    /* ---------------------------------------------------------
+       EXCUSAS
+       --------------------------------------------------------- */
+
+    const excuses = [
+
+        "😂 Me quedé sin batería... en el móvil y en la vida.",
+
+        "🐕 Mi perro ha tenido un día complicado y necesitaba apoyo emocional.",
+
+        "🚗 El coche decidió que hoy no quería colaborar.",
+
+        "🧠 Lo tenía todo preparado, pero mi cerebro decidió reiniciarse.",
+
+        "🌧️ El tiempo estaba demasiado peligroso para ser productivo.",
+
+        "😴 Me dormí durante cinco minutos. Tres horas después desperté.",
+
+        "📱 Estaba haciendo una investigación muy importante en Internet.",
+
+        "🍕 Tenía que terminar una pizza. Era una cuestión de principios.",
+
+        "👽 Un problema extraterrestre inesperado retrasó mis planes.",
+
+        "🧪 Estaba realizando un experimento social completamente necesario.",
+
+        "💻 El ordenador necesitaba actualizarse justo en el peor momento.",
+
+        "🕐 Técnicamente no llegué tarde. El tiempo llegó demasiado pronto.",
+
+        "☕ No podía empezar sin café y el café necesitaba tiempo.",
+
+        "😂 Se me olvidó que se me había olvidado.",
+
+        "🐈 El gato estaba encima de algo que necesitaba y no quería moverse.",
+
+        "🧙 Una fuerza misteriosa alteró completamente mis planes.",
+
+        "📡 Perdí la conexión con la realidad durante un rato.",
+
+        "🚶 Salí con tiempo, pero el universo tenía otros planes.",
+
+        "💀 No estaba preparado psicológicamente para afrontar la situación.",
+
+        "🎮 Estaba en mitad de una misión crítica."
+
+    ];
+
+
+
+    /* ---------------------------------------------------------
+       VARIABLES
+       --------------------------------------------------------- */
+
+    let currentExcuse = "";
+
+    let currentScore = 0;
+
+
+
+    /* ---------------------------------------------------------
+       RÉCORD
+       --------------------------------------------------------- */
+
+    function updateBestScore() {
+
+        if (
+            typeof window.CAOSLAB_STATS ===
+            "undefined"
+        ) {
+
+            return;
+
+        }
+
+
+        const stats =
+            window.CAOSLAB_STATS.get();
+
+
+        const gameStats =
+            stats.games.excusas;
+
+
+        if (gameStats) {
+
+            bestScoreText.textContent =
+                gameStats.bestScore;
+
+        }
+
+    }
+
+
+
+    /* ---------------------------------------------------------
+       GENERAR
+       --------------------------------------------------------- */
+
+    function generateExcuse() {
+
+        const index =
+            Math.floor(
+                Math.random() *
+                excuses.length
+            );
+
+
+        currentExcuse =
+            excuses[index];
+
+
+        currentScore =
+            50;
+
+
+        excuseText.textContent =
+            currentExcuse;
+
+
+        currentScoreText.textContent =
+            currentScore;
+
+
+        copyButton.textContent =
+            "📋 COPIAR EXCUSA";
+
+
+        shareButton.textContent =
+            "📤 COMPARTIR EXCUSA";
+
+
+        /* ---------------------------------------------
+           REGISTRAR PARTIDA
+           --------------------------------------------- */
+
+        if (
+            typeof window.CAOSLAB_STATS !==
+            "undefined"
+        ) {
+
+            window.CAOSLAB_STATS.recordGame(
+
+                "excusas",
+
+                "win",
+
+                currentScore
+
+            );
+
+
+            updateBestScore();
+
+        }
+
+    }
+
+
+
+    /* ---------------------------------------------------------
+       COPIAR
+       --------------------------------------------------------- */
+
+    function copyExcuse() {
+
+        if (!currentExcuse) {
+
+            excuseText.textContent =
+                "Primero genera una excusa. 😂";
+
+            return;
+
+        }
+
+
+        if (
+            navigator.clipboard
+        ) {
+
+            navigator.clipboard
+                .writeText(
+                    currentExcuse
+                )
+                .then(
+
+                    function () {
+
+                        copyButton.textContent =
+                            "✅ EXCUSA COPIADA";
+
+                    }
+
+                )
+                .catch(
+
+                    function () {
+
+                        copyButton.textContent =
+                            "📋 SELECCIONA Y COPIA";
+
+                    }
+
+                );
+
+        }
+
+    }
+
+
+
+    /* ---------------------------------------------------------
+       COMPARTIR
+       --------------------------------------------------------- */
+
+    function shareExcuse() {
+
+        if (!currentExcuse) {
+
+            excuseText.textContent =
+                "Primero genera una excusa. 😂";
+
+            return;
+
+        }
+
+
+        const text =
+
+            "😂 Mi excusa de hoy según CAOSLAB:\n\n" +
+
+            currentExcuse;
+
+
+        if (
+            navigator.share
+        ) {
+
+            navigator.share({
+
+                title:
+                    "CAOSLAB — Generador de Excusas",
+
+                text:
+                    text
+
+            }).catch(
+                function () {}
+            );
+
+
+            return;
+
+        }
+
+
+        if (
+            navigator.clipboard
+        ) {
+
+            navigator.clipboard
+                .writeText(text)
+                .then(
+
+                    function () {
+
+                        shareButton.textContent =
+                            "✅ RESULTADO COPIADO";
+
+                    }
+
+                )
+                .catch(
+
+                    function () {
+
+                        shareButton.textContent =
+                            "📋 COPIA EL RESULTADO";
+
+                    }
+
+                );
+
+        }
+
+    }
+
+
+
+    /* ---------------------------------------------------------
+       EVENTOS
+       --------------------------------------------------------- */
+
+    generateButton.addEventListener(
+
+        "click",
+
+        generateExcuse
+
+    );
+
+
+    copyButton.addEventListener(
+
+        "click",
+
+        copyExcuse
+
+    );
+
+
+    shareButton.addEventListener(
+
+        "click",
+
+        shareExcuse
+
+    );
+
+
+
+    /* ---------------------------------------------------------
+       INICIO
+       --------------------------------------------------------- */
+
+    updateBestScore();
+
+
+})();
+
+</script>
+
+
+</body>
+
+</html>
