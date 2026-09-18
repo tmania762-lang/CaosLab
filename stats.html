@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="CAOSLAB — Centro de Progreso y estadísticas."
+    >
+
+    <meta
+        name="theme-color"
+        content="#0b0b0d"
+    >
+
+    <title>
+        Centro de Progreso — CAOSLAB
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="css/style.css"
+    >
+
+</head>
+
+
+<body>
+
+
+    <!-- =====================================================
+         CABECERA
+         ===================================================== -->
+
+    <header class="hero">
+
+        <div class="hero-content">
+
+            <div class="hero-badge">
+                CAOSLAB V1.3
+            </div>
+
+            <h1>
+                CENTRO DE PROGRESO
+            </h1>
+
+            <p>
+                Mira hasta dónde ha llegado tu caos.
+            </p>
+
+        </div>
+
+    </header>
+
+
+    <!-- =====================================================
+         CONTENIDO
+         ===================================================== -->
+
+    <main class="container">
+
+
+        <!-- =================================================
+             NIVEL Y PROGRESO
+             ================================================= -->
+
+        <section class="progress-panel">
+
+            <div class="progress-header">
+
+                <div>
+
+                    <span class="progress-small">
+                        NIVEL
+                    </span>
+
+                    <strong id="playerLevel">
+                        1
+                    </strong>
+
+                </div>
+
+
+                <div class="progress-points">
+
+                    <span id="currentPoints">
+                        0
+                    </span>
+
+                    /
+
+                    <span id="nextLevelPoints">
+                        100
+                    </span>
+
+                    PUNTOS
+
+                </div>
+
+            </div>
+
+
+            <div class="progress-bar">
+
+                <div
+                    class="progress-fill"
+                    id="levelProgress"
+                ></div>
+
+            </div>
+
+
+            <p
+                class="progress-message"
+                id="levelMessage"
+            >
+                Empieza a jugar para ganar puntos.
+            </p>
+
+        </section>
+
+
+        <!-- =================================================
+             RACHA
+             ================================================= -->
+
+        <section class="streak-panel">
+
+            <div class="stats-title">
+                RACHA
+            </div>
+
+
+            <div class="stats-grid">
+
+
+                <div class="stat-card">
+
+                    <div class="stat-icon">
+                        🔥
+                    </div>
+
+                    <div
+                        class="stat-value"
+                        id="currentStreak"
+                    >
+                        0
+                    </div>
+
+                    <div class="stat-label">
+                        RACHA ACTUAL
+                    </div>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <div class="stat-icon">
+                        🏅
+                    </div>
+
+                    <div
+                        class="stat-value"
+                        id="bestStreak"
+                    >
+                        0
+                    </div>
+
+                    <div class="stat-label">
+                        MEJOR RACHA
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             ESTADÍSTICAS GENERALES
+             ================================================= -->
+
+        <section class="stats-panel">
+
+            <div class="stats-title">
+                ESTADÍSTICAS GENERALES
+            </div>
+
+
+            <div class="stats-grid">
+
+
+                <div class="stat-card">
+
+                    <div class="stat-icon">
+                        💰
+                    </div>
+
+                    <div
+                        class="stat-value"
+                        id="totalPoints"
+                    >
+                        0
+                    </div>
+
+                    <div class="stat-label">
+                        PUNTOS
+                    </div>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <div class="stat-icon">
+                        🎮
+                    </div>
+
+                    <div
+                        class="stat-value"
+                        id="totalGames"
+                    >
+                        0
+                    </div>
+
+                    <div class="stat-label">
+                        PARTIDAS
+                    </div>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <div class="stat-icon">
+                        🏆
+                    </div>
+
+                    <div
+                        class="stat-value"
+                        id="totalWins"
+                    >
+                        0
+                    </div>
+
+                    <div class="stat-label">
+                        VICTORIAS
+                    </div>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <div class="stat-icon">
+                        💀
+                    </div>
+
+                    <div
+                        class="stat-value"
+                        id="totalLosses"
+                    >
+                        0
+                    </div>
+
+                    <div class="stat-label">
+                        DERROTAS
+                    </div>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <div class="stat-icon">
+                        ⭐
+                    </div>
+
+                    <div
+                        class="stat-value"
+                        id="bestScore"
+                    >
+                        0
+                    </div>
+
+                    <div class="stat-label">
+                        MEJOR PUNTUACIÓN
+                    </div>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <div class="stat-icon">
+                        🎖️
+                    </div>
+
+                    <div
+                        class="stat-value"
+                        id="achievementCount"
+                    >
+                        0
+                    </div>
+
+                    <div class="stat-label">
+                        LOGROS
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             LOGROS
+             ================================================= -->
+
+        <section class="achievements-panel">
+
+            <div class="stats-title">
+                LOGROS
+            </div>
+
+
+            <div
+                class="achievements-list"
+                id="achievementsList"
+            ></div>
+
+        </section>
+
+
+        <!-- =================================================
+             ESTADÍSTICAS POR JUEGO
+             ================================================= -->
+
+        <section class="game-stats-panel">
+
+            <div class="stats-title">
+                ESTADÍSTICAS POR JUEGO
+            </div>
+
+
+            <div
+                class="games-stats-list"
+                id="gamesStatsList"
+            ></div>
+
+        </section>
+
+
+        <!-- =================================================
+             ACCIONES
+             ================================================= -->
+
+        <section class="stats-actions">
+
+            <a
+                href="index.html"
+                class="stats-button"
+            >
+                ← VOLVER A CAOSLAB
+            </a>
+
+
+            <button
+                type="button"
+                id="resetStats"
+                class="danger-button"
+            >
+                🗑️ BORRAR TODAS LAS ESTADÍSTICAS
+            </button>
+
+        </section>
+
+
+    </main>
+
+
+    <!-- =====================================================
+         PIE DE PÁGINA
+         ===================================================== -->
+
+    <footer class="footer">
+
+        <div class="footer-links">
+
+            <a href="privacy.html">
+                Privacidad
+            </a>
+
+            <a href="cookies.html">
+                Cookies
+            </a>
+
+            <a href="terms.html">
+                Términos
+            </a>
+
+        </div>
+
+
+        <p>
+
+            ©
+            <span id="year"></span>
+            CAOSLAB
+
+        </p>
+
+    </footer>
+
+
+    <!-- =====================================================
+         ESTADÍSTICAS
+         ===================================================== -->
+
+    <script src="js/stats.js"></script>
+
+
+    <!-- =====================================================
+         CONTROL DEL CENTRO DE PROGRESO
+         ===================================================== -->
+
+    <script>
+
+        (function () {
+
+            "use strict";
+
+
+            /* ===============================================
+               OBTENER ESTADÍSTICAS
+               =============================================== */
+
+            const stats =
+                window.CAOSLAB_STATS.get();
+
+
+            /* ===============================================
+               NIVEL
+               =============================================== */
+
+            const level =
+                window.CAOSLAB_STATS.getLevel(
+                    stats.points
+                );
+
+
+            const progress =
+                window.CAOSLAB_STATS.getLevelProgress(
+                    stats.points
+                );
+
+
+            const nextLevel =
+                window.CAOSLAB_STATS.getNextLevelPoints(
+                    stats.points
+                );
+
+
+            document.getElementById(
+                "playerLevel"
+            ).textContent = level;
+
+
+            document.getElementById(
+                "currentPoints"
+            ).textContent = stats.points;
+
+
+            document.getElementById(
+                "nextLevelPoints"
+            ).textContent = nextLevel;
+
+
+            document.getElementById(
+                "levelProgress"
+            ).style.width =
+                progress + "%";
+
+
+            /* ===============================================
+               MENSAJE DE NIVEL
+               =============================================== */
+
+            const levelMessage =
+                document.getElementById(
+                    "levelMessage"
+                );
+
+
+            if (
+                stats.points === 0
+            ) {
+
+                levelMessage.textContent =
+                    "Empieza a jugar para ganar puntos.";
+
+            }
+
+            else if (
+                progress === 0
+            ) {
+
+                levelMessage.textContent =
+                    "¡Nivel recién alcanzado! El siguiente nivel te espera.";
+
+            }
+
+            else {
+
+                const remaining =
+                    100 - progress;
+
+
+                levelMessage.textContent =
+                    "Te faltan " +
+                    remaining +
+                    " puntos para alcanzar el nivel " +
+                    (level + 1) +
+                    ".";
+
+            }
+
+
+            /* ===============================================
+               RACHA
+               =============================================== */
+
+            document.getElementById(
+                "currentStreak"
+            ).textContent =
+                stats.streak || 0;
+
+
+            document.getElementById(
+                "bestStreak"
+            ).textContent =
+                stats.bestStreak || 0;
+
+
+            /* ===============================================
+               ESTADÍSTICAS GENERALES
+               =============================================== */
+
+            document.getElementById(
+                "totalPoints"
+            ).textContent =
+                stats.points;
+
+
+            document.getElementById(
+                "totalGames"
+            ).textContent =
+                stats.totalGames;
+
+
+            document.getElementById(
+                "totalWins"
+            ).textContent =
+                stats.wins;
+
+
+            document.getElementById(
+                "totalLosses"
+            ).textContent =
+                stats.losses;
+
+
+            document.getElementById(
+                "bestScore"
+            ).textContent =
+                stats.bestScore;
+
+
+            document.getElementById(
+                "achievementCount"
+            ).textContent =
+                stats.achievements.length;
+
+
+            /* ===============================================
+               LOGROS
+               =============================================== */
+
+            const achievements = [
+
+                {
+                    id: "first_game",
+                    icon: "🎮",
+                    name: "Primer Caos",
+                    description:
+                        "Juega tu primera partida."
+                },
+
+                {
+                    id: "ten_games",
+                    icon: "🔥",
+                    name: "Adicto al Caos",
+                    description:
+                        "Juega 10 partidas."
+                },
+
+                {
+                    id: "first_win",
+                    icon: "🏆",
+                    name: "Primera Victoria",
+                    description:
+                        "Consigue tu primera victoria."
+                },
+
+                {
+                    id: "five_wins",
+                    icon: "👑",
+                    name: "Dominador",
+                    description:
+                        "Consigue 5 victorias."
+                },
+
+                {
+                    id: "hundred_points",
+                    icon: "💰",
+                    name: "Cien Puntos",
+                    description:
+                        "Consigue 100 puntos."
+                },
+
+                {
+                    id: "five_hundred_points",
+                    icon: "💎",
+                    name: "Quinientos",
+                    description:
+                        "Consigue 500 puntos."
+                },
+
+                {
+                    id: "three_day_streak",
+                    icon: "🔥",
+                    name: "Tres Días",
+                    description:
+                        "Juega durante 3 días consecutivos."
+                },
+
+                {
+                    id: "seven_day_streak",
+                    icon: "⚡",
+                    name: "Semana Caótica",
+                    description:
+                        "Juega durante 7 días consecutivos."
+                }
+
+            ];
+
+
+            const achievementsList =
+                document.getElementById(
+                    "achievementsList"
+                );
+
+
+            achievementsList.innerHTML = "";
+
+
+            achievements.forEach(
+                function (achievement) {
+
+                    const unlocked =
+                        stats.achievements.includes(
+                            achievement.id
+                        );
+
+
+                    const element =
+                        document.createElement(
+                            "div"
+                        );
+
+
+                    element.className =
+                        "achievement " +
+                        (
+                            unlocked
+                                ? "unlocked"
+                                : "locked"
+                        );
+
+
+                    element.innerHTML = `
+
+                        <div class="achievement-icon">
+                            ${
+                                unlocked
+                                    ? achievement.icon
+                                    : "🔒"
+                            }
+                        </div>
+
+                        <div>
+
+                            <strong>
+                                ${achievement.name}
+                            </strong>
+
+                            <span>
+                                ${achievement.description}
+                            </span>
+
+                            <small>
+                                ${
+                                    unlocked
+                                        ? "DESBLOQUEADO"
+                                        : "BLOQUEADO"
+                                }
+                            </small>
+
+                        </div>
+
+                    `;
+
+
+                    achievementsList.appendChild(
+                        element
+                    );
+
+                }
+            );
+
+
+            /* ===============================================
+               ESTADÍSTICAS DE JUEGOS
+               =============================================== */
+
+            const games = [
+
+                {
+                    key: "ruleta",
+                    name: "🎰 Ruleta del Caos"
+                },
+
+                {
+                    key: "excusas",
+                    name: "😂 Generador de Excusas"
+                },
+
+                {
+                    key: "caos",
+                    name: "💀 Botón del Caos"
+                },
+
+                {
+                    key: "numero",
+                    name: "🔢 Adivina el Número"
+                },
+
+                {
+                    key: "reaction",
+                    name: "⚡ Reaction Test"
+                },
+
+                {
+                    key: "rps",
+                    name: "✊ Piedra, Papel o Tijera"
+                },
+
+                {
+                    key: "oraculo",
+                    name: "🔮 Oráculo del Caos"
+                },
+
+                {
+                    key: "npc",
+                    name: "🎭 Generador de NPC"
+                },
+
+                {
+                    key: "suerte",
+                    name: "🧠 Test de Suerte"
+                }
+
+            ];
+
+
+            const gamesStatsList =
+                document.getElementById(
+                    "gamesStatsList"
+                );
+
+
+            gamesStatsList.innerHTML = "";
+
+
+            games.forEach(
+                function (game) {
+
+                    const data =
+                        window.CAOSLAB_STATS.getGameStats(
+                            game.key
+                        );
+
+
+                    const row =
+                        document.createElement(
+                            "div"
+                        );
+
+
+                    row.className =
+                        "game-stat-row";
+
+
+                    row.innerHTML = `
+
+                        <div class="game-stat-name">
+
+                            <strong>
+                                ${game.name}
+                            </strong>
+
+                        </div>
+
+
+                        <div class="game-stat-data">
+
+                            <span>
+                                🎮 ${data.plays}
+                            </span>
+
+                            <span>
+                                🏆 ${data.wins}
+                            </span>
+
+                            <span>
+                                💀 ${data.losses}
+                            </span>
+
+                            <span>
+                                💰 ${data.points}
+                            </span>
+
+                            <span>
+                                ⭐ ${data.bestScore}
+                            </span>
+
+                        </div>
+
+                    `;
+
+
+                    gamesStatsList.appendChild(
+                        row
+                    );
+
+                }
+            );
+
+
+            /*
