@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Ruleta del Caos — CAOSLAB</title>
+
+    <meta
+        name="description"
+        content="Gira la Ruleta del Caos y descubre tu destino."
+    >
+
+    <link
+        rel="stylesheet"
+        href="../css/style.css"
+    >
+
+    <style>
+
+        .game-page {
+            min-height: calc(100vh - 70px);
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            padding: 30px 20px;
+
+            text-align: center;
+        }
+
+        .game-container {
+            width: 100%;
+
+            max-width: 650px;
+        }
+
+        .back {
+            display: inline-block;
+
+            margin-bottom: 30px;
+
+            color: #777;
+
+            font-size: 14px;
+        }
+
+        .back:hover {
+            color: white;
+        }
+
+        .game-container h1 {
+            font-size: clamp(40px, 8vw, 70px);
+
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #777;
+
+            margin-bottom: 40px;
+        }
+
+        .result {
+            min-height: 180px;
+
+            padding: 40px 20px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            background: #151518;
+
+            border: 1px solid #29292d;
+
+            border-radius: 20px;
+
+            font-size: clamp(25px, 5vw, 40px);
+
+            font-weight: 800;
+
+            margin-bottom: 25px;
+        }
+
+        .spin-button {
+            width: 100%;
+
+            padding: 18px;
+
+            border: none;
+
+            border-radius: 12px;
+
+            background: white;
+
+            color: black;
+
+            font-size: 18px;
+
+            font-weight: 900;
+
+            cursor: pointer;
+
+            transition: transform 0.15s;
+        }
+
+        .spin-button:active {
+            transform: scale(0.97);
+        }
+
+        .counter {
+            margin-top: 20px;
+
+            color: #555;
+
+            font-size: 13px;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<header class="header">
+
+    <a href="../index.html" class="logo">
+        CAOS<span>LAB</span>
+    </a>
+
+</header>
+
+
+<main class="game-page">
+
+    <div class="game-container">
+
+        <a href="../index.html" class="back">
+            ← Volver a CAOSLAB
+        </a>
+
+        <h1>🎰</h1>
+
+        <h1>
+            Ruleta del Caos
+        </h1>
+
+        <p class="subtitle">
+            Gira. Acepta tu destino. No hay reclamaciones.
+        </p>
+
+
+        <div
+            id="result"
+            class="result"
+        >
+            ¿Te atreves?
+        </div>
+
+
+        <button
+            id="spin"
+            class="spin-button"
+        >
+            GIRAR LA RULETA
+        </button>
+
+
+        <div class="counter">
+            Giros: <span id="counter">0</span>
+        </div>
+
+    </div>
+
+</main>
+
+
+<script>
+
+const results = [
+
+    "Hoy invitas tú 🍕",
+
+    "Necesitas unas vacaciones 🏖️",
+
+    "Tienes que dormir más 😴",
+
+    "Hoy toca suerte 🍀",
+
+    "Compra algo que no necesitas 🛒",
+
+    "Manda un mensaje inesperado 📱",
+
+    "No hagas nada durante 10 minutos 🧘",
+
+    "Hoy te sale todo bien 😎",
+
+    "La próxima decisión será importante 👀",
+
+    "Has desbloqueado el CAOS 💀",
+
+    "Necesitas café ☕",
+
+    "Haz algo completamente absurdo 😂"
+
+];
+
+
+const button = document.getElementById("spin");
+
+const result = document.getElementById("result");
+
+const counter = document.getElementById("counter");
+
+
+let spins = 0;
+
+
+button.addEventListener("click", () => {
+
+    button.disabled = true;
+
+    result.textContent = "🎲 CASI...";
+
+    let i = 0;
+
+    const animation = setInterval(() => {
+
+        const random =
+            results[
+                Math.floor(
+                    Math.random() * results.length
+                )
+            ];
+
+        result.textContent = random;
+
+        i++;
+
+        if (i >= 12) {
+
+            clearInterval(animation);
+
+            spins++;
+
+            counter.textContent = spins;
+
+            button.disabled = false;
+
+        }
+
+    }, 80);
+
+});
+
+</script>
+
+</body>
+
+</html>

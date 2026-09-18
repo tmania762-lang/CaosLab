@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Botón del Caos — CAOSLAB</title>
+
+    <link
+        rel="stylesheet"
+        href="../css/style.css"
+    >
+
+    <style>
+
+        .chaos-page {
+
+            min-height: calc(100vh - 70px);
+
+            position: relative;
+
+            overflow: hidden;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            padding: 20px;
+
+            text-align: center;
+
+        }
+
+        .chaos-content {
+
+            width: 100%;
+
+            max-width: 650px;
+
+        }
+
+        .back {
+
+            display: inline-block;
+
+            margin-bottom: 30px;
+
+            color: #777;
+
+        }
+
+        h1 {
+
+            font-size: clamp(45px, 10vw, 90px);
+
+            margin-bottom: 10px;
+
+        }
+
+        .warning {
+
+            color: #ff3b30;
+
+            font-weight: bold;
+
+            margin-bottom: 30px;
+
+        }
+
+        .chaos-button {
+
+            width: min(280px, 80vw);
+
+            height: 280px;
+
+            border-radius: 50%;
+
+            border: 10px solid #29292d;
+
+            background: #ff3b30;
+
+            color: white;
+
+            font-size: 30px;
+
+            font-weight: 900;
+
+            cursor: pointer;
+
+            box-shadow:
+
+                0 20px 60px rgba(0,0,0,0.5),
+
+                inset 0 -15px 0 rgba(0,0,0,0.15);
+
+            transition:
+
+                transform 0.1s;
+
+        }
+
+        .chaos-button:active {
+
+            transform: scale(0.92);
+
+        }
+
+        .message {
+
+            min-height: 70px;
+
+            margin-top: 30px;
+
+            font-size: 22px;
+
+            font-weight: bold;
+
+        }
+
+        .clicks {
+
+            color: #555;
+
+            font-size: 13px;
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<header class="header">
+
+    <a href="../index.html" class="logo">
+        CAOS<span>LAB</span>
+    </a>
+
+</header>
+
+
+<main class="chaos-page">
+
+    <div class="chaos-content">
+
+        <a
+            href="../index.html"
+            class="back"
+        >
+            ← Volver a CAOSLAB
+        </a>
+
+        <h1>
+            💀
+        </h1>
+
+        <p class="warning">
+            NO PULSES EL BOTÓN
+        </p>
+
+
+        <button
+            id="chaosButton"
+            class="chaos-button"
+        >
+            NO
+        </button>
+
+
+        <div
+            id="message"
+            class="message"
+        >
+        </div>
+
+
+        <div class="clicks">
+
+            Pulsaciones:
+            <span id="clicks">0</span>
+
+        </div>
+
+    </div>
+
+</main>
+
+
+<script>
+
+const button =
+    document.getElementById("chaosButton");
+
+const message =
+    document.getElementById("message");
+
+const clicksElement =
+    document.getElementById("clicks");
+
+
+let clicks = 0;
+
+
+const messages = [
+
+    "Te dije que NO 😐",
+
+    "¿Por qué lo has pulsado?",
+
+    "Esto empieza mal...",
+
+    "Otra vez no.",
+
+    "Ya no puedes parar.",
+
+    "El botón está decepcionado.",
+
+    "¿Tienes algún problema? 😂",
+
+    "Has elegido el CAOS.",
+
+    "No hay vuelta atrás.",
+
+    "Esto es culpa tuya.",
+
+    "El universo está tomando nota.",
+
+    "Última oportunidad...",
+
+    "Mentira. Sigue pulsando.",
+
+    "💀 CAOS ACTIVADO 💀"
+
+];
+
+
+button.addEventListener("click", () => {
+
+    clicks++;
+
+    clicksElement.textContent = clicks;
+
+
+    const index =
+        Math.min(
+            clicks - 1,
+            messages.length - 1
+        );
+
+
+    message.textContent =
+        messages[index];
+
+
+    if (clicks === 10) {
+
+        button.textContent = "¿SEGUIMOS?";
+
+    }
+
+    if (clicks === 20) {
+
+        button.textContent = "CAOS";
+
+        document.body.style.transform =
+            "rotate(1deg)";
+
+        setTimeout(() => {
+
+            document.body.style.transform =
+                "rotate(0deg)";
+
+        }, 150);
+
+    }
+
+    if (clicks === 50) {
+
+        message.textContent =
+            "🏆 HAS ALCANZADO EL NIVEL MÁXIMO DE CAOS";
+
+        button.textContent =
+            "LEGENDARIO";
+
+    }
+
+});
+
+</script>
+
+</body>
+
+</html>
