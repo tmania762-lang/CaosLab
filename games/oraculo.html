@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="CAOSLAB — Oráculo del Caos"
+    >
+
+    <meta
+        name="theme-color"
+        content="#0b0b0d"
+    >
+
+    <title>
+        Oráculo del Caos — CAOSLAB
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="../css/style.css"
+    >
+
+    <style>
+
+        .oracle-input-wrap {
+            width: 100%;
+            max-width: 650px;
+            margin: 25px auto 15px;
+        }
+
+        .oracle-label {
+            display: block;
+            margin-bottom: 8px;
+            color: #777;
+            font-size: 10px;
+            font-weight: 900;
+            letter-spacing: 1px;
+            text-align: center;
+        }
+
+        .oracle-input {
+            width: 100%;
+            min-height: 110px;
+            padding: 16px;
+            box-sizing: border-box;
+            resize: vertical;
+            border: 1px solid #29292d;
+            border-radius: 14px;
+            background: #18181c;
+            color: white;
+            font-family: inherit;
+            font-size: 15px;
+            line-height: 1.5;
+            outline: none;
+        }
+
+        .oracle-input:focus {
+            border-color: #555;
+        }
+
+        .oracle-counter {
+            margin-top: 6px;
+            color: #555;
+            font-size: 9px;
+            font-weight: 900;
+            text-align: right;
+        }
+
+        .oracle-button {
+            width: 100%;
+            max-width: 650px;
+            margin: 5px auto 0;
+        }
+
+        .oracle-result {
+            width: 100%;
+            max-width: 650px;
+            min-height: 130px;
+            margin: 25px auto 0;
+            padding: 25px;
+            box-sizing: border-box;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            text-align: center;
+            background: #18181c;
+            border: 1px solid #29292d;
+            border-radius: 18px;
+        }
+
+        .oracle-answer {
+            color: white;
+            font-size: 22px;
+            font-weight: 900;
+            line-height: 1.25;
+        }
+
+        .oracle-points {
+            min-height: 20px;
+            margin-top: 10px;
+            color: #aaa;
+            font-size: 12px;
+            font-weight: 900;
+        }
+
+        .game-history {
+            width: 100%;
+            max-width: 650px;
+            margin: 25px auto 0;
+        }
+
+        .history-title {
+            margin-bottom: 10px;
+            color: #777;
+            font-size: 10px;
+            font-weight: 900;
+            letter-spacing: 1px;
+        }
+
+        .history-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .history-item {
+            padding: 12px 14px;
+            box-sizing: border-box;
+            background: #18181c;
+            border: 1px solid #29292d;
+            border-radius: 12px;
+        }
+
+        .history-question {
+            color: #777;
+            font-size: 11px;
+            line-height: 1.4;
+        }
+
+        .history-answer {
+            margin-top: 5px;
+            color: white;
+            font-size: 13px;
+            font-weight: 900;
+        }
+
+        .history-points {
+            margin-top: 4px;
+            color: #888;
+            font-size: 10px;
+            font-weight: 900;
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =====================================================
+         CABECERA
+         ===================================================== -->
+
+    <header class="hero">
+
+        <div class="hero-content">
+
+            <div class="hero-badge">
+                CAOSLAB V1.3
+            </div>
+
+            <h1>
+                ORÁCULO DEL CAOS
+            </h1>
+
+            <p>
+                Pregunta al universo. No prometemos que responda bien.
+            </p>
+
+        </div>
+
+    </header>
+
+
+    <!-- =====================================================
+         JUEGO
+         ===================================================== -->
+
+    <main class="container">
+
+
+        <section class="game-panel">
+
+
+            <div class="game-result">
+
+                <div class="result-title">
+                    🔮 CONSULTA AL ORÁCULO
+                </div>
+
+                <p class="result-text">
+                    Escribe una pregunta y deja que el caos decida.
+                </p>
+
+            </div>
+
+
+            <!-- =================================================
+                 PREGUNTA
+                 ================================================= -->
+
+            <div class="oracle-input-wrap">
+
+                <label
+                    class="oracle-label"
+                    for="questionInput"
+                >
+                    TU PREGUNTA
+                </label>
+
+
+                <textarea
+                    id="questionInput"
+                    class="oracle-input"
+                    maxlength="150"
+                    placeholder="¿Debería hacerlo?"
+                    autocomplete="off"
+                ></textarea>
+
+
+                <div
+                    id="questionCounter"
+                    class="oracle-counter"
+                >
+                    0 / 150
+                </div>
+
+            </div>
+
+
+            <button
+                type="button"
+                id="askButton"
+                class="game-button oracle-button"
+            >
+                🔮 CONSULTAR AL ORÁCULO
+            </button>
+
+
+            <!-- =================================================
+                 RESULTADO
+                 ================================================= -->
+
+            <div class="oracle-result">
+
+                <div
+                    id="answer"
+                    class="oracle-answer"
+                >
+                    El oráculo está esperando…
+                </div>
+
+
+                <div
+                    id="points"
+                    class="oracle-points"
+                >
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 MARCADOR
+                 ================================================= -->
+
+            <div
+                class="score-board"
+                style="margin-top:20px;"
+            >
+
+                <div class="score-item">
+
+                    <span>
+                        CONSULTAS
+                    </span>
+
+                    <strong id="plays">
+                        0
+                    </strong>
+
+                </div>
+
+
+                <div class="score-item">
+
+                    <span>
+                        PUNTOS
+                    </span>
+
+                    <strong id="sessionPoints">
+                        0
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 HISTORIAL
+                 ================================================= -->
+
+            <div class="game-history">
+
+                <div class="history-title">
+                    ÚLTIMAS CONSULTAS
+                </div>
+
+
+                <div
+                    id="historyList"
+                    class="history-list"
+                >
+
+                    <div class="history-item">
+
+                        <div class="history-question">
+                            Todavía no has consultado al oráculo.
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 ACCIONES
+                 ================================================= -->
+
+            <div
+                class="game-actions"
+                style="margin-top:20px;"
+            >
+
+                <button
+                    type="button"
+                    id="shareButton"
+                    class="secondary-button"
+                >
+                    📤 COMPARTIR
+                </button>
+
+
+                <button
+                    type="button"
+                    id="clearButton"
+                    class="secondary-button"
+                >
+                    🧹 LIMPIAR
+                </button>
+
+
+                <a
+                    href="../index.html"
+                    class="stats-button"
+                >
+                    ← VOLVER A CAOSLAB
+                </a>
+
+            </div>
+
+
+        </section>
+
+
+        <!-- =================================================
+             PUBLICIDAD
+             ================================================= -->
+
+        <section class="ad-container">
+
+            <div class="ad-placeholder">
+
+                <span>
+                    ESPACIO PUBLICITARIO
+                </span>
+
+            </div>
+
+        </section>
+
+
+    </main>
+
+
+    <!-- =====================================================
+         PIE
+         ===================================================== -->
+
+    <footer class="footer">
+
+        <div class="footer-links">
+
+            <a href="../privacy.html">
+                Privacidad
+            </a>
+
+            <a href="../cookies.html">
+                Cookies
+            </a>
+
+            <a href="../terms.html">
+                Términos
+            </a>
+
+        </div>
+
+
+        <p>
+
+            ©
+            <span id="year"></span>
+            CAOSLAB
+
+        </p>
+
+    </footer>
+
+
+    <!-- =====================================================
+         ESTADÍSTICAS
+         ===================================================== -->
+
+    <script src="../js/stats.js"></script>
+
+
+    <!-- =====================================================
+         LÓGICA
+         ===================================================== -->
+
+    <script>
+
+        (function () {
+
+            "use strict";
+
+
+            const answers = [
+
+                {
+                    text: "SÍ. El caos parece estar de tu lado.",
+                    points: 150
+                },
+
+                {
+                    text: "NO. Hoy no parece un buen día.",
+                    points: 75
+                },
+
+                {
+                    text: "PROBABLEMENTE. Pero no confíes demasiado.",
+                    points: 100
+                },
+
+                {
+                    text: "ABSOLUTAMENTE SÍ. Hazlo antes de que cambie el universo.",
+                    points: 200
+                },
+
+                {
+                    text: "NI DE BROMA. El oráculo se niega.",
+                    points: 50
+                },
+
+                {
+                    text: "EL DESTINO DICE QUE SÍ.",
+                    points: 125
+                },
+
+                {
+                    text: "PREGÚNTAME MAÑANA. Hoy estoy de vacaciones.",
+                    points: 50
+                },
+
+                {
+                    text: "SÍ, PERO SOLO SI ACEPTAS LAS CONSECUENCIAS.",
+                    points: 175
+                },
+
+                {
+                    text: "EL UNIVERSO ESTÁ INDECISO.",
+                    points: 90
+                },
+
+                {
+                    text: "NO HAY SEÑALES CLARAS. TÚ DECIDES.",
+                    points: 100
+                },
+
+                {
+                    text: "SÍ. ¿QUÉ PODRÍA SALIR MAL?",
+                    points: 200
+                },
+
+                {
+                    text: "EL CAOS DICE QUE ESPERES.",
+                    points: 60
+                }
+
+            ];
+
+
+            let sessionPlays = 0;
+
+            let sessionPoints = 0;
+
+            let lastAnswer = "";
+
+            let lastPoints = 0;
+
+            let history = [];
+
+
+            const questionInput =
+                document.getElementById(
+                    "questionInput"
+                );
+
+
+            const questionCounter =
+                document.getElementById(
+                    "questionCounter"
+                );
+
+
+            const askButton =
+                document.getElementById(
+                    "askButton"
+                );
+
+
+            const answer =
+                document.getElementById(
+                    "answer"
+                );
+
+
+            const points =
+                document.getElementById(
+                    "points"
+                );
+
+
+            const plays =
+                document.getElementById(
+                    "plays"
+                );
+
+
+            const sessionPointsElement =
+                document.getElementById(
+                    "sessionPoints"
+                );
+
+
+            const historyList =
+                document.getElementById(
+                    "historyList"
+                );
+
+
+            const shareButton =
+                document.getElementById(
+                    "shareButton"
+                );
+
+
+            const clearButton =
+                document.getElementById(
+                    "clearButton"
+                );
+
+
+            /* ===============================================
+               CONTADOR
+               =============================================== */
+
+            function updateCounter() {
+
+                const length =
+                    questionInput.value.length;
+
+
+                questionCounter.textContent =
+                    length +
+                    " / 150";
+
+            }
+
+
+            questionInput.addEventListener(
+                "input",
+                updateCounter
+            );
+
+
+            /* ===============================================
+               RESPUESTA ALEATORIA
+               =============================================== */
+
+            function getRandomAnswer() {
+
+                return answers[
+                    Math.floor(
+                        Math.random() *
+                        answers.length
+                    )
+                ];
+
+            }
+
+
+            /* ===============================================
+               HISTORIAL
+               =============================================== */
+
+            function renderHistory() {
+
+                if (
+                    history.length === 0
+                ) {
+
+                    historyList.innerHTML = `
+
+                        <div class="history-item">
+
+                            <div class="history-question">
+                                Todavía no has consultado al oráculo.
+                            </div>
+
+                        </div>
+
+                    `;
+
+                    return;
+
+                }
+
+
+                historyList.innerHTML =
+                    history.map(
+                        function (item) {
+
+                            return `
+
+                                <div class="history-item">
+
+                                    <div class="history-question">
+                                        ${escapeHTML(item.question)}
+                                    </div>
+
+                                    <div class="history-answer">
+                                        ${escapeHTML(item.answer)}
+                                    </div>
+
+                                    <div class="history-points">
+                                        +${item.points} PUNTOS
+                                    </div>
+
+                                </div>
+
+                            `;
+
+                        }
+                    ).join("");
+
+            }
+
+
+            function escapeHTML(value) {
+
+                return String(value)
+                    .replace(
+                        /&/g,
+                        "&amp;"
+                    )
+                    .replace(
+                        /</g,
+                        "&lt;"
+                    )
+                    .replace(
+                        />/g,
+                        "&gt;"
+                    )
+                    .replace(
+                        /"/g,
+                        "&quot;"
+                    )
+                    .replace(
+                        /'/g,
+                        "&#039;"
+                    );
+
+            }
+
+
+            /* ===============================================
+               CONSULTAR
+               =============================================== */
+
+            function askOracle() {
+
+                const question =
+                    questionInput.value
+                        .trim();
+
+
+                if (!question) {
+
+                    answer.textContent =
+                        "Primero haz una pregunta.";
+
+
+                    points.textContent =
+                        "";
+
+
+                    questionInput.focus();
+
+                    return;
+
+                }
+
+
+                askButton.disabled =
+                    true;
+
+
+                answer.textContent =
+                    "El oráculo está pensando…";
+
+
+                points.textContent =
+                    "";
+
+
+                setTimeout(
+                    function () {
+
+                        const selected =
+                            getRandomAnswer();
+
+
+                        sessionPlays += 1;
+
+                        sessionPoints +=
+                            selected.points;
+
+
+                        lastAnswer =
+                            selected.text;
+
+                        lastPoints =
+                            selected.points;
+
+
+                        plays.textContent =
+                            sessionPlays;
+
+
+                        sessionPointsElement.textContent =
+                            sessionPoints;
+
+
+                        answer.textContent =
+                            selected.text;
+
+
+                        points.textContent =
+                            "+" +
+                            selected.points +
+                            " PUNTOS";
+
+
+                        history.unshift({
+
+                            question:
+                                question,
+
+                            answer:
+                                selected.text,
+
+                            points:
+                                selected.points
+
+                        });
+
+
+                        /*
+                         * Conservamos únicamente
+                         * las últimas 5 consultas.
+                         */
+
+                        history =
+                            history.slice(
+                                0,
+                                5
+                            );
+
+
+                        renderHistory();
+
+
+                        /*
+                         * Una consulta = una partida.
+                         */
+
+                        if (
+                            window.CAOSLAB_STATS
+                        ) {
+
+                            window.CAOSLAB_STATS.recordGame(
+                                "oraculo",
+                                "play",
+                                selected.points
+                            );
+
+                        }
+
+
+                        askButton.disabled =
+                            false;
+
+                    },
+                    700
+                );
+
+            }
+
+
+            /* ===============================================
+               ENTER
+               =============================================== */
+
+            questionInput.addEventListener(
+                "keydown",
+                function (event) {
+
+                    if (
+                        event.key === "Enter" &&
+                        !event.shiftKey
+                    ) {
+
+                        event.preventDefault();
+
+                        askOracle();
+
+                    }
+
+                }
+            );
+
+
+            askButton.addEventListener(
+                "click",
+                askOracle
+            );
+
+
+            /* ==============================================

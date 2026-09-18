@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="CAOSLAB — Generador de NPC"
+    >
+
+    <meta
+        name="theme-color"
+        content="#0b0b0d"
+    >
+
+    <title>
+        Generador de NPC — CAOSLAB
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="../css/style.css"
+    >
+
+    <style>
+
+        .npc-result {
+            width: 100%;
+            max-width: 700px;
+            margin: 25px auto;
+            padding: 22px;
+            box-sizing: border-box;
+            background: #18181c;
+            border: 1px solid #29292d;
+            border-radius: 18px;
+        }
+
+        .npc-name {
+            margin-bottom: 20px;
+            color: white;
+            font-size: 28px;
+            font-weight: 900;
+            text-align: center;
+        }
+
+        .npc-info {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 9px;
+        }
+
+        .npc-row {
+            min-width: 0;
+            padding: 13px;
+            box-sizing: border-box;
+            background: #111114;
+            border: 1px solid #252529;
+            border-radius: 11px;
+        }
+
+        .npc-label {
+            margin-bottom: 5px;
+            color: #666;
+            font-size: 8px;
+            font-weight: 900;
+            letter-spacing: 0.8px;
+        }
+
+        .npc-value {
+            color: #eee;
+            font-size: 12px;
+            font-weight: 800;
+            line-height: 1.4;
+            overflow-wrap: anywhere;
+        }
+
+        .npc-danger {
+            margin-top: 12px;
+            padding: 15px;
+            box-sizing: border-box;
+            background: #111114;
+            border: 1px solid #29292d;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .npc-danger-label {
+            color: #666;
+            font-size: 8px;
+            font-weight: 900;
+            letter-spacing: 1px;
+        }
+
+        .npc-danger-value {
+            margin-top: 5px;
+            color: white;
+            font-size: 15px;
+            font-weight: 900;
+            line-height: 1.4;
+        }
+
+        .npc-points {
+            margin-top: 10px;
+            color: #999;
+            font-size: 11px;
+            font-weight: 900;
+            text-align: center;
+        }
+
+        .npc-empty {
+            padding: 35px 20px;
+            color: #666;
+            font-size: 13px;
+            font-weight: 700;
+            text-align: center;
+        }
+
+        @media (max-width: 600px) {
+
+            .npc-result {
+                padding: 16px;
+            }
+
+            .npc-name {
+                font-size: 23px;
+            }
+
+            .npc-info {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =====================================================
+         CABECERA
+         ===================================================== -->
+
+    <header class="hero">
+
+        <div class="hero-content">
+
+            <div class="hero-badge">
+                CAOSLAB V1.3
+            </div>
+
+            <h1>
+                GENERADOR DE NPC
+            </h1>
+
+            <p>
+                Crea personajes que probablemente no deberían existir.
+            </p>
+
+        </div>
+
+    </header>
+
+
+    <!-- =====================================================
+         JUEGO
+         ===================================================== -->
+
+    <main class="container">
+
+
+        <section class="game-panel">
+
+
+            <div class="game-result">
+
+                <div class="result-title">
+                    🎭 GENERADOR DE PERSONAJES
+                </div>
+
+                <p class="result-text">
+                    Pulsa el botón y deja que el caos cree un NPC.
+                </p>
+
+            </div>
+
+
+            <!-- =================================================
+                 RESULTADO
+                 ================================================= -->
+
+            <div
+                id="npcResult"
+                class="npc-result"
+            >
+
+                <div class="npc-empty">
+                    Tu próximo NPC está esperando…
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 BOTÓN
+                 ================================================= -->
+
+            <button
+                type="button"
+                id="generateButton"
+                class="game-button"
+            >
+                🎲 GENERAR NPC
+            </button>
+
+
+            <!-- =================================================
+                 MARCADOR
+                 ================================================= -->
+
+            <div
+                class="score-board"
+                style="margin-top:20px;"
+            >
+
+                <div class="score-item">
+
+                    <span>
+                        NPC GENERADOS
+                    </span>
+
+                    <strong id="plays">
+                        0
+                    </strong>
+
+                </div>
+
+
+                <div class="score-item">
+
+                    <span>
+                        PUNTOS
+                    </span>
+
+                    <strong id="sessionPoints">
+                        0
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 ACCIONES
+                 ================================================= -->
+
+            <div
+                class="game-actions"
+                style="margin-top:20px;"
+            >
+
+                <button
+                    type="button"
+                    id="shareButton"
+                    class="secondary-button"
+                >
+                    📤 COMPARTIR
+                </button>
+
+
+                <a
+                    href="../index.html"
+                    class="stats-button"
+                >
+                    ← VOLVER A CAOSLAB
+                </a>
+
+            </div>
+
+
+        </section>
+
+
+        <!-- =================================================
+             PUBLICIDAD
+             ================================================= -->
+
+        <section class="ad-container">
+
+            <div class="ad-placeholder">
+
+                <span>
+                    ESPACIO PUBLICITARIO
+                </span>
+
+            </div>
+
+        </section>
+
+
+    </main>
+
+
+    <!-- =====================================================
+         PIE
+         ===================================================== -->
+
+    <footer class="footer">
+
+        <div class="footer-links">
+
+            <a href="../privacy.html">
+                Privacidad
+            </a>
+
+            <a href="../cookies.html">
+                Cookies
+            </a>
+
+            <a href="../terms.html">
+                Términos
+            </a>
+
+        </div>
+
+
+        <p>
+
+            ©
+            <span id="year"></span>
+            CAOSLAB
+
+        </p>
+
+    </footer>
+
+
+    <!-- =====================================================
+         ESTADÍSTICAS
+         ===================================================== -->
+
+    <script src="../js/stats.js"></script>
+
+
+    <!-- =====================================================
+         LÓGICA
+         ===================================================== -->
+
+    <script>
+
+        (function () {
+
+            "use strict";
+
+
+            /* =================================================
+               DATOS DEL NPC
+               ================================================= */
+
+            const names = [
+
+                "Bruno",
+                "Lola",
+                "Mateo",
+                "Nora",
+                "Rufino",
+                "Clara",
+                "Teodoro",
+                "Amparo",
+                "Evaristo",
+                "Berta",
+                "Damián",
+                "Elvira",
+                "Fermín",
+                "Gloria",
+                "Jacinto",
+                "Martina",
+                "Nicanor",
+                "Olga",
+                "Prudencio",
+                "Ramona"
+
+            ];
+
+
+            const surnames = [
+
+                "Martínez",
+                "García",
+                "Navarro",
+                "Serrano",
+                "Torres",
+                "Molina",
+                "Ortega",
+                "Castillo",
+                "Vidal",
+                "Romero",
+                "Fuentes",
+                "Campos",
+                "Santos",
+                "Rey",
+                "Pardo",
+                "Cano",
+                "Nieto",
+                "Moya",
+                "Pastor",
+                "Ríos"
+
+            ];
+
+
+            const professions = [
+
+                "panadero",
+                "mercader",
+                "herrero",
+                "granjero",
+                "cazador",
+                "tabernero",
+                "bibliotecario",
+                "alquimista",
+                "cartero",
+                "pescador",
+                "guardia",
+                "músico",
+                "relojero",
+                "cocinero",
+                "cartógrafo",
+                "enterrador",
+                "inventor",
+                "ladrón retirado",
+                "coleccionista de cucharas",
+                "vendedor ambulante"
+
+            ];
+
+
+            const personalities = [
+
+                "demasiado confiado",
+                "paranoico",
+                "amable con todo el mundo",
+                "sospechosamente tranquilo",
+                "obsesionado con el dinero",
+                "dramático",
+                "muy supersticioso",
+                "incapaz de guardar un secreto",
+                "extremadamente orgulloso",
+                "siempre cansado",
+                "curiosamente optimista",
+                "malhumorado por las mañanas",
+                "convencido de que tiene razón",
+                "muy hablador",
+                "extrañamente silencioso"
+
+            ];
+
+
+            const skills = [
+
+                "puede reparar casi cualquier cosa",
+                "recuerda todas las caras que ha visto",
+                "es excelente negociando",
+                "puede orientarse sin mapa",
+                "cocina sorprendentemente bien",
+                "sabe abrir cerraduras",
+                "tiene una puntería absurda",
+                "conoce cientos de historias",
+                "puede detectar mentiras",
+                "corre más rápido de lo que parece",
+                "sabe fabricar explosivos caseros",
+                "puede imitar cualquier acento",
+                "tiene una memoria extraordinaria",
+                "es experto en encontrar objetos perdidos",
+                "puede dormir en cualquier lugar"
+
+            ];
+
+
+            const secrets = [
+
+                "oculta una segunda identidad",
+                "debe dinero a varias personas",
+                "tiene un mapa de un lugar desconocido",
+                "una vez salvó accidentalmente un reino",
+                "guarda una llave que no sabe qué abre",
+                "ha visto algo que nadie le cree",
+                "está buscando a alguien desde hace años",
+                "robó algo que jamás debió tocar",
+                "conoce un secreto sobre el alcalde",
+                "es miembro de una sociedad secreta",
+                "afirma haber hablado con un fantasma",
+                "tiene un objeto que cambia de lugar solo",
+                "no recuerda los últimos tres días",
+                "mantiene correspondencia con un desconocido"
+
+            ];
+
+
+            const phrases = [
+
+                "«No preguntes. Solo sígueme.»",
+                "«Tengo un plan. Más o menos.»",
+                "«Eso no estaba ahí ayer.»",
+                "«Puedo explicarlo.»",
+                "«Confía en mí. O no.»",
+                "«He visto cosas peores.»",
+                "«¿Quieres comprar algo?»",
+                "«Nunca dije que fuera buena idea.»",
+                "«Todo tiene una explicación.»",
+                "«No toques eso.»",
+                "«Creo que nos están siguiendo.»",
+                "«Esto va a salir genial.»",
+                "«No recuerdo haber hecho eso.»",
+                "«Tengo una propuesta.»"
+
+            ];
+
+
+            const dangers = [
+
+                {
+                    text: "Probablemente acabará metido en problemas.",
+                    points: 50
+                },
+
+                {
+                    text: "Esconde algo que podría causar problemas.",
+                    points: 75
+                },
+
+                {
+                    text: "Su secreto podría poner en peligro a varias personas.",
+                    points: 100
+                },
+
+                {
+                    text: "Alguien poderoso está intentando encontrarlo.",
+                    points: 125
+                },
+
+                {
+                    text: "No deberías confiar completamente en este personaje.",
+                    points: 149
+                }
+
+            ];
+
+
+            /* =================================================
+               ESTADO
+               ================================================= */
+
+            let sessionPlays = 0;
+
+            let sessionPoints = 0;
+
+            let lastNpc = null;
+
+
+            const npcResult =
+                document.getElementById(
+                    "npcResult"
+                );
+
+
+            const generateButton =
+                document.getElementById(
+                    "generateButton"
+                );
+
+
+            const shareButton =
+                document.getElementById(
+                    "shareButton"
+                );
+
+
+            const plays =
+                document.getElementById(
+                    "plays"
+                );
+
+
+            const sessionPointsElement =
+                document.getElementById(
+                    "sessionPoints"
+                );
+
+
+            /* =================================================
+               ALEATORIO
+               ================================================= */
+
+            function randomItem(array) {
+
+                return array[
+                    Math.floor(
+                        Math.random() *
+                        array.length
+                    )
+                ];
+
+            }
+
+
+            /* =================================================
+               ESCAPAR HTML
+               ================================================= */
+
+            function escapeHTML(value) {
+
+                return String(value)
+                    .replace(
+                        /&/g,
+                        "&amp;"
+                    )
+                    .replace(
+                        /</g,
+                        "&lt;"
+                    )
+                    .replace(
+                        />/g,
+                        "&gt;"
+                    )
+                    .replace(
+                        /"/g,
+                        "&quot;"
+                    )
+                    .replace(
+                        /'/g,
+                        "&#039;"
+                    );
+
+            }
+
+
+            /* =================================================
+               GENERAR NPC
+               ================================================= */
+
+            function generateNPC() {
+
+                const name =
+                    randomItem(names);
+
+
+                const surname =
+                    randomItem(surnames);
+
+
+                const profession =
+                    randomItem(professions);
+
+
+                const personality =
+                    randomItem(personalities);
+
+
+                const skill =
+                    randomItem(skills);
+
+
+                const secret =
+                    randomItem(secrets);
+
+
+                const phrase =
+                    randomItem(phrases);
+
+
+                const danger =
+                    randomItem(dangers);
+
+
+                const npc = {
+
+                    name:
+                        name +
+                        " " +
+                        surname,
+
+                    profession:
+                        profession,
+
+                    personality:
+                        personality,
+
+                    skill:
+                        skill,
+
+                    secret:
+                        secret,
+
+                    phrase:
+                        phrase,
+
+                    danger:
+                        danger.text,
+
+                    points:
+                        danger.points
+
+                };
+
+
+                lastNpc = npc;
+
+
+                sessionPlays += 1;
+
+                sessionPoints +=
+                    npc.points;
+
+
+                plays.textContent =
+                    sessionPlays;
+
+
+                sessionPointsElement.textContent =
+                    sessionPoints;
+
+
+                npcResult.innerHTML = `
+
+                    <div class="npc-name">
+                        ${escapeHTML(npc.name)}
+                    </div>
+
+
+                    <div class="npc-info">
+
+                        <div class="npc-row">
+
+                            <div class="npc-label">
+                                PROFESIÓN
+                            </div>
+
+                            <div class="npc-value">
+                                ${escapeHTML(npc.profession)}
+                            </div>
+
+                        </div>
+
+
+                        <div class="npc-row">
+
+                            <div class="npc-label">
+                                PERSONALIDAD
+                            </div>
+
+                            <div class="npc-value">
+                                ${escapeHTML(npc.personality)}
+                            </div>
+
+                        </div>
+
+
+                        <div class="npc-row">
+
+                            <div class="npc-label">
+                                HABILIDAD
+                            </div>
+
+                            <div class="npc-value">
+                                ${escapeHTML(npc.skill)}
+                            </div>
+
+                        </div>
+
+
+                        <div class="npc-row">
+
+                            <div class="npc-label">
+                                SECRETO
+                            </div>
+
+                            <div class="npc-value">
+                                ${escapeHTML(npc.secret)}
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="npc-danger">
+
+                        <div class="npc-danger-label">
+                            FRASE
+                        </div>
+
+                        <div class="npc-danger-value">
+                            ${escapeHTML(npc.phrase)}
+                        </div>
+
+                    </div>
+
+
+                    <div class="npc-danger">
+
+                        <div class="npc-danger-label">
+                            NIVEL DE PELIGRO
+                        </div>
+
+                        <div class="npc-danger-value">
+                            ${escapeHTML(npc.danger)}
+                        </div>
+
+                    </div>
+
+
+                    <div class="npc-points">
+                        +${npc.points} PUNTOS
+                    </div>
+
+                `;
+
+
+                /*
+                 * Cada NPC generado cuenta como
+                 * una partida independiente.
+                 */
+
+                if (
+                    window.CAOSLAB_STATS
+                ) {
+
+                    window.CAOSLAB_STATS.recordGame(
+                        "npc",
+                        "play",
+                        npc.poi

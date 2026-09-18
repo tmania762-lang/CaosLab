@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="CAOSLAB — Adivina el Número"
+    >
+
+    <meta
+        name="theme-color"
+        content="#0b0b0d"
+    >
+
+    <title>
+        Adivina el Número — CAOSLAB
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="../css/style.css"
+    >
+
+</head>
+
+
+<body>
+
+
+    <!-- =====================================================
+         CABECERA
+         ===================================================== -->
+
+    <header class="hero">
+
+        <div class="hero-content">
+
+            <div class="hero-badge">
+                CAOSLAB V1.3
+            </div>
+
+            <h1>
+                ADIVINA EL NÚMERO
+            </h1>
+
+            <p>
+                El caos ha elegido un número del 1 al 100.
+            </p>
+
+        </div>
+
+    </header>
+
+
+    <!-- =====================================================
+         JUEGO
+         ===================================================== -->
+
+    <main class="container">
+
+
+        <section class="game-panel">
+
+
+            <div
+                class="game-result"
+                id="result"
+            >
+
+                <div class="result-title">
+                    ENCUENTRA EL NÚMERO
+                </div>
+
+                <p class="result-text">
+                    Cuantos menos intentos necesites,
+                    más puntos conseguirás.
+                </p>
+
+            </div>
+
+
+            <!-- =============================================
+                 ENTRADA
+                 ============================================= -->
+
+            <div
+                style="
+                    width:100%;
+                    max-width:320px;
+                    margin:25px auto 10px;
+                "
+            >
+
+                <label
+                    for="guessInput"
+                    style="
+                        display:block;
+                        margin-bottom:8px;
+                        color:#777;
+                        font-size:10px;
+                        font-weight:900;
+                        letter-spacing:1px;
+                        text-align:center;
+                    "
+                >
+                    INTRODUCE UN NÚMERO
+                </label>
+
+
+                <input
+                    type="number"
+                    id="guessInput"
+                    min="1"
+                    max="100"
+                    step="1"
+                    inputmode="numeric"
+                    autocomplete="off"
+                    placeholder="1 - 100"
+                    style="
+                        width:100%;
+                        box-sizing:border-box;
+                        padding:16px;
+                        border:1px solid #29292d;
+                        border-radius:12px;
+                        background:#18181c;
+                        color:white;
+                        font-family:inherit;
+                        font-size:20px;
+                        font-weight:900;
+                        text-align:center;
+                        outline:none;
+                    "
+                >
+
+            </div>
+
+
+            <button
+                type="button"
+                id="guessButton"
+                class="game-button"
+            >
+                🔢 COMPROBAR
+            </button>
+
+
+            <!-- =============================================
+                 MENSAJE
+                 ============================================= -->
+
+            <div
+                id="hint"
+                style="
+                    min-height:24px;
+                    margin-top:18px;
+                    color:#aaa;
+                    font-size:13px;
+                    font-weight:bold;
+                    text-align:center;
+                "
+            >
+                Escribe un número para empezar.
+            </div>
+
+
+            <!-- =============================================
+                 MARCADOR
+                 ============================================= -->
+
+            <div
+                class="score-board"
+                style="margin-top:25px;"
+            >
+
+                <div class="score-item">
+
+                    <span>
+                        INTENTOS
+                    </span>
+
+                    <strong id="attempts">
+                        0
+                    </strong>
+
+                </div>
+
+
+                <div class="score-item">
+
+                    <span>
+                        MEJOR PUNTUACIÓN
+                    </span>
+
+                    <strong id="bestScore">
+                        0
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <!-- =============================================
+                 ACCIONES
+                 ============================================= -->
+
+            <div
+                class="game-actions"
+                style="margin-top:20px;"
+            >
+
+                <button
+                    type="button"
+                    id="shareButton"
+                    class="secondary-button"
+                >
+                    📤 COMPARTIR
+                </button>
+
+
+                <button
+                    type="button"
+                    id="restartButton"
+                    class="secondary-button"
+                >
+                    🔄 NUEVA PARTIDA
+                </button>
+
+
+                <a
+                    href="../index.html"
+                    class="stats-button"
+                >
+                    ← VOLVER A CAOSLAB
+                </a>
+
+            </div>
+
+
+        </section>
+
+
+        <!-- =================================================
+             PUBLICIDAD
+             ================================================= -->
+
+        <section class="ad-container">
+
+            <div class="ad-placeholder">
+
+                <span>
+                    ESPACIO PUBLICITARIO
+                </span>
+
+            </div>
+
+        </section>
+
+
+    </main>
+
+
+    <!-- =====================================================
+         PIE
+         ===================================================== -->
+
+    <footer class="footer">
+
+        <div class="footer-links">
+
+            <a href="../privacy.html">
+                Privacidad
+            </a>
+
+            <a href="../cookies.html">
+                Cookies
+            </a>
+
+            <a href="../terms.html">
+                Términos
+            </a>
+
+        </div>
+
+
+        <p>
+
+            ©
+            <span id="year"></span>
+            CAOSLAB
+
+        </p>
+
+    </footer>
+
+
+    <!-- =====================================================
+         ESTADÍSTICAS
+         ===================================================== -->
+
+    <script src="../js/stats.js"></script>
+
+
+    <!-- =====================================================
+         LÓGICA
+         ===================================================== -->
+
+    <script>
+
+        (function () {
+
+            "use strict";
+
+
+            const BEST_KEY =
+                "caoslab_numero_best_v1";
+
+
+            let secretNumber = 0;
+
+            let attempts = 0;
+
+            let finished = false;
+
+            let lastScore = 0;
+
+
+            const input =
+                document.getElementById(
+                    "guessInput"
+                );
+
+
+            const guessButton =
+                document.getElementById(
+                    "guessButton"
+                );
+
+
+            const restartButton =
+                document.getElementById(
+                    "restartButton"
+                );
+
+
+            const shareButton =
+                document.getElementById(
+                    "shareButton"
+                );
+
+
+            const result =
+                document.getElementById(
+                    "result"
+                );
+
+
+            const hint =
+                document.getElementById(
+                    "hint"
+                );
+
+
+            const attemptsElement =
+                document.getElementById(
+                    "attempts"
+                );
+
+
+            const bestScoreElement =
+                document.getElementById(
+                    "bestScore"
+                );
+
+
+            /* ===============================================
+               MEJOR PUNTUACIÓN
+               =============================================== */
+
+            function getBestScore() {
+
+                try {
+
+                    return Math.max(
+                        0,
+                        Number(
+                            localStorage.getItem(
+                                BEST_KEY
+                            )
+                        ) || 0
+                    );
+
+                } catch (error) {
+
+                    return 0;
+
+                }
+
+            }
+
+
+            function saveBestScore(score) {
+
+                try {
+
+                    localStorage.setItem(
+                        BEST_KEY,
+                        String(score)
+                    );
+
+                } catch (error) {
+
+                    console.error(
+                        "CAOSLAB: error guardando mejor puntuación",
+                        error
+                    );
+
+                }
+
+            }
+
+
+            function updateBestScore() {
+
+                bestScoreElement.textContent =
+                    getBestScore();
+
+            }
+
+
+            /* ===============================================
+               NUEVA PARTIDA
+               =============================================== */
+
+            function startGame() {
+
+                secretNumber =
+                    Math.floor(
+                        Math.random() * 100
+                    ) + 1;
+
+
+                attempts = 0;
+
+                finished = false;
+
+                lastScore = 0;
+
+
+                attemptsElement.textContent =
+                    "0";
+
+
+                hint.textContent =
+                    "Escribe un número para empezar.";
+
+
+                result.innerHTML = `
+
+                    <div class="result-title">
+                        ENCUENTRA EL NÚMERO
+                    </div>
+
+                    <p class="result-text">
+                        Está entre 1 y 100.
+                    </p>
+
+                `;
+
+
+                input.value = "";
+
+                input.disabled = false;
+
+                guessButton.disabled = false;
+
+                guessButton.textContent =
+                    "🔢 COMPROBAR";
+
+
+                input.focus();
+
+            }
+
+
+            /* ===============================================
+               COMPROBAR
+               =============================================== */
+
+            function checkGuess() {
+
+                if (finished) {
+                    return;
+                }
+
+
+                const value =
+                    Number(
+                        input.value
+                    );
+
+
+                if (
+                    !Number.isInteger(value) ||
+                    value < 1 ||
+                    value > 100
+                ) {
+
+                    hint.textContent =
+                        "Introduce un número entero entre 1 y 100.";
+
+                    return;
+
+                }
+
+
+                attempts += 1;
+
+
+                attemptsElement.textContent =
+                    attempts;
+
+
+                if (
+                    value === secretNumber
+                ) {
+
+                    finished = true;
+
+
+                    const score =
+                        Math.max(
+                            10,
+                            110 -
+                            attempts * 10
+                        );
+
+
+                    lastScore = score;
+
+
+                    const oldBest =
+                        getBestScore();
+
+
+                    if (
+                        score > oldBest
+                    ) {
+
+                        saveBestScore(score);
+
+                    }
+
+
+                    updateBestScore();
+
+
+                    hint.textContent =
+                        "¡Has encontrado el número!";
+
+
+                    result.innerHTML = `
+
+                        <div class="result-title">
+                            🎉 ¡VICTORIA!
+                        </div>
+
+                        <p class="result-text">
+                            El número era ${secretNumber}.
+                        </p>
+
+                        <div
+                            style="
+                                margin-top:10px;
+                                color:white;
+                                font-size:26px;
+                                font-weight:900;
+                            "
+                        >
+                            +${score} PUNTOS
+                        </div>
+
+                    `;
+
+
+                    input.disabled = true;
+
+                    guessButton.disabled = true;
+
+
+                    /*
+                     * Solo se registra una vez,
+                     * cuando se gana la partida.
+                     */
+
+                    if (
+                        window.CAOSLAB_STATS
+                    ) {
+
+                        window.CAOSLAB_STATS.recordGame(
+                            "numero",
+                            "win",
+                            score
+                        );
+
+                    }
+
+
+                    return;
+
+                }
+
+
+                if (
+                    value < secretNumber
+                ) {
+
+                    hint.textContent =
+                        "⬆️ El número secreto es mayor.";
+
+                }
+
+                else {
+
+                    hint.textContent =
+                        "⬇️ El número secreto es menor.";
+
+                }
+
+            }
+
+
+            /* ===============================================
+               EVENTOS
+               =============================================== */
+
+            guessButton.addEventListener(
+                "click",
+                checkGuess
+            );
+
+
+            input.addEventListener(
+                "keydown",
+                function (event) {
+
+                    if (
+                        event.key ===
+                        "Enter"
+                    ) {
+
+                        checkGuess();
+
+                    }
+
+                }
+            );
+
+
+            restartButton.addEventListener(
+                "click",
+                startGame
+            );
+
+
+            /* ===============================================
+               COMPARTIR
+               =============================================== */
+
+            shareButton.addEventListener(
+                "click",
+                async function () {
+
+                    if (!lastScore) {
+
+                        alert(
+                            "Primero gana una partida."
+                        );
+
+                        return;
+
+                    }
+
+
+                    const text =
+                        "He conseguido " +
+                        lastScore +
+                        " puntos en Adivina el Número de CAOSLAB usando " +
+                        attempts +
+                        " intentos. 🔢";
+
+
+                    try {
+
+                        if (
+                            navigator.share
+                        ) {
+
+                            await navigator.share({
+
+                                title:
+                                    "CAOSLAB — Adivina el Número",
+
+                                text:
+                                    text
+
+                            });
+
+                        }
+
+                        else if (
+                            navigator.clipboard
+                        ) {
+
+                            await navigator.clipboard.writeText(
+                                text
+                            );
+
+
+                            alert(
+                                "Resultado copiado al portapapeles."
+                            );
+
+                        }
+
+                    } catch (error) {
+
+                        if (
+                            error.name !==
+                            "AbortError"
+                        ) {
+
+                            console.error(
+                                "CAOSLAB: error compartiendo",
+                                error
+                            );
+
+                        }
+
+                    }
+
+                }
+            );
+
+
+            /* ===============================================
+               AÑO
+               =============================================== */
+
+            const year =
+                document.getElementById(
+                    "year"
+                );
+
+
+            if (year) {
+
+                year.textContent =
+                    new Date().getFullYear();
+
+            }
+
+
+            /* ===============================================
+               INICIO
+               =============================================== */
+
+            updateBestScore();
+
+            startGame();
+
+        })();
+
+    </script>
+
+
+</body>
+
+</html>

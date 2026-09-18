@@ -1,0 +1,956 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="CAOSLAB — Tiempo de Reacción"
+    >
+
+    <meta
+        name="theme-color"
+        content="#0b0b0d"
+    >
+
+    <title>
+        Tiempo de Reacción — CAOSLAB
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="../css/style.css"
+    >
+
+    <style>
+
+        .reaction-area {
+            width: 100%;
+            max-width: 650px;
+            min-height: 260px;
+            margin: 25px auto;
+            padding: 30px;
+            box-sizing: border-box;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: #18181c;
+            border: 1px solid #29292d;
+            border-radius: 20px;
+            cursor: pointer;
+            user-select: none;
+            transition:
+                background 0.2s ease,
+                border-color 0.2s ease,
+                transform 0.15s ease;
+        }
+
+        .reaction-area:hover {
+            border-color: #3a3a40;
+        }
+
+        .reaction-area:active {
+            transform: scale(0.99);
+        }
+
+        .reaction-area.waiting {
+            background: #171719;
+        }
+
+        .reaction-area.ready {
+            background: #25252a;
+            border-color: #777;
+        }
+
+        .reaction-area.too-early {
+            background: #211719;
+            border-color: #6b3438;
+        }
+
+        .reaction-main {
+            color: white;
+            font-size: 28px;
+            font-weight: 900;
+            line-height: 1.15;
+        }
+
+        .reaction-sub {
+            margin-top: 12px;
+            color: #777;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .reaction-time {
+            margin-top: 12px;
+            color: white;
+            font-size: 38px;
+            font-weight: 900;
+        }
+
+        .reaction-points {
+            margin-top: 8px;
+            color: #aaa;
+            font-size: 14px;
+            font-weight: 900;
+        }
+
+        .reaction-best {
+            color: #aaa;
+            font-size: 11px;
+            font-weight: 900;
+        }
+
+        @media (max-width: 600px) {
+
+            .reaction-area {
+                min-height: 230px;
+                padding: 20px;
+            }
+
+            .reaction-main {
+                font-size: 24px;
+            }
+
+            .reaction-time {
+                font-size: 32px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =====================================================
+         CABECERA
+         ===================================================== -->
+
+    <header class="hero">
+
+        <div class="hero-content">
+
+            <div class="hero-badge">
+                CAOSLAB V1.3
+            </div>
+
+            <h1>
+                TIEMPO DE REACCIÓN
+            </h1>
+
+            <p>
+                Espera la señal y pulsa lo más rápido posible.
+            </p>
+
+        </div>
+
+    </header>
+
+
+    <!-- =====================================================
+         JUEGO
+         ===================================================== -->
+
+    <main class="container">
+
+
+        <section class="game-panel">
+
+
+            <div class="game-result">
+
+                <div class="result-title">
+                    ⚡ ¿QUÉ TAN RÁPIDO ERES?
+                </div>
+
+                <p class="result-text">
+                    Pulsa para comenzar. Después espera
+                    a que aparezca la señal.
+                </p>
+
+            </div>
+
+
+            <!-- =================================================
+                 ZONA DE REACCIÓN
+                 ================================================= -->
+
+            <div
+                id="reactionArea"
+                class="reaction-area"
+                role="button"
+                tabindex="0"
+                aria-label="Zona de reacción"
+            >
+
+                <div>
+
+                    <div
+                        id="reactionMain"
+                        class="reaction-main"
+                    >
+                        PULSA PARA EMPEZAR
+                    </div>
+
+                    <div
+                        id="reactionSub"
+                        class="reaction-sub"
+                    >
+                        No pulses antes de tiempo.
+                    </div>
+
+                    <div
+                        id="reactionTime"
+                        class="reaction-time"
+                    >
+                    </div>
+
+                    <div
+                        id="reactionPoints"
+                        class="reaction-points"
+                    >
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 MARCADOR
+                 ================================================= -->
+
+            <div
+                class="score-board"
+                style="margin-top:20px;"
+            >
+
+                <div class="score-item">
+
+                    <span>
+                        ÚLTIMO TIEMPO
+                    </span>
+
+                    <strong id="lastTime">
+                        —
+                    </strong>
+
+                </div>
+
+
+                <div class="score-item">
+
+                    <span>
+                        MEJOR TIEMPO
+                    </span>
+
+                    <strong
+                        id="bestTime"
+                        class="reaction-best"
+                    >
+                        —
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <div
+                class="score-board"
+                style="margin-top:12px;"
+            >
+
+                <div class="score-item">
+
+                    <span>
+                        PUNTOS
+                    </span>
+
+                    <strong id="sessionPoints">
+                        0
+                    </strong>
+
+                </div>
+
+
+                <div class="score-item">
+
+                    <span>
+                        PARTIDAS
+                    </span>
+
+                    <strong id="plays">
+                        0
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 ACCIONES
+                 ================================================= -->
+
+            <div
+                class="game-actions"
+                style="margin-top:20px;"
+            >
+
+                <button
+                    type="button"
+                    id="shareButton"
+                    class="secondary-button"
+                >
+                    📤 COMPARTIR
+                </button>
+
+
+                <button
+                    type="button"
+                    id="restartButton"
+                    class="secondary-button"
+                >
+                    🔄 REINICIAR
+                </button>
+
+
+                <a
+                    href="../index.html"
+                    class="stats-button"
+                >
+                    ← VOLVER A CAOSLAB
+                </a>
+
+            </div>
+
+
+        </section>
+
+
+        <!-- =================================================
+             PUBLICIDAD
+             ================================================= -->
+
+        <section class="ad-container">
+
+            <div class="ad-placeholder">
+
+                <span>
+                    ESPACIO PUBLICITARIO
+                </span>
+
+            </div>
+
+        </section>
+
+
+    </main>
+
+
+    <!-- =====================================================
+         PIE
+         ===================================================== -->
+
+    <footer class="footer">
+
+        <div class="footer-links">
+
+            <a href="../privacy.html">
+                Privacidad
+            </a>
+
+            <a href="../cookies.html">
+                Cookies
+            </a>
+
+            <a href="../terms.html">
+                Términos
+            </a>
+
+        </div>
+
+
+        <p>
+
+            ©
+            <span id="year"></span>
+            CAOSLAB
+
+        </p>
+
+    </footer>
+
+
+    <!-- =====================================================
+         ESTADÍSTICAS
+         ===================================================== -->
+
+    <script src="../js/stats.js"></script>
+
+
+    <!-- =====================================================
+         LÓGICA DEL JUEGO
+         ===================================================== -->
+
+    <script>
+
+        (function () {
+
+            "use strict";
+
+
+            const BEST_KEY =
+                "caoslab_reaction_data_v1";
+
+
+            const MIN_DELAY = 1500;
+
+            const MAX_DELAY = 4500;
+
+
+            let state = "idle";
+
+            let timer = null;
+
+            let startedAt = 0;
+
+            let lastScore = 0;
+
+            let lastTime = 0;
+
+            let sessionPoints = 0;
+
+            let sessionPlays = 0;
+
+
+            const reactionArea =
+                document.getElementById(
+                    "reactionArea"
+                );
+
+
+            const reactionMain =
+                document.getElementById(
+                    "reactionMain"
+                );
+
+
+            const reactionSub =
+                document.getElementById(
+                    "reactionSub"
+                );
+
+
+            const reactionTime =
+                document.getElementById(
+                    "reactionTime"
+                );
+
+
+            const reactionPoints =
+                document.getElementById(
+                    "reactionPoints"
+                );
+
+
+            const lastTimeElement =
+                document.getElementById(
+                    "lastTime"
+                );
+
+
+            const bestTimeElement =
+                document.getElementById(
+                    "bestTime"
+                );
+
+
+            const sessionPointsElement =
+                document.getElementById(
+                    "sessionPoints"
+                );
+
+
+            const playsElement =
+                document.getElementById(
+                    "plays"
+                );
+
+
+            const shareButton =
+                document.getElementById(
+                    "shareButton"
+                );
+
+
+            const restartButton =
+                document.getElementById(
+                    "restartButton"
+                );
+
+
+            /* ===============================================
+               DATOS LOCALES
+               =============================================== */
+
+            function getData() {
+
+                try {
+
+                    const raw =
+                        localStorage.getItem(
+                            BEST_KEY
+                        );
+
+
+                    if (!raw) {
+
+                        return {
+                            bestTime: null
+                        };
+
+                    }
+
+
+                    const data =
+                        JSON.parse(raw);
+
+
+                    if (
+                        !data ||
+                        typeof data !== "object"
+                    ) {
+
+                        return {
+                            bestTime: null
+                        };
+
+                    }
+
+
+                    const best =
+                        Number(
+                            data.bestTime
+                        );
+
+
+                    return {
+                        bestTime:
+                            Number.isFinite(best) &&
+                            best > 0
+                                ? best
+                                : null
+                    };
+
+                } catch (error) {
+
+                    return {
+                        bestTime: null
+                    };
+
+                }
+
+            }
+
+
+            function saveData(bestTime) {
+
+                try {
+
+                    localStorage.setItem(
+                        BEST_KEY,
+                        JSON.stringify({
+                            bestTime: bestTime
+                        })
+                    );
+
+                } catch (error) {
+
+                    console.error(
+                        "CAOSLAB: error guardando reacción",
+                        error
+                    );
+
+                }
+
+            }
+
+
+            function getBestTime() {
+
+                return getData().bestTime;
+
+            }
+
+
+            function updateBestDisplay() {
+
+                const best =
+                    getBestTime();
+
+
+                bestTimeElement.textContent =
+                    best
+                        ? best + " ms"
+                        : "—";
+
+            }
+
+
+            /* ===============================================
+               PUNTOS
+               =============================================== */
+
+            function calculatePoints(ms) {
+
+                if (ms < 150) {
+                    return 150;
+                }
+
+                if (ms < 200) {
+                    return 130;
+                }
+
+                if (ms < 250) {
+                    return 110;
+                }
+
+                if (ms < 300) {
+                    return 100;
+                }
+
+                if (ms < 400) {
+                    return 80;
+                }
+
+                if (ms < 500) {
+                    return 60;
+                }
+
+                if (ms < 700) {
+                    return 40;
+                }
+
+                return 20;
+
+            }
+
+
+            /* ===============================================
+               ESPERA ALEATORIA
+               =============================================== */
+
+            function getRandomDelay() {
+
+                return Math.floor(
+                    Math.random() *
+                    (
+                        MAX_DELAY -
+                        MIN_DELAY +
+                        1
+                    )
+                ) + MIN_DELAY;
+
+            }
+
+
+            /* ===============================================
+               ESTADO INICIAL
+               =============================================== */
+
+            function resetVisualState() {
+
+                reactionArea.classList.remove(
+                    "waiting",
+                    "ready",
+                    "too-early"
+                );
+
+
+                reactionMain.textContent =
+                    "PULSA PARA EMPEZAR";
+
+
+                reactionSub.textContent =
+                    "No pulses antes de tiempo.";
+
+
+                reactionTime.textContent =
+                    "";
+
+
+                reactionPoints.textContent =
+                    "";
+
+            }
+
+
+            /* ===============================================
+               COMENZAR
+               =============================================== */
+
+            function startRound() {
+
+                if (
+                    state === "waiting" ||
+                    state === "ready"
+                ) {
+
+                    return;
+
+                }
+
+
+                clearTimeout(timer);
+
+
+                state = "waiting";
+
+                lastScore = 0;
+
+
+                reactionArea.classList.remove(
+                    "ready",
+                    "too-early"
+                );
+
+
+                reactionArea.classList.add(
+                    "waiting"
+                );
+
+
+                reactionMain.textContent =
+                    "ESPERA…";
+
+
+                reactionSub.textContent =
+                    "Cuando aparezca la señal, pulsa.";
+
+
+                reactionTime.textContent =
+                    "";
+
+
+                reactionPoints.textContent =
+                    "";
+
+
+                const delay =
+                    getRandomDelay();
+
+
+                timer = setTimeout(
+                    function () {
+
+                        state = "ready";
+
+                        startedAt =
+                            performance.now();
+
+
+                        reactionArea.classList.remove(
+                            "waiting"
+                        );
+
+
+                        reactionArea.classList.add(
+                            "ready"
+                        );
+
+
+                        reactionMain.textContent =
+                            "⚡ ¡AHORA!";
+
+
+                        reactionSub.textContent =
+                            "¡PULSA!";
+
+                    },
+                    delay
+                );
+
+            }
+
+
+            /* ===============================================
+               DEMASIADO PRONTO
+               =============================================== */
+
+            function tooEarly() {
+
+                clearTimeout(timer);
+
+
+                state = "idle";
+
+
+                reactionArea.classList.remove(
+                    "waiting",
+                    "ready"
+                );
+
+
+                reactionArea.classList.add(
+                    "too-early"
+                );
+
+
+                reactionMain.textContent =
+                    "❌ DEMASIADO PRONTO";
+
+
+                reactionSub.textContent =
+                    "No has ganado puntos en esta ronda.";
+
+
+                reactionTime.textContent =
+                    "";
+
+
+                reactionPoints.textContent =
+                    "";
+
+
+                setTimeout(
+                    function () {
+
+                        if (
+                            state === "idle"
+                        ) {
+
+                            resetVisualState();
+
+                        }
+
+                    },
+                    1300
+                );
+
+            }
+
+
+            /* ===============================================
+               RESULTADO
+               =============================================== */
+
+            function finishRound() {
+
+                if (
+                    state !== "ready"
+                ) {
+
+                    return;
+
+                }
+
+
+                const elapsed =
+                    performance.now() -
+                    startedAt;
+
+
+                const milliseconds =
+                    Math.max(
+                        1,
+                        Math.round(elapsed)
+                    );
+
+
+                const points =
+                    calculatePoints(
+                        milliseconds
+                    );
+
+
+                state = "idle";
+
+                lastTime =
+                    milliseconds;
+
+                lastScore =
+                    points;
+
+
+                sessionPlays += 1;
+
+                sessionPoints += points;
+
+
+                lastTimeElement.textContent =
+                    milliseconds + " ms";
+
+
+                sessionPointsElement.textContent =
+                    sessionPoints;
+
+
+                playsElement.textContent =
+                    sessionPlays;
+
+
+                reactionArea.classList.remove(
+                    "ready"
+                );
+
+
+                reactionMain.textContent =
+                    "⚡ " +
+                    milliseconds +
+                    " MS";
+
+
+                reactionSub.textContent =
+                    "Tiempo de reacción";
+
+
+                reactionTime.textContent =
+                    "";
+
+
+                reactionPoints.textContent =
+                    "+" +
+                    points +
+                    " PUNTOS";
+
+
+                const best =
+                    getBestTime();
+
+
+                if (
+                    best === null ||
+                    milliseconds < best
+                ) {
+
+                    saveData(
+                        milliseconds
+                    );
+
+
+                    updateBestDisplay();
+
+                }
+
+
+                /*
+                 * Solo se registra una vez por
+                 * reacción válida.
+                 */
+
+                if (
+              

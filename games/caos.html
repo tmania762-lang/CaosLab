@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="CAOSLAB — Botón del Caos"
+    >
+
+    <meta
+        name="theme-color"
+        content="#0b0b0d"
+    >
+
+    <title>
+        Botón del Caos — CAOSLAB
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="../css/style.css"
+    >
+
+    <style>
+
+        .chaos-button {
+
+            width: min(260px, 80vw);
+            height: min(260px, 80vw);
+
+            margin: 35px auto;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border: 8px solid #29292d;
+            border-radius: 50%;
+
+            background: #17171b;
+            color: white;
+
+            font-family: inherit;
+            font-size: 24px;
+            font-weight: 900;
+
+            cursor: pointer;
+
+            box-shadow:
+                0 12px 35px rgba(0,0,0,.4),
+                inset 0 0 0 4px #0b0b0d;
+
+            transition:
+                transform .12s ease,
+                background .2s ease,
+                border-color .2s ease;
+        }
+
+        .chaos-button:hover {
+
+            transform: scale(1.03);
+
+            background: #1d1d22;
+
+            border-color: #44444a;
+
+        }
+
+        .chaos-button:active {
+
+            transform: scale(.96);
+
+        }
+
+        .chaos-button:disabled {
+
+            opacity: .6;
+
+            cursor: wait;
+
+        }
+
+        .chaos-result {
+
+            min-height: 90px;
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+
+        }
+
+        .chaos-result strong {
+
+            display: block;
+
+            margin-bottom: 8px;
+
+            color: white;
+
+            font-size: 20px;
+            font-weight: 900;
+
+        }
+
+        .chaos-result span {
+
+            color: #aaa;
+
+            font-size: 13px;
+
+        }
+
+        .chaos-points {
+
+            margin-top: 10px;
+
+            color: white;
+
+            font-size: 26px;
+            font-weight: 900;
+
+        }
+
+        @media (max-width: 420px) {
+
+            .chaos-button {
+
+                font-size: 20px;
+
+                border-width: 6px;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =====================================================
+         CABECERA
+         ===================================================== -->
+
+    <header class="hero">
+
+        <div class="hero-content">
+
+            <div class="hero-badge">
+                CAOSLAB V1.3
+            </div>
+
+            <h1>
+                BOTÓN DEL CAOS
+            </h1>
+
+            <p>
+                Nadie sabe qué pasará al pulsarlo.
+            </p>
+
+        </div>
+
+    </header>
+
+
+    <!-- =====================================================
+         JUEGO
+         ===================================================== -->
+
+    <main class="container">
+
+
+        <section class="game-panel">
+
+
+            <div
+                class="game-result"
+                id="result"
+            >
+
+                <div class="result-title">
+                    PULSA BAJO TU RESPONSABILIDAD
+                </div>
+
+                <p class="result-text">
+                    El botón no garantiza absolutamente nada.
+                </p>
+
+            </div>
+
+
+            <button
+                type="button"
+                id="chaosButton"
+                class="chaos-button"
+            >
+                💀 CAOS
+            </button>
+
+
+            <!-- =============================================
+                 SESIÓN
+                 ============================================= -->
+
+            <div
+                class="score-board"
+                style="margin-top: 10px;"
+            >
+
+                <div class="score-item">
+
+                    <span>
+                        PULSACIONES
+                    </span>
+
+                    <strong id="plays">
+                        0
+                    </strong>
+
+                </div>
+
+
+                <div class="score-item">
+
+                    <span>
+                        PUNTOS
+                    </span>
+
+                    <strong id="sessionPoints">
+                        0
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <!-- =============================================
+                 ACCIONES
+                 ============================================= -->
+
+            <div
+                class="game-actions"
+                style="margin-top: 20px;"
+            >
+
+                <button
+                    type="button"
+                    id="shareButton"
+                    class="secondary-button"
+                >
+                    📤 COMPARTIR
+                </button>
+
+
+                <a
+                    href="../index.html"
+                    class="stats-button"
+                >
+                    ← VOLVER A CAOSLAB
+                </a>
+
+            </div>
+
+
+        </section>
+
+
+        <!-- =================================================
+             PUBLICIDAD
+             ================================================= -->
+
+        <section class="ad-container">
+
+            <div class="ad-placeholder">
+
+                <span>
+                    ESPACIO PUBLICITARIO
+                </span>
+
+            </div>
+
+        </section>
+
+
+    </main>
+
+
+    <!-- =====================================================
+         PIE
+         ===================================================== -->
+
+    <footer class="footer">
+
+        <div class="footer-links">
+
+            <a href="../privacy.html">
+                Privacidad
+            </a>
+
+            <a href="../cookies.html">
+                Cookies
+            </a>
+
+            <a href="../terms.html">
+                Términos
+            </a>
+
+        </div>
+
+
+        <p>
+
+            ©
+            <span id="year"></span>
+            CAOSLAB
+
+        </p>
+
+    </footer>
+
+
+    <!-- =====================================================
+         ESTADÍSTICAS
+         ===================================================== -->
+
+    <script src="../js/stats.js"></script>
+
+
+    <!-- =====================================================
+         LÓGICA
+         ===================================================== -->
+
+    <script>
+
+        (function () {
+
+            "use strict";
+
+
+            const outcomes = [
+
+                {
+                    text: "HAS GANADO 10 PUNTOS",
+                    points: 10
+                },
+
+                {
+                    text: "EL CAOS TE HA PERDONADO",
+                    points: 50
+                },
+
+                {
+                    text: "¡CAOS TOTAL!",
+                    points: 250
+                },
+
+                {
+                    text: "CASI SALE MAL",
+                    points: 25
+                },
+
+                {
+                    text: "EL UNIVERSO TE PREMIA",
+                    points: 200
+                },
+
+                {
+                    text: "NO ESTÁ MAL",
+                    points: 150
+                },
+
+                {
+                    text: "EL CAOS TE CONOCE",
+                    points: 75
+                },
+
+                {
+                    text: "HAS SOBREVIVIDO",
+                    points: 100
+                },
+
+                {
+                    text: "ESO HA SIDO TRISTE",
+                    points: 20
+                },
+
+                {
+                    text: "BUENA JUGADA",
+                    points: 125
+                },
+
+                {
+                    text: "HOY TIENES SUERTE",
+                    points: 175
+                },
+
+                {
+                    text: "EL CAOS ESTÁ CONTENTO",
+                    points: 225
+                }
+
+            ];
+
+
+            const chaosButton =
+                document.getElementById(
+                    "chaosButton"
+                );
+
+
+            const result =
+                document.getElementById(
+                    "result"
+                );
+
+
+            const playsElement =
+                document.getElementById(
+                    "plays"
+                );
+
+
+            const pointsElement =
+                document.getElementById(
+                    "sessionPoints"
+                );
+
+
+            const shareButton =
+                document.getElementById(
+                    "shareButton"
+                );
+
+
+            let plays = 0;
+
+            let sessionPoints = 0;
+
+            let lastOutcome = null;
+
+            let locked = false;
+
+
+            /* ===============================================
+               PULSAR
+               =============================================== */
+
+            chaosButton.addEventListener(
+                "click",
+                function () {
+
+                    if (locked) {
+                        return;
+                    }
+
+
+                    locked = true;
+
+                    chaosButton.disabled =
+                        true;
+
+                    chaosButton.textContent =
+                        "💀 ...";
+
+
+                    setTimeout(
+                        function () {
+
+                            const index =
+                                Math.floor(
+                                    Math.random() *
+                                    outcomes.length
+                                );
+
+
+                            const outcome =
+                                outcomes[index];
+
+
+                            lastOutcome =
+                                outcome;
+
+
+                            plays += 1;
+
+                            sessionPoints +=
+                                outcome.points;
+
+
+                            playsElement.textContent =
+                                plays;
+
+
+                            pointsElement.textContent =
+                                sessionPoints;
+
+
+                            result.innerHTML = `
+
+                                <div class="result-title">
+                                    RESULTADO
+                                </div>
+
+                                <div class="chaos-result">
+
+                                    <strong>
+                                        ${outcome.text}
+                                    </strong>
+
+                                    <span>
+                                        Has conseguido
+                                    </span>
+
+                                    <div class="chaos-points">
+                                        +${outcome.points} PUNTOS
+                                    </div>
+
+                                </div>
+
+                            `;
+
+
+                            /*
+                             * Registrar únicamente
+                             * el resultado actual.
+                             */
+
+                            if (
+                                window.CAOSLAB_STATS
+                            ) {
+
+                                window.CAOSLAB_STATS.recordGame(
+                                    "caos",
+                                    "play",
+                                    outcome.points
+                                );
+
+                            }
+
+
+                            chaosButton.disabled =
+                                false;
+
+                            chaosButton.textContent =
+                                "💀 CAOS";
+
+                            locked = false;
+
+
+                        },
+                        500
+                    );
+
+                }
+            );
+
+
+            /* ===============================================
+               COMPARTIR
+               =============================================== */
+
+            shareButton.addEventListener(
+                "click",
+                async function () {
+
+                    if (!lastOutcome) {
+
+                        alert(
+                            "Primero pulsa el botón del caos."
+                        );
+
+                        return;
+
+                    }
+
+
+                    const text =
+                        "He pulsado el Botón del Caos de CAOSLAB y me ha dado " +
+                        lastOutcome.points +
+                        " puntos. 💀";
+
+
+                    try {
+
+                        if (
+                            navigator.share
+                        ) {
+
+                            await navigator.share({
+
+                                title:
+                                    "CAOSLAB — Botón del Caos",
+
+                                text:
+                                    text
+
+                            });
+
+                        }
+
+                        else if (
+                            navigator.clipboard
+                        ) {
+
+                            await navigator.clipboard.writeText(
+                                text
+                            );
+
+
+                            alert(
+                                "Resultado copiado al portapapeles."
+                            );
+
+                        }
+
+                    } catch (error) {
+
+                        if (
+                            error.name !==
+                            "AbortError"
+                        ) {
+
+                            console.error(
+                                "CAOSLAB: error compartiendo",
+                                error
+                            );
+
+                        }
+
+                    }
+
+                }
+            );
+
+
+            /* ===============================================
+               AÑO
+               =============================================== */
+
+            const year =
+                document.getElementById(
+                    "year"
+                );
+
+
+            if (year) {
+
+                year.textContent =
+                    new Date().getFullYear();
+
+            }
+
+        })();
+
+    </script>
+
+
+</body>
+
+</html>

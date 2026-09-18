@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="CAOSLAB — Medidor de Suerte"
+    >
+
+    <meta
+        name="theme-color"
+        content="#0b0b0d"
+    >
+
+    <title>
+        Medidor de Suerte — CAOSLAB
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="../css/style.css"
+    >
+
+    <style>
+
+        .luck-result {
+            width: 100%;
+            max-width: 600px;
+            margin: 25px auto;
+            padding: 35px 20px;
+            box-sizing: border-box;
+            background: #18181c;
+            border: 1px solid #29292d;
+            border-radius: 20px;
+            text-align: center;
+        }
+
+        .luck-number {
+            color: white;
+            font-size: 72px;
+            font-weight: 900;
+            line-height: 1;
+        }
+
+        .luck-percent {
+            margin-top: 5px;
+            color: #666;
+            font-size: 12px;
+            font-weight: 900;
+            letter-spacing: 1px;
+        }
+
+        .luck-message {
+            min-height: 28px;
+            margin-top: 20px;
+            color: white;
+            font-size: 18px;
+            font-weight: 900;
+            line-height: 1.3;
+        }
+
+        .luck-points {
+            min-height: 22px;
+            margin-top: 8px;
+            color: #aaa;
+            font-size: 12px;
+            font-weight: 900;
+        }
+
+        .luck-meter {
+            width: 100%;
+            max-width: 500px;
+            height: 10px;
+            margin: 25px auto 0;
+            overflow: hidden;
+            background: #0e0e10;
+            border: 1px solid #29292d;
+            border-radius: 999px;
+        }
+
+        .luck-meter-fill {
+            width: 0%;
+            height: 100%;
+            background: #777;
+            border-radius: inherit;
+            transition: width 0.7s ease;
+        }
+
+        .luck-labels {
+            width: 100%;
+            max-width: 500px;
+            margin: 7px auto 0;
+            display: flex;
+            justify-content: space-between;
+            color: #555;
+            font-size: 8px;
+            font-weight: 900;
+        }
+
+        @media (max-width: 500px) {
+
+            .luck-result {
+                padding: 30px 15px;
+            }
+
+            .luck-number {
+                font-size: 58px;
+            }
+
+            .luck-message {
+                font-size: 16px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =====================================================
+         CABECERA
+         ===================================================== -->
+
+    <header class="hero">
+
+        <div class="hero-content">
+
+            <div class="hero-badge">
+                CAOSLAB V1.3
+            </div>
+
+            <h1>
+                MEDIDOR DE SUERTE
+            </h1>
+
+            <p>
+                Descubre cuánto te quiere hoy el universo.
+            </p>
+
+        </div>
+
+    </header>
+
+
+    <!-- =====================================================
+         JUEGO
+         ===================================================== -->
+
+    <main class="container">
+
+
+        <section class="game-panel">
+
+
+            <div class="game-result">
+
+                <div class="result-title">
+                    🍀 ¿CUÁNTA SUERTE TIENES?
+                </div>
+
+                <p class="result-text">
+                    El resultado es completamente aleatorio.
+                </p>
+
+            </div>
+
+
+            <!-- =================================================
+                 RESULTADO
+                 ================================================= -->
+
+            <div class="luck-result">
+
+                <div
+                    id="luckNumber"
+                    class="luck-number"
+                >
+                    ?
+                </div>
+
+
+                <div class="luck-percent">
+                    PORCENTAJE DE SUERTE
+                </div>
+
+
+                <div
+                    id="luckMessage"
+                    class="luck-message"
+                >
+                    Pulsa el botón para descubrirlo.
+                </div>
+
+
+                <div
+                    id="luckPoints"
+                    class="luck-points"
+                >
+                </div>
+
+
+                <div class="luck-meter">
+
+                    <div
+                        id="luckMeterFill"
+                        class="luck-meter-fill"
+                    >
+                    </div>
+
+                </div>
+
+
+                <div class="luck-labels">
+
+                    <span>
+                        MALA SUERTE
+                    </span>
+
+                    <span>
+                        SUERTE ABSOLUTA
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 BOTÓN
+                 ================================================= -->
+
+            <button
+                type="button"
+                id="luckButton"
+                class="game-button"
+            >
+                🍀 MEDIR MI SUERTE
+            </button>
+
+
+            <!-- =================================================
+                 MARCADOR
+                 ================================================= -->
+
+            <div
+                class="score-board"
+                style="margin-top:20px;"
+            >
+
+                <div class="score-item">
+
+                    <span>
+                        PUNTOS
+                    </span>
+
+                    <strong id="sessionPoints">
+                        0
+                    </strong>
+
+                </div>
+
+
+                <div class="score-item">
+
+                    <span>
+                        MEDICIONES
+                    </span>
+
+                    <strong id="plays">
+                        0
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 ACCIONES
+                 ================================================= -->
+
+            <div
+                class="game-actions"
+                style="margin-top:20px;"
+            >
+
+                <button
+                    type="button"
+                    id="shareButton"
+                    class="secondary-button"
+                >
+                    📤 COMPARTIR
+                </button>
+
+
+                <a
+                    href="../index.html"
+                    class="stats-button"
+                >
+                    ← VOLVER A CAOSLAB
+                </a>
+
+            </div>
+
+
+        </section>
+
+
+        <!-- =================================================
+             PUBLICIDAD
+             ================================================= -->
+
+        <section class="ad-container">
+
+            <div class="ad-placeholder">
+
+                <span>
+                    ESPACIO PUBLICITARIO
+                </span>
+
+            </div>
+
+        </section>
+
+
+    </main>
+
+
+    <!-- =====================================================
+         PIE
+         ===================================================== -->
+
+    <footer class="footer">
+
+        <div class="footer-links">
+
+            <a href="../privacy.html">
+                Privacidad
+            </a>
+
+            <a href="../cookies.html">
+                Cookies
+            </a>
+
+            <a href="../terms.html">
+                Términos
+            </a>
+
+        </div>
+
+
+        <p>
+
+            ©
+            <span id="year"></span>
+            CAOSLAB
+
+        </p>
+
+    </footer>
+
+
+    <!-- =====================================================
+         ESTADÍSTICAS
+         ===================================================== -->
+
+    <script src="../js/stats.js"></script>
+
+
+    <!-- =====================================================
+         LÓGICA
+         ===================================================== -->
+
+    <script>
+
+        (function () {
+
+            "use strict";
+
+
+            let sessionPoints = 0;
+
+            let sessionPlays = 0;
+
+            let lastLuck = null;
+
+            let lastPoints = 0;
+
+            let lastMessage = "";
+
+
+            const luckButton =
+                document.getElementById(
+                    "luckButton"
+                );
+
+
+            const luckNumber =
+                document.getElementById(
+                    "luckNumber"
+                );
+
+
+            const luckMessage =
+                document.getElementById(
+                    "luckMessage"
+                );
+
+
+            const luckPoints =
+                document.getElementById(
+                    "luckPoints"
+                );
+
+
+            const luckMeterFill =
+                document.getElementById(
+                    "luckMeterFill"
+                );
+
+
+            const sessionPointsElement =
+                document.getElementById(
+                    "sessionPoints"
+                );
+
+
+            const playsElement =
+                document.getElementById(
+                    "plays"
+                );
+
+
+            const shareButton =
+                document.getElementById(
+                    "shareButton"
+                );
+
+
+            /* ===============================================
+               RESULTADO
+               =============================================== */
+
+            function getLuckResult(value) {
+
+                if (value >= 95) {
+
+                    return {
+                        message:
+                            "🍀 SUERTE ABSOLUTA. Hoy puedes desafiar al universo.",
+                        points: 250
+                    };
+
+                }
+
+
+                if (value >= 80) {
+
+                    return {
+                        message:
+                            "✨ ¡MUCHA SUERTE! El caos te está sonriendo.",
+                        points: 200
+                    };
+
+                }
+
+
+                if (value >= 65) {
+
+                    return {
+                        message:
+                            "😎 Buena suerte. Aprovecha el momento.",
+                        points: 150
+                    };
+
+                }
+
+
+                if (value >= 50) {
+
+                    return {
+                        message:
+                            "🙂 Suerte normal. Ni mal ni bien.",
+                        points: 100
+                    };
+
+                }
+
+
+                if (value >= 35) {
+
+                    return {
+                        message:
+                            "😐 El universo está indeciso contigo.",
+                        points: 75
+                    };
+
+                }
+
+
+                if (value >= 20) {
+
+                    return {
+                        message:
+                            "😬 Hoy la suerte no está colaborando demasiado.",
+                        points: 50
+                    };
+
+                }
+
+
+                return {
+                    message:
+                        "💀 Mala suerte. El caos se ha acordado de ti.",
+                    points: 25
+                };
+
+            }
+
+
+            /* ===============================================
+               MEDIR
+               =============================================== */
+
+            function measureLuck() {
+
+                luckButton.disabled =
+                    true;
+
+
+                luckNumber.textContent =
+                    "…";
+
+
+                luckMessage.textContent =
+                    "Consultando al universo…";
+
+
+                luckPoints.textContent =
+                    "";
+
+
+                luckMeterFill.style.width =
+                    "0%";
+
+
+                setTimeout(
+                    function () {
+
+                        const value =
+                            Math.floor(
+                                Math.random() *
+                                101
+                            );
+
+
+                        const result =
+                            getLuckResult(
+                                value
+                            );
+
+
+                        lastLuck =
+                            value;
+
+                        lastPoints =
+                            result.points;
+
+                        lastMessage =
+                            result.message;
+
+
+                        sessionPlays += 1;
+
+                        sessionPoints +=
+                            result.points;
+
+
+                        playsElement.textContent =
+                            sessionPlays;
+
+
+                        sessionPointsElement.textContent =
+                            sessionPoints;
+
+
+                        luckNumber.textContent =
+                            value;
+
+
+                        luckMessage.textContent =
+                            result.message;
+
+
+                        luckPoints.textContent =
+                            "+" +
+                            result.points +
+                            " PUNTOS";
+
+
+                        /*
+                         * La barra sigue exactamente
+                         * el porcentaje obtenido.
+                         */
+
+                        luckMeterFill.style.width =
+                            value + "%";
+
+
+                        /*
+                         * Cada medición cuenta como
+                         * una partida.
+                         */
+
+                        if (
+                            window.CAOSLAB_STATS
+                        ) {
+
+                            window.CAOSLAB_STATS.recordGame(
+                                "suerte",
+                                "play",
+                                result.points
+                            );
+
+                        }
+
+
+                        luckButton.disabled =
+                            false;
+
+                    },
+                    800
+                );
+
+            }
+
+
+            luckButton.addEventListener(
+                "click",
+                measureLuck
+            );
+
+
+            /* ===============================================
+               COMPARTIR
+               =============================================== */
+
+            shareButton.addEventListener(
+                "click",
+                async function () {
+
+                    if (
+                        lastLuck === null
+                    ) {
+
+                        alert(
+                            "Primero mide tu suerte."
+                        );
+
+                        return;
+
+                    }
+
+
+                    const text =
+                        "Hoy tengo un " +
+                        lastLuck +
+                        "% de suerte en CAOSLAB: " +
+                        lastMessage +
+                        " +" +
+                        lastPoints +
+                        " puntos. 🍀";
+
+
+                    try {
+
+                        if (
+                            navigator.share
+                        ) {
+
+                            await navigator.share({
+
+                                title:
+                                    "CAOSLAB — Medidor de Suerte",
+
+                                text:
+                                    text
+
+                            });
+
+                        }
+
+                        else if (
+                            navigator.clipboard
+                        ) {
+
+                            await navigator.clipboard.writeText(
+                                text
+                            );
+
+
+                            alert(
+                                "Resultado copiado al portapapeles."
+                            );
+
+                        }
+
+                    } catch (error) {
+
+                        if (
+                            error.name !==
+                            "AbortError"
+                        ) {
+
+                            console.error(
+                                "CAOSLAB: error compartiendo",
+                                error
+                            );
+
+                        }
+
+                    }
+
+                }
+            );
+
+
+            /* ===============================================
+               AÑO
+               =============================================== */
+
+            const year =
+                document.getElementById(
+                    "year"
+                );
+
+
+            if (year) {
+
+                year.textContent =
+                    new Date().getFullYear();
+
+            }
+
+        })();
+
+    </script>
+
+
+</body>
+
+</html>

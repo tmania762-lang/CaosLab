@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="CAOSLAB — Generador de Excusas"
+    >
+
+    <meta
+        name="theme-color"
+        content="#0b0b0d"
+    >
+
+    <title>
+        Generador de Excusas — CAOSLAB
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="../css/style.css"
+    >
+
+</head>
+
+
+<body>
+
+
+    <!-- =====================================================
+         CABECERA
+         ===================================================== -->
+
+    <header class="hero">
+
+        <div class="hero-content">
+
+            <div class="hero-badge">
+                CAOSLAB V1.3
+            </div>
+
+            <h1>
+                GENERADOR DE EXCUSAS
+            </h1>
+
+            <p>
+                Porque siempre necesitas una explicación.
+            </p>
+
+        </div>
+
+    </header>
+
+
+    <!-- =====================================================
+         CONTENIDO
+         ===================================================== -->
+
+    <main class="container">
+
+
+        <section class="game-panel">
+
+
+            <div
+                class="game-result"
+                id="result"
+            >
+
+                <div class="result-title">
+                    ¿NECESITAS UNA EXCUSA?
+                </div>
+
+                <p class="result-text">
+                    El caos tiene una preparada para ti.
+                </p>
+
+            </div>
+
+
+            <div
+                class="excuse-text"
+                id="excuseText"
+            >
+                Pulsa el botón y descubre tu excusa.
+            </div>
+
+
+            <button
+                type="button"
+                id="generateButton"
+                class="game-button"
+            >
+                😂 GENERAR EXCUSA
+            </button>
+
+
+            <!-- =============================================
+                 ESTADÍSTICAS DE SESIÓN
+                 ============================================= -->
+
+            <div
+                class="score-board"
+                style="margin-top: 25px;"
+            >
+
+                <div class="score-item">
+
+                    <span>
+                        EXCUSAS
+                    </span>
+
+                    <strong id="plays">
+                        0
+                    </strong>
+
+                </div>
+
+
+                <div class="score-item">
+
+                    <span>
+                        PUNTOS
+                    </span>
+
+                    <strong id="sessionPoints">
+                        0
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <!-- =============================================
+                 ACCIONES
+                 ============================================= -->
+
+            <div
+                class="game-actions"
+                style="margin-top: 20px;"
+            >
+
+                <button
+                    type="button"
+                    id="copyButton"
+                    class="secondary-button"
+                >
+                    📋 COPIAR
+                </button>
+
+
+                <button
+                    type="button"
+                    id="shareButton"
+                    class="secondary-button"
+                >
+                    📤 COMPARTIR
+                </button>
+
+
+                <a
+                    href="../index.html"
+                    class="stats-button"
+                >
+                    ← VOLVER A CAOSLAB
+                </a>
+
+            </div>
+
+
+        </section>
+
+
+        <!-- =================================================
+             PUBLICIDAD
+             ================================================= -->
+
+        <section class="ad-container">
+
+            <div class="ad-placeholder">
+
+                <span>
+                    ESPACIO PUBLICITARIO
+                </span>
+
+            </div>
+
+        </section>
+
+
+    </main>
+
+
+    <!-- =====================================================
+         PIE
+         ===================================================== -->
+
+    <footer class="footer">
+
+        <div class="footer-links">
+
+            <a href="../privacy.html">
+                Privacidad
+            </a>
+
+            <a href="../cookies.html">
+                Cookies
+            </a>
+
+            <a href="../terms.html">
+                Términos
+            </a>
+
+        </div>
+
+
+        <p>
+
+            ©
+            <span id="year"></span>
+            CAOSLAB
+
+        </p>
+
+    </footer>
+
+
+    <!-- =====================================================
+         ESTADÍSTICAS
+         ===================================================== -->
+
+    <script src="../js/stats.js"></script>
+
+
+    <!-- =====================================================
+         LÓGICA DEL JUEGO
+         ===================================================== -->
+
+    <script>
+
+        (function () {
+
+            "use strict";
+
+
+            const POINTS = 50;
+
+
+            const excuses = [
+
+                "No llegué tarde. El tiempo llegó demasiado pronto.",
+
+                "Mi alarma sonó, pero decidimos ignorarnos mutuamente.",
+
+                "Iba a hacerlo, pero mi cerebro abrió otra pestaña.",
+
+                "Mi perro se quedó mirando y me pareció importante respetar su opinión.",
+
+                "Estaba a punto de hacerlo cuando ocurrió algo completamente innecesario.",
+
+                "El universo me pidió que no lo hiciera.",
+
+                "Se me olvidó porque estaba intentando recordar otra cosa.",
+
+                "Mi móvil tenía demasiadas notificaciones y entré en modo supervivencia.",
+
+                "Lo tenía preparado, pero desapareció misteriosamente.",
+
+                "Pensé que hoy era mañana.",
+
+                "Mi concentración salió a dar una vuelta y todavía no ha vuelto.",
+
+                "Había tráfico emocional.",
+
+                "Mi cerebro necesitaba instalar una actualización.",
+
+                "Lo hice mentalmente. Cuenta, ¿no?",
+
+                "El problema no fui yo. Fue la organización del universo.",
+
+                "Me distraje cinco segundos y perdí aproximadamente tres horas.",
+
+                "La situación requería una pausa estratégica de duración indefinida.",
+
+                "Estaba esperando el momento perfecto. Sigue sin llegar.",
+
+                "Mi sentido común recomendó no hacerlo.",
+
+                "Técnicamente tenía intención de hacerlo, así que cuenta como casi hecho."
+
+            ];
+
+
+            const excuseText =
+                document.getElementById(
+                    "excuseText"
+                );
+
+
+            const generateButton =
+                document.getElementById(
+                    "generateButton"
+                );
+
+
+            const copyButton =
+                document.getElementById(
+                    "copyButton"
+                );
+
+
+            const shareButton =
+                document.getElementById(
+                    "shareButton"
+                );
+
+
+            const playsElement =
+                document.getElementById(
+                    "plays"
+                );
+
+
+            const pointsElement =
+                document.getElementById(
+                    "sessionPoints"
+                );
+
+
+            let plays = 0;
+
+            let sessionPoints = 0;
+
+            let currentExcuse = "";
+
+
+            /* ===============================================
+               GENERAR EXCUSA
+               =============================================== */
+
+            function generateExcuse() {
+
+                const index =
+                    Math.floor(
+                        Math.random() *
+                        excuses.length
+                    );
+
+
+                currentExcuse =
+                    excuses[index];
+
+
+                excuseText.textContent =
+                    currentExcuse;
+
+
+                plays += 1;
+
+                sessionPoints += POINTS;
+
+
+                playsElement.textContent =
+                    plays;
+
+
+                pointsElement.textContent =
+                    sessionPoints;
+
+
+                if (
+                    window.CAOSLAB_STATS
+                ) {
+
+                    window.CAOSLAB_STATS.recordGame(
+                        "excusas",
+                        "play",
+                        POINTS
+                    );
+
+                }
+
+            }
+
+
+            generateButton.addEventListener(
+                "click",
+                generateExcuse
+            );
+
+
+            /* ===============================================
+               COPIAR
+               =============================================== */
+
+            copyButton.addEventListener(
+                "click",
+                async function () {
+
+                    if (!currentExcuse) {
+
+                        alert(
+                            "Primero genera una excusa."
+                        );
+
+                        return;
+
+                    }
+
+
+                    try {
+
+                        await navigator.clipboard.writeText(
+                            currentExcuse
+                        );
+
+
+                        copyButton.textContent =
+                            "✅ COPIADO";
+
+
+                        setTimeout(
+                            function () {
+
+                                copyButton.textContent =
+                                    "📋 COPIAR";
+
+                            },
+                            1500
+                        );
+
+
+                    } catch (error) {
+
+                        console.error(
+                            "CAOSLAB: error copiando",
+                            error
+                        );
+
+                    }
+
+                }
+            );
+
+
+            /* ===============================================
+               COMPARTIR
+               =============================================== */
+
+            shareButton.addEventListener(
+                "click",
+                async function () {
+
+                    if (!currentExcuse) {
+
+                        alert(
+                            "Primero genera una excusa."
+                        );
+
+                        return;
+
+                    }
+
+
+                    const text =
+                        "Mi excusa de hoy es: \"" +
+                        currentExcuse +
+                        "\" 😂";
+
+
+                    try {
+
+                        if (
+                            navigator.share
+                        ) {
+
+                            await navigator.share({
+
+                                title:
+                                    "CAOSLAB — Generador de Excusas",
+
+                                text:
+                                    text
+
+                            });
+
+                        }
+
+                        else if (
+                            navigator.clipboard
+                        ) {
+
+                            await navigator.clipboard.writeText(
+                                text
+                            );
+
+
+                            alert(
+                                "Excusa copiada al portapapeles."
+                            );
+
+                        }
+
+                    } catch (error) {
+
+                        if (
+                            error.name !==
+                            "AbortError"
+                        ) {
+
+                            console.error(
+                                "CAOSLAB: error compartiendo",
+                                error
+                            );
+
+                        }
+
+                    }
+
+                }
+            );
+
+
+            /* ===============================================
+               AÑO
+               =============================================== */
+
+            const year =
+                document.getElementById(
+                    "year"
+                );
+
+
+            if (year) {
+
+                year.textContent =
+                    new Date().getFullYear();
+
+            }
+
+        })();
+
+    </script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,944 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="CAOSLAB — Piedra, Papel o Tijera"
+    >
+
+    <meta
+        name="theme-color"
+        content="#0b0b0d"
+    >
+
+    <title>
+        Piedra, Papel o Tijera — CAOSLAB
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="../css/style.css"
+    >
+
+    <style>
+
+        .rps-choices {
+            width: 100%;
+            max-width: 650px;
+            margin: 25px auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+        }
+
+        .rps-choice {
+            min-height: 130px;
+            padding: 18px 10px;
+            box-sizing: border-box;
+            border: 1px solid #29292d;
+            border-radius: 16px;
+            background: #18181c;
+            color: white;
+            cursor: pointer;
+            font-family: inherit;
+            transition:
+                transform 0.18s ease,
+                background 0.18s ease,
+                border-color 0.18s ease;
+        }
+
+        .rps-choice:hover {
+            transform: translateY(-3px);
+            background: #1d1d21;
+            border-color: #444449;
+        }
+
+        .rps-choice:active {
+            transform: scale(0.97);
+        }
+
+        .rps-choice:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .rps-icon {
+            display: block;
+            margin-bottom: 10px;
+            font-size: 42px;
+            line-height: 1;
+        }
+
+        .rps-name {
+            display: block;
+            color: #aaa;
+            font-size: 10px;
+            font-weight: 900;
+            letter-spacing: 1px;
+        }
+
+        .rps-battle {
+            width: 100%;
+            max-width: 650px;
+            margin: 20px auto 0;
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .rps-player,
+        .rps-computer {
+            min-height: 110px;
+            padding: 18px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: #18181c;
+            border: 1px solid #29292d;
+            border-radius: 16px;
+            text-align: center;
+        }
+
+        .rps-side-label {
+            margin-bottom: 8px;
+            color: #666;
+            font-size: 9px;
+            font-weight: 900;
+            letter-spacing: 1px;
+        }
+
+        .rps-side-choice {
+            color: white;
+            font-size: 30px;
+            font-weight: 900;
+        }
+
+        .rps-vs {
+            color: #555;
+            font-size: 14px;
+            font-weight: 900;
+        }
+
+        .rps-message {
+            min-height: 26px;
+            margin-top: 20px;
+            color: white;
+            font-size: 17px;
+            font-weight: 900;
+            text-align: center;
+        }
+
+        .rps-round-points {
+            min-height: 22px;
+            margin-top: 6px;
+            color: #aaa;
+            font-size: 12px;
+            font-weight: 900;
+            text-align: center;
+        }
+
+        @media (max-width: 600px) {
+
+            .rps-choices {
+                gap: 8px;
+            }
+
+            .rps-choice {
+                min-height: 110px;
+                padding: 14px 6px;
+            }
+
+            .rps-icon {
+                font-size: 34px;
+            }
+
+            .rps-battle {
+                gap: 8px;
+            }
+
+            .rps-player,
+            .rps-computer {
+                min-height: 95px;
+                padding: 12px 6px;
+            }
+
+            .rps-side-choice {
+                font-size: 25px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =====================================================
+         CABECERA
+         ===================================================== -->
+
+    <header class="hero">
+
+        <div class="hero-content">
+
+            <div class="hero-badge">
+                CAOSLAB V1.3
+            </div>
+
+            <h1>
+                PIEDRA, PAPEL O TIJERA
+            </h1>
+
+            <p>
+                Juega contra el caos y acumula puntos.
+            </p>
+
+        </div>
+
+    </header>
+
+
+    <!-- =====================================================
+         JUEGO
+         ===================================================== -->
+
+    <main class="container">
+
+
+        <section class="game-panel">
+
+
+            <div class="game-result">
+
+                <div class="result-title">
+                    ✊ PIEDRA · 📄 PAPEL · ✂️ TIJERA
+                </div>
+
+                <p class="result-text">
+                    Elige tu arma. El caos decidirá la suya.
+                </p>
+
+            </div>
+
+
+            <!-- =================================================
+                 BATALLA
+                 ================================================= -->
+
+            <div class="rps-battle">
+
+                <div class="rps-player">
+
+                    <div class="rps-side-label">
+                        TÚ
+                    </div>
+
+                    <div
+                        id="playerChoice"
+                        class="rps-side-choice"
+                    >
+                        ?
+                    </div>
+
+                </div>
+
+
+                <div class="rps-vs">
+                    VS
+                </div>
+
+
+                <div class="rps-computer">
+
+                    <div class="rps-side-label">
+                        CAOS
+                    </div>
+
+                    <div
+                        id="computerChoice"
+                        class="rps-side-choice"
+                    >
+                        ?
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 RESULTADO
+                 ================================================= -->
+
+            <div
+                id="message"
+                class="rps-message"
+            >
+                ELIGE UNA OPCIÓN
+            </div>
+
+
+            <div
+                id="roundPoints"
+                class="rps-round-points"
+            >
+            </div>
+
+
+            <!-- =================================================
+                 OPCIONES
+                 ================================================= -->
+
+            <div class="rps-choices">
+
+
+                <button
+                    type="button"
+                    class="rps-choice"
+                    data-choice="rock"
+                    aria-label="Piedra"
+                >
+
+                    <span class="rps-icon">
+                        ✊
+                    </span>
+
+                    <span class="rps-name">
+                        PIEDRA
+                    </span>
+
+                </button>
+
+
+                <button
+                    type="button"
+                    class="rps-choice"
+                    data-choice="paper"
+                    aria-label="Papel"
+                >
+
+                    <span class="rps-icon">
+                        📄
+                    </span>
+
+                    <span class="rps-name">
+                        PAPEL
+                    </span>
+
+                </button>
+
+
+                <button
+                    type="button"
+                    class="rps-choice"
+                    data-choice="scissors"
+                    aria-label="Tijera"
+                >
+
+                    <span class="rps-icon">
+                        ✂️
+                    </span>
+
+                    <span class="rps-name">
+                        TIJERA
+                    </span>
+
+                </button>
+
+
+            </div>
+
+
+            <!-- =================================================
+                 MARCADOR
+                 ================================================= -->
+
+            <div class="score-board">
+
+                <div class="score-item">
+
+                    <span>
+                        PUNTOS
+                    </span>
+
+                    <strong id="sessionScore">
+                        0
+                    </strong>
+
+                </div>
+
+
+                <div class="score-item">
+
+                    <span>
+                        VICTORIAS
+                    </span>
+
+                    <strong id="wins">
+                        0
+                    </strong>
+
+                </div>
+
+
+                <div class="score-item">
+
+                    <span>
+                        EMPATES
+                    </span>
+
+                    <strong id="draws">
+                        0
+                    </strong>
+
+                </div>
+
+
+                <div class="score-item">
+
+                    <span>
+                        DERROTAS
+                    </span>
+
+                    <strong id="losses">
+                        0
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 ACCIONES
+                 ================================================= -->
+
+            <div
+                class="game-actions"
+                style="margin-top:20px;"
+            >
+
+                <button
+                    type="button"
+                    id="shareButton"
+                    class="secondary-button"
+                >
+                    📤 COMPARTIR
+                </button>
+
+
+                <button
+                    type="button"
+                    id="restartButton"
+                    class="secondary-button"
+                >
+                    🔄 REINICIAR
+                </button>
+
+
+                <a
+                    href="../index.html"
+                    class="stats-button"
+                >
+                    ← VOLVER A CAOSLAB
+                </a>
+
+            </div>
+
+
+        </section>
+
+
+        <!-- =================================================
+             PUBLICIDAD
+             ================================================= -->
+
+        <section class="ad-container">
+
+            <div class="ad-placeholder">
+
+                <span>
+                    ESPACIO PUBLICITARIO
+                </span>
+
+            </div>
+
+        </section>
+
+
+    </main>
+
+
+    <!-- =====================================================
+         PIE
+         ===================================================== -->
+
+    <footer class="footer">
+
+        <div class="footer-links">
+
+            <a href="../privacy.html">
+                Privacidad
+            </a>
+
+            <a href="../cookies.html">
+                Cookies
+            </a>
+
+            <a href="../terms.html">
+                Términos
+            </a>
+
+        </div>
+
+
+        <p>
+
+            ©
+            <span id="year"></span>
+            CAOSLAB
+
+        </p>
+
+    </footer>
+
+
+    <!-- =====================================================
+         ESTADÍSTICAS
+         ===================================================== -->
+
+    <script src="../js/stats.js"></script>
+
+
+    <!-- =====================================================
+         LÓGICA
+         ===================================================== -->
+
+    <script>
+
+        (function () {
+
+            "use strict";
+
+
+            const choices = {
+                rock: {
+                    name: "PIEDRA",
+                    icon: "✊"
+                },
+                paper: {
+                    name: "PAPEL",
+                    icon: "📄"
+                },
+                scissors: {
+                    name: "TIJERA",
+                    icon: "✂️"
+                }
+            };
+
+
+            let sessionScore = 0;
+
+            let wins = 0;
+
+            let draws = 0;
+
+            let losses = 0;
+
+            let lastRoundPoints = 0;
+
+            let lastResult = "";
+
+
+            const choiceButtons =
+                document.querySelectorAll(
+                    ".rps-choice"
+                );
+
+
+            const playerChoice =
+                document.getElementById(
+                    "playerChoice"
+                );
+
+
+            const computerChoice =
+                document.getElementById(
+                    "computerChoice"
+                );
+
+
+            const message =
+                document.getElementById(
+                    "message"
+                );
+
+
+            const roundPoints =
+                document.getElementById(
+                    "roundPoints"
+                );
+
+
+            const sessionScoreElement =
+                document.getElementById(
+                    "sessionScore"
+                );
+
+
+            const winsElement =
+                document.getElementById(
+                    "wins"
+                );
+
+
+            const drawsElement =
+                document.getElementById(
+                    "draws"
+                );
+
+
+            const lossesElement =
+                document.getElementById(
+                    "losses"
+                );
+
+
+            const shareButton =
+                document.getElementById(
+                    "shareButton"
+                );
+
+
+            const restartButton =
+                document.getElementById(
+                    "restartButton"
+                );
+
+
+            /* ===============================================
+               ELECCIÓN DEL CAOS
+               =============================================== */
+
+            function getComputerChoice() {
+
+                const values =
+                    Object.keys(
+                        choices
+                    );
+
+
+                return values[
+                    Math.floor(
+                        Math.random() *
+                        values.length
+                    )
+                ];
+
+            }
+
+
+            /* ===============================================
+               RESULTADO
+               =============================================== */
+
+            function getResult(
+                player,
+                computer
+            ) {
+
+                if (
+                    player === computer
+                ) {
+
+                    return "draw";
+
+                }
+
+
+                if (
+
+                    (
+                        player === "rock" &&
+                        computer === "scissors"
+                    ) ||
+
+                    (
+                        player === "paper" &&
+                        computer === "rock"
+                    ) ||
+
+                    (
+                        player === "scissors" &&
+                        computer === "paper"
+                    )
+
+                ) {
+
+                    return "win";
+
+                }
+
+
+                return "loss";
+
+            }
+
+
+            /* ===============================================
+               PUNTOS
+               =============================================== */
+
+            function getRoundPoints(
+                result
+            ) {
+
+                if (
+                    result === "win"
+                ) {
+
+                    return 100;
+
+                }
+
+
+                if (
+                    result === "draw"
+                ) {
+
+                    return 25;
+
+                }
+
+
+                return -25;
+
+            }
+
+
+            /* ===============================================
+               JUGAR
+               =============================================== */
+
+            function play(
+                player
+            ) {
+
+                const computer =
+                    getComputerChoice();
+
+
+                const result =
+                    getResult(
+                        player,
+                        computer
+                    );
+
+
+                const points =
+                    getRoundPoints(
+                        result
+                    );
+
+
+                playerChoice.textContent =
+                    choices[player].icon;
+
+
+                computerChoice.textContent =
+                    choices[computer].icon;
+
+
+                lastRoundPoints =
+                    points;
+
+
+                lastResult =
+                    result;
+
+
+                if (
+                    result === "win"
+                ) {
+
+                    wins += 1;
+
+                    message.textContent =
+                        "🎉 ¡HAS GANADO!";
+
+
+                    roundPoints.textContent =
+                        "+100 PUNTOS";
+
+                }
+
+                else if (
+                    result === "draw"
+                ) {
+
+                    draws += 1;
+
+                    message.textContent =
+                        "🤝 EMPATE";
+
+
+                    roundPoints.textContent =
+                        "+25 PUNTOS";
+
+                }
+
+                else {
+
+                    losses += 1;
+
+                    message.textContent =
+                        "💀 HAS PERDIDO";
+
+
+                    roundPoints.textContent =
+                        "-25 PUNTOS";
+
+                }
+
+
+                /*
+                 * El marcador de la sesión nunca baja
+                 * de cero.
+                 */
+
+                sessionScore =
+                    Math.max(
+                        0,
+                        sessionScore + points
+                    );
+
+
+                sessionScoreElement.textContent =
+                    sessionScore;
+
+
+                winsElement.textContent =
+                    wins;
+
+
+                drawsElement.textContent =
+                    draws;
+
+
+                lossesElement.textContent =
+                    losses;
+
+
+                /*
+                 * IMPORTANTE:
+                 * Se registra únicamente la puntuación
+                 * de ESTA ronda, no el acumulado.
+                 */
+
+                if (
+                    window.CAOSLAB_STATS
+                ) {
+
+                    window.CAOSLAB_STATS.recordGame(
+                        "rps",
+                        result,
+                        points
+                    );
+
+                }
+
+            }
+
+
+            /* ===============================================
+               BOTONES
+               =============================================== */
+
+            choiceButtons.forEach(
+                function (button) {
+
+                    button.addEventListener(
+                        "click",
+                        function () {
+
+                            play(
+                                button.dataset.choice
+                            );
+
+                        }
+                    );
+
+                }
+            );
+
+
+            /* ===============================================
+               REINICIAR
+               =============================================== */
+
+            restartButton.addEventListener(
+                "click",
+                function () {
+
+                    sessionScore = 0;
+
+                    wins = 0;
+
+                    draws = 0;
+
+                    losses = 0;
+
+                    lastRoundPoints = 0;
+
+                    lastResult = "";
+
+
+                    playerChoice.textContent =
+                        "?";
+
+
+                    computerChoice.textContent =
+                        "?";
+
+
+                    message.textContent =
+                        "ELIGE UNA OPCIÓN";
+
+
+                    roundPoints.textContent =
+                        "";
+
+
+                    sessionScoreElement.textContent =
+                        "0";
+
+
+                    winsElement.textContent =
+                        "0";
+
+
+                    drawsElement.textContent =
+                        "0";
+
+
+                    lossesElement.textContent =
+                        "0";
+
+                }
+    
