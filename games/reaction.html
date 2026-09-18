@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0"
+>
+
+<title>Reaction Test — CAOSLAB</title>
+
+<link
+rel="stylesheet"
+href="../css/style.css"
+>
+
+<style>
+
+.game-page {
+
+    min-height: calc(100vh - 70px);
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 20px;
+
+    text-align: center;
+
+}
+
+.game-container {
+
+    width: 100%;
+
+    max-width: 700px;
+
+}
+
+.back {
+
+    display: inline-block;
+
+    margin-bottom: 25px;
+
+    color: #777;
+
+}
+
+.test {
+
+    min-height: 300px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 20px;
+
+    background: #151518;
+
+    border: 1px solid #29292d;
+
+    font-size: 28px;
+
+    font-weight: 900;
+
+    cursor: pointer;
+
+    user-select: none;
+
+}
+
+.test.ready {
+
+    background: #333;
+
+}
+
+.test.go {
+
+    background: #ffffff;
+
+    color: #000;
+
+}
+
+.result {
+
+    margin-top: 20px;
+
+    color: #777;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header class="header">
+
+<a
+href="../index.html"
+class="logo"
+>
+CAOS<span>LAB</span>
+</a>
+
+</header>
+
+
+<main class="game-page">
+
+<div class="game-container">
+
+<a
+href="../index.html"
+class="back"
+>
+← Volver
+</a>
+
+<h1>⚡ Reaction Test</h1>
+
+<p>
+Pulsa cuando cambie la pantalla.
+</p>
+
+<br>
+
+<div
+id="test"
+class="test"
+>
+PULSA PARA EMPEZAR
+</div>
+
+<div
+id="result"
+class="result"
+>
+Tu tiempo aparecerá aquí.
+</div>
+
+</div>
+
+</main>
+
+
+<script>
+
+const test =
+document.getElementById("test");
+
+const result =
+document.getElementById("result");
+
+
+let startTime = 0;
+
+let timer = null;
+
+let waiting = false;
+
+
+test.addEventListener("click", () => {
+
+
+    if (!waiting && !startTime) {
+
+        test.textContent =
+            "ESPERA...";
+
+        test.classList.add("ready");
+
+        waiting = true;
+
+
+        const delay =
+            Math.random() * 3000 + 1500;
+
+
+        timer =
+            setTimeout(() => {
+
+                test.textContent =
+                    "¡PULSA!";
+
+                test.classList.remove("ready");
+
+                test.classList.add("go");
+
+                startTime =
+                    performance.now();
+
+            }, delay);
+
+
+        return;
+
+    }
+
+
+    if (waiting && !startTime) {
+
+        clearTimeout(timer);
+
+        waiting = false;
+
+        test.textContent =
+            "DEMASIADO PRONTO 😂";
+
+        test.classList.remove("ready");
+
+        return;
+
+    }
+
+
+    if (startTime) {
+
+        const reaction =
+            Math.round(
+                performance.now() - startTime
+            );
+
+
+        result.textContent =
+            "⚡ Tu reacción: " +
+            reaction +
+            " ms";
+
+
+        startTime = 0;
+
+        waiting = false;
+
+        test.classList.remove("go");
+
+        test.textContent =
+            "PULSA PARA INTENTARLO DE NUEVO";
+
+    }
+
+});
+
+</script>
+
+</body>
+
+</html>

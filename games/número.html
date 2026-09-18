@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0"
+>
+
+<title>Adivina el Número — CAOSLAB</title>
+
+<link
+rel="stylesheet"
+href="../css/style.css"
+>
+
+<style>
+
+.game-page {
+
+    min-height: calc(100vh - 70px);
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 30px 20px;
+
+    text-align: center;
+
+}
+
+.game-container {
+
+    width: 100%;
+
+    max-width: 600px;
+
+}
+
+.back {
+
+    display: inline-block;
+
+    margin-bottom: 30px;
+
+    color: #777;
+
+}
+
+h1 {
+
+    font-size: 60px;
+
+    margin-bottom: 10px;
+
+}
+
+.subtitle {
+
+    color: #777;
+
+    margin-bottom: 35px;
+
+}
+
+input {
+
+    width: 100%;
+
+    padding: 18px;
+
+    margin-bottom: 15px;
+
+    border-radius: 10px;
+
+    border: 1px solid #333;
+
+    background: #151518;
+
+    color: white;
+
+    font-size: 18px;
+
+    text-align: center;
+
+}
+
+button {
+
+    width: 100%;
+
+    padding: 18px;
+
+    border: none;
+
+    border-radius: 10px;
+
+    background: white;
+
+    color: black;
+
+    font-weight: 900;
+
+    font-size: 17px;
+
+    cursor: pointer;
+
+}
+
+.result {
+
+    min-height: 100px;
+
+    margin: 25px 0;
+
+    padding: 25px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    background: #151518;
+
+    border: 1px solid #29292d;
+
+    border-radius: 15px;
+
+    font-size: 20px;
+
+    font-weight: bold;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header class="header">
+
+<a
+href="../index.html"
+class="logo"
+>
+CAOS<span>LAB</span>
+</a>
+
+</header>
+
+
+<main class="game-page">
+
+<div class="game-container">
+
+<a
+href="../index.html"
+class="back"
+>
+← Volver
+</a>
+
+<h1>🔢</h1>
+
+<h1>
+Adivina el Número
+</h1>
+
+<p class="subtitle">
+Estoy pensando en un número del 1 al 100.
+</p>
+
+
+<input
+id="guess"
+type="number"
+min="1"
+max="100"
+placeholder="Escribe un número"
+>
+
+
+<button id="check">
+COMPROBAR
+</button>
+
+
+<div
+id="result"
+class="result"
+>
+¿Podrás encontrarlo?
+</div>
+
+</div>
+
+</main>
+
+
+<script>
+
+let secret =
+Math.floor(Math.random() * 100) + 1;
+
+let attempts = 0;
+
+
+const input =
+document.getElementById("guess");
+
+const button =
+document.getElementById("check");
+
+const result =
+document.getElementById("result");
+
+
+button.addEventListener("click", () => {
+
+    const guess =
+        Number(input.value);
+
+    if (
+        guess < 1 ||
+        guess > 100
+    ) {
+
+        result.textContent =
+            "Introduce un número entre 1 y 100.";
+
+        return;
+
+    }
+
+
+    attempts++;
+
+
+    if (guess === secret) {
+
+        result.textContent =
+            "🎉 ¡ACERTASTE! Intentos: " + attempts;
+
+        button.disabled = true;
+
+    }
+
+    else if (guess < secret) {
+
+        result.textContent =
+            "⬆️ Es más alto.";
+
+    }
+
+    else {
+
+        result.textContent =
+            "⬇️ Es más bajo.";
+
+    }
+
+});
+
+</script>
+
+</body>
+
+</html>

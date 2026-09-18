@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0"
+>
+
+<title>Oráculo del Caos — CAOSLAB</title>
+
+<link
+rel="stylesheet"
+href="../css/style.css"
+>
+
+<style>
+
+.game-page {
+
+    min-height: calc(100vh - 70px);
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 30px 20px;
+
+    text-align: center;
+
+}
+
+.game-container {
+
+    width: 100%;
+
+    max-width: 650px;
+
+}
+
+.back {
+
+    color: #777;
+
+    display: inline-block;
+
+    margin-bottom: 30px;
+
+}
+
+.question {
+
+    width: 100%;
+
+    padding: 18px;
+
+    border-radius: 10px;
+
+    border: 1px solid #333;
+
+    background: #151518;
+
+    color: white;
+
+    font-size: 16px;
+
+}
+
+button {
+
+    width: 100%;
+
+    margin-top: 15px;
+
+    padding: 18px;
+
+    border: none;
+
+    border-radius: 10px;
+
+    background: white;
+
+    color: black;
+
+    font-weight: 900;
+
+    cursor: pointer;
+
+}
+
+.answer {
+
+    min-height: 180px;
+
+    margin-top: 25px;
+
+    padding: 35px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    background: #151518;
+
+    border-radius: 20px;
+
+    border: 1px solid #29292d;
+
+    font-size: 22px;
+
+    font-weight: bold;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header class="header">
+
+<a
+href="../index.html"
+class="logo"
+>
+CAOS<span>LAB</span>
+</a>
+
+</header>
+
+
+<main class="game-page">
+
+<div class="game-container">
+
+<a
+href="../index.html"
+class="back"
+>
+← Volver
+</a>
+
+<h1>
+🔮 Oráculo del Caos
+</h1>
+
+<p>
+Haz una pregunta al universo.
+</p>
+
+<br>
+
+
+<input
+id="question"
+class="question"
+placeholder="¿Conseguiré lo que quiero?"
+>
+
+
+<button id="ask">
+CONSULTAR AL ORÁCULO
+</button>
+
+
+<div
+id="answer"
+class="answer"
+>
+El universo está esperando...
+</div>
+
+</div>
+
+</main>
+
+
+<script>
+
+const answers = [
+
+    "Sí. Pero no será como esperas.",
+
+    "No parece buena idea.",
+
+    "Las estrellas dicen que sí.",
+
+    "Pregunta mañana. Hoy no hay cobertura cósmica.",
+
+    "Definitivamente sí. 🔥",
+
+    "Definitivamente no. 💀",
+
+    "Hay un 73% de posibilidades de que ocurra algo.",
+
+    "El universo no quiere mojarse.",
+
+    "Primero necesitas café.",
+
+    "Todo apunta a que deberías intentarlo.",
+
+    "La respuesta está delante de ti.",
+
+    "No preguntes cosas difíciles al universo."
+
+];
+
+
+const button =
+document.getElementById("ask");
+
+const answer =
+document.getElementById("answer");
+
+
+button.addEventListener("click", () => {
+
+    const random =
+        Math.floor(
+            Math.random() *
+            answers.length
+        );
+
+
+    answer.textContent =
+        answers[random];
+
+});
+
+</script>
+
+</body>
+
+</html>

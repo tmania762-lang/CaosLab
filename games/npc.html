@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0"
+>
+
+<title>Generador de NPC — CAOSLAB</title>
+
+<link
+rel="stylesheet"
+href="../css/style.css"
+>
+
+<style>
+
+.game-page {
+
+    min-height: calc(100vh - 70px);
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 30px 20px;
+
+    text-align: center;
+
+}
+
+.game-container {
+
+    width: 100%;
+
+    max-width: 650px;
+
+}
+
+.back {
+
+    color: #777;
+
+    display: inline-block;
+
+    margin-bottom: 30px;
+
+}
+
+.npc {
+
+    min-height: 280px;
+
+    padding: 30px;
+
+    background: #151518;
+
+    border-radius: 20px;
+
+    border: 1px solid #29292d;
+
+    margin-bottom: 20px;
+
+}
+
+.npc-name {
+
+    font-size: 35px;
+
+    font-weight: 900;
+
+    margin-bottom: 20px;
+
+}
+
+.stat {
+
+    padding: 8px;
+
+    color: #aaa;
+
+}
+
+button {
+
+    width: 100%;
+
+    padding: 18px;
+
+    border: none;
+
+    border-radius: 10px;
+
+    background: white;
+
+    color: black;
+
+    font-weight: 900;
+
+    cursor: pointer;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header class="header">
+
+<a
+href="../index.html"
+class="logo"
+>
+CAOS<span>LAB</span>
+</a>
+
+</header>
+
+
+<main class="game-page">
+
+<div class="game-container">
+
+<a
+href="../index.html"
+class="back"
+>
+← Volver
+</a>
+
+<h1>
+🎭 Generador de NPC
+</h1>
+
+<p>
+Descubre quién serías en un videojuego.
+</p>
+
+<br>
+
+
+<div
+id="npc"
+class="npc"
+>
+Pulsa para generar tu personaje.
+</div>
+
+
+<button id="generate">
+GENERAR NPC
+</button>
+
+</div>
+
+</main>
+
+
+<script>
+
+const names = [
+
+    "Rufus el Inesperado",
+
+    "Manolo del Norte",
+
+    "Beatriz la Misteriosa",
+
+    "Tadeo el Incansable",
+
+    "Kevin el Mercader",
+
+    "Ragnar el Confundido",
+
+    "Lola la Destructora",
+
+    "Pepe el Sabio"
+
+];
+
+
+const jobs = [
+
+    "Mercader",
+
+    "Guerrero",
+
+    "Herrero",
+
+    "Mago",
+
+    "Tabernero",
+
+    "Cazador",
+
+    "Ladrón",
+
+    "Granjero"
+
+];
+
+
+const abilities = [
+
+    "Dormir en cualquier lugar",
+
+    "Encontrar comida",
+
+    "Correr muy rápido",
+
+    "Hablar demasiado",
+
+    "Desaparecer cuando hay problemas",
+
+    "Convencer a cualquiera",
+
+    "Sobrevivir sin hacer nada",
+
+    "Perder objetos importantes"
+
+];
+
+
+const npc =
+document.getElementById("npc");
+
+
+document
+.getElementById("generate")
+.addEventListener("click", () => {
+
+
+    const name =
+        names[
+            Math.floor(
+                Math.random() *
+                names.length
+            )
+        ];
+
+
+    const job =
+        jobs[
+            Math.floor(
+                Math.random() *
+                jobs.length
+            )
+        ];
+
+
+    const ability =
+        abilities[
+            Math.floor(
+                Math.random() *
+                abilities.length
+            )
+        ];
+
+
+    const level =
+        Math.floor(
+            Math.random() * 99
+        ) + 1;
+
+
+    npc.innerHTML = `
+
+        <div class="npc-name">
+            ${name}
+        </div>
+
+        <div class="stat">
+            ⚔️ Clase: ${job}
+        </div>
+
+        <div class="stat">
+            ⭐ Nivel: ${level}
+        </div>
+
+        <div class="stat">
+            🧬 Habilidad: ${ability}
+        </div>
+
+    `;
+
+});
+
+</script>
+
+</body>
+
+</html>
